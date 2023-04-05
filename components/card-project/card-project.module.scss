@@ -1,0 +1,115 @@
+@import "../../styles/variables";
+
+.card {
+  background: var(--alternative__bg);
+  border-radius: 12px;
+  padding: 20px;
+  // max-width: 550px;
+  width: 100%;
+  box-shadow: rgb(0 0 0 / 12%) 0px 0px 5px;
+  text-decoration: none;
+  transition: all 0.4s ease-in-out 0s;
+
+  @media screen and (max-width: 1440px) {
+    padding: 20px;
+  }
+  @media screen and (max-width: 980px) {
+    max-width: 768px;
+    padding: 15px;
+  }
+
+  .image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 15px;
+
+    .time {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.525);
+      padding: 4px 9px;
+      color: rgb(255, 255, 255);
+      font-size: 0.9rem;
+      border-radius: 6px;
+
+      .views {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #fff;
+
+        svg {
+          max-width: 17px;
+          fill: #fff;
+        }
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  .title {
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+    color: var(--main__text);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    @media screen and (max-width: 980px) {
+      font-size: 1.4rem;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+
+    .view__button {
+      display: grid;
+      place-self: center;
+      padding: 8px;
+      border-radius: 10px;
+      background: var(--bg);
+      border: 2px solid var(--bg);
+
+      &:hover {
+        filter: brightness(1.1);
+      }
+    }
+    .github__button {
+      display: grid;
+      place-self: center;
+      padding: 8px;
+      border-radius: 10px;
+      background: var(--bg);
+      border: 2px solid var(--bg);
+
+      &:hover {
+        filter: brightness(1.1);
+      }
+    }
+
+    svg {
+      fill: var(--tertiary__text);
+      width: 24px;
+    }
+  }
+}
+.card:hover .image img {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}

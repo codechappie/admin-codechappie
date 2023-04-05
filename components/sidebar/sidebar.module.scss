@@ -1,0 +1,119 @@
+@import "../../styles/variables";
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  max-width: 70px;
+  z-index: 4;
+  background: var(--alternative__bg);
+  transition: background 0.4s ease-in-out;
+
+  @media screen and (max-width: 768px) {
+    height: auto;
+    border-bottom-right-radius: 10px;
+  }
+}
+
+.sidebar__container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  .logo {
+    background: $skyblue__light;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    svg {
+      fill: $terciary__dark;
+    }
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: 0;
+      width: 55px;
+      height: 55px;
+      border-bottom-right-radius: 10px;
+      svg {
+        width: 40px;
+      }
+    }
+  }
+
+  .icon__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 14px;
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+
+    .icon__item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff !important;
+      width: 70px;
+      height: 60px;
+      position: relative;
+
+      svg {
+        fill: var(--main__text);
+      }
+
+      .tooltip {
+        position: absolute;
+        background: var(--alternative__bg);
+        color: var(--tertiary__text);
+        font-size: 1.2rem;
+        font-weight: 400;
+        border-radius: 8px;
+        box-shadow: 0 0 5px var(--shadow);
+        transform: translateX(105%) scale(0);
+        width: 0;
+        height: 0;
+        right: 0;
+        padding: 0;
+        overflow: hidden;
+        // opacity: 0;
+      }
+    }
+  }
+}
+
+.icon__item:hover svg {
+  fill: $skyblue__light !important;
+  transition: fill 0.4s ease-in-out;
+}
+
+.icon__item:hover .tooltip {
+  width: fit-content !important;
+  height: fit-content !important;
+  padding: 6px 15px !important;
+  margin-right: -10px;
+  transform: translateX(105%) scale(1) !important;
+  animation: showToolTipSidebar 0.2s ease-in-out;
+}
+
+@keyframes showToolTipSidebar {
+  0% {
+    opacity: 0;
+    transform: translateX(10%) scale(0);
+  }
+  50% {
+    padding: 4px 10px !important;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(105%) scale(1) !important;
+  }
+}

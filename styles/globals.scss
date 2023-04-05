@@ -1,0 +1,531 @@
+@import "../styles/variables";
+
+:root {
+  --bg: #{$primary__light};
+  --alternative__bg: #{$secondary__light};
+  --main__text: #{$primary__dark};
+  --secondary__text: #{$secondary__dark};
+  --tertiary__text: #{$terciary__dark};
+  --shadow: #{$dark__shadow};
+
+  --primary__bg: #{$primary__color};
+}
+
+.theme__light {
+  --bg: #{$primary__light};
+  --alternative__bg: #{$secondary__light};
+  --main__text: #{$primary__dark};
+  --secondary__text: #{$secondary__dark};
+  --tertiary__text: #{$terciary__dark};
+  --shadow: #{$dark__shadow};
+
+  // --primary__bg: $primary__color;
+}
+.theme__dark {
+  --bg: #{$primary__dark};
+  --alternative__bg: #{$secondary__dark};
+  --main__text: #{$primary__light};
+  --secondary__text: #{$secondary__light};
+  --tertiary__text: #{$terciary__light};
+  --shadow: #{$light__shadow};
+
+  // --primary__bg: $primary__color;
+}
+
+.w-md-editor-toolbar {
+  ul:nth-child(2) {
+    display: none;
+  }
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  // font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Inter", sans-serif;
+}
+h1,
+h2 {
+  font-family: "DM Sans", sans-serif !important;
+}
+
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v93/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2)
+    format("woff2");
+}
+@font-face {
+  font-family: "Material Icons Outlined";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v68/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUce.woff2)
+    format("woff2");
+}
+@font-face {
+  font-family: "Material Icons Round";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialiconsround/v67/LDItaoyNOAY6Uewc665JcIzCKsKc_M9flwmP.woff2)
+    format("woff2");
+}
+@font-face {
+  font-family: "Material Icons Sharp";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialiconssharp/v68/oPWQ_lt5nv4pWNJpghLP75WiFR4kLh3kvmvR.woff2)
+    format("woff2");
+}
+
+@font-face {
+  font-family: "Material Icons Two Tone";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialiconstwotone/v66/hESh6WRmNCxEqUmNyh3JDeGxjVVyMg4tHGctNCu0.woff2)
+    format("woff2");
+}
+
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: "liga";
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+.material-icons-outlined {
+  font-family: "Material Icons Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: "liga";
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+.material-icons-sharp {
+  font-family: "Material Icons Sharp";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: "liga";
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+.material-icons-round {
+  font-family: "Material Icons Round";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: "liga";
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+.material-icons-two-tone {
+  font-family: "Material Icons Two Tone";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: "liga";
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+/* MAterial Two Tone Rules for sizing the icon. */
+.material-icons-two-tone.md-18 {
+  font-size: 18px;
+}
+.material-icons-two-tone.md-24 {
+  font-size: 24px;
+}
+.material-icons-two-tone.md-36 {
+  font-size: 36px;
+}
+.material-icons-two-tone.md-48 {
+  font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
+}
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+.mainContent {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 32px;
+  padding-top: 100px;
+  background: var(--bg);
+  color: var(--secondary__text);
+
+  transition: background 0.4s ease-in-out;
+}
+.mainContent h1 {
+  color: var(--main__text);
+}
+
+.main__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  width: 96%;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.main__text h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--main__text);
+  font-family: "DM Sans", sans-serif;
+
+  @media screen and (max-width: 980px) {
+    font-size: 2rem;
+  }
+  @media screen and (max-width: 420px) {
+    font-size: 1.6rem;
+  }
+}
+.main__text p {
+  margin-top: 15px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--secondary__text);
+  line-height: 2rem;
+
+  // a {
+  //   font-family: var(--nextui-fonts-sans);
+  // }
+
+  @media screen and (max-width: 980px) {
+    margin-top: 10px;
+    font-size: 1.2rem;
+  }
+  @media screen and (max-width: 420px) {
+    font-size: 1rem;
+    line-height: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .mainContent {
+    padding: 20px;
+    padding-top: 90px;
+  }
+  .main-text h2 {
+    font-size: 1.2rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mainContent {
+    width: 100%;
+    margin-left: 0px;
+    padding-top: 60px;
+  }
+}
+
+.rc-md-editor {
+  background: transparent !important;
+  border: none !important;
+}
+.custom-html-style {
+  color: var(--secondary__text) !important;
+  p code {
+    color: #ffac5f !important;
+    font-weight: 400;
+    // padding: 4px 8px !important;
+  }
+  code {
+    // color: #d300a5;
+    border-radius: 4px !important;
+    background: #222029 !important;
+
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
+  pre {
+    border-radius: 10px !important;
+    background: #222029 !important;
+
+    code {
+      color: #91e0ff !important;
+
+      .language-xml {
+        color: #fff;
+      }
+      .hljs-tag {
+        color: #ce4971;
+      }
+    }
+  }
+  .hljs-string a {
+    color: #98c379 !important;
+  }
+  p {
+    font-size: 1.5rem !important;
+    font-weight: 400;
+    letter-spacing: 0.02rem;
+    margin-bottom: 24px !important;
+  }
+
+  @media screen and (max-width: 768px) {
+    p {
+      font-size: 1.2rem !important;
+    }
+  }
+  @media screen and (max-width: 420px) {
+    p {
+      font-size: 1.05rem !important;
+    }
+  }
+}
+.sec-html {
+  width: calc(100vw - 1440px);
+  border: none !important;
+}
+.sec-html
+// ,.wmde-markdown
+{
+  .html-wrap {
+    padding: 0 !important;
+  }
+
+  *:not(pre, code, span, .hljs) {
+    color: var(--main__text) !important;
+  }
+  code {
+    // color: #d300a5;
+    border-radius: 4px !important;
+    background: #222029 !important;
+
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
+  p code {
+    color: #ffac5f !important;
+    font-weight: 400;
+    // padding: 4px 8px !important;
+  }
+  pre {
+    // border-radius: 10px !important;
+    background: #222029 !important;
+
+    code {
+      color: #91e0ff !important;
+
+      .language-xml {
+        color: #fff;
+      }
+      .hljs-tag {
+        color: #ce4971;
+      }
+    }
+  }
+}
+
+.nui_pagination {
+  z-index: 1;
+  margin: 0 auto;
+  button {
+    background: var(--alternative__bg);
+    color: var(--main__text);
+  }
+  :hover {
+    background: var(--bg);
+    span {
+      background: none;
+    }
+  }
+  :active {
+    button {
+      background: initial;
+    }
+  }
+  div {
+    box-shadow: none;
+  }
+}
+
+.w-md-editor-text-input {
+  border-radius: none;
+}
+
+.course__list__container {
+  .course__list__item__title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+  .course__topic_list {
+    li {
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+  }
+}
+
+.w-md-editor {
+  border: 2px solid var(--primary__bg);
+  border-radius: 10px!important;
+  background: var(--bg) !important;
+  overflow: hidden;
+  // min-height: 400px!important;
+    height: 100% !important;
+
+  .w-md-editor-toolbar {
+    background: var(--alternative__bg);
+    height: 40px !important;
+
+    .w-md-editor-toolbar-divider {
+      margin: -10px 3px 0 3px !important;
+    }
+    & button {
+      width: 30px;
+      height: 30px;
+    }
+    & svg {
+      width: 17px;
+      height: 17px;
+      path {
+        background: red;
+        fill: var(--primary__bg);
+      }
+    }
+  }
+  .w-md-editor-content {
+    background: var(--bg) !important;
+    height: calc(100% - 40px) !important;
+  }
+  &-text * {
+    width: 100%;
+    color: var(--main__text) !important;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    .wmde-markdown-color,
+    .wmde-markdown-color .title {
+      color: var(--main__text) !important;
+    }
+    .wmde-markdown-color .url {
+      color: var(--primary__bg)!important;
+    }
+  }
+
+  textarea {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+}
+.wmde-markdown {
+  padding: 20px;
+  border: 2px solid var(--primary__bg);
+  border-radius: 10px;
+}
+.custom-html-style {
+  ul,
+  ol {
+    padding: 10px 20px;
+    line-height: 1.8rem;
+    li {
+      font-size: 1.4rem;
+    }
+  }
+}
