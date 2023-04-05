@@ -81,7 +81,7 @@ const HomePage = ({ posts, videos }: any) => {
                         </div>
                     </div> */}
                     <div className={style.video}>
-                        <iframe id="ytplayerhero" width="100%" height="100%" typeof="text/html"
+                        <iframe id="ytplayerhero" width="100%" height="100%" itemType="text/html"
                             src="https://www.youtube.com/embed/5lmFAjPk9Vg?autoplay=1&modestbranding=1&color=white"
                             frameBorder="0" allowFullScreen={true} /> 
                             <img className={style.img_absolute_bottom_right} src="https://shuffle.dev/atis-assets/elements/wing-green-down.svg" alt="" />

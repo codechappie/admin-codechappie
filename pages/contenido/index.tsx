@@ -62,12 +62,11 @@ const ContentPage = ({ finalPosts, courses, type }: any) => {
         }`}type=${type}`,
         undefined
       );
-
     }
   }, [type]);
-//   useEffect(() => {
-//     setPosts(finalPosts);
-//   }, [finalPosts]);
+  //   useEffect(() => {
+  //     setPosts(finalPosts);
+  //   }, [finalPosts]);
 
   const changeType = (type: string) => {
     router.push(
@@ -134,11 +133,17 @@ const ContentPage = ({ finalPosts, courses, type }: any) => {
       {type === "publicaciones" ? (
         <>
           <h2>Publicaciones</h2>
-          {posts.length > 0 ? (
-            posts.map((post: any) => (
-              <div className={postStyle.content__container}>
-                <CardBlog key={post._id} {...post} />
-                {/* <Pagination
+          <div className={postStyle.content__container}>
+            {posts.length > 0 ? (
+              posts.map((post: any) => <CardBlog key={post._id} {...post} />)
+            ) : (
+              <div>
+                <h3>
+                  Aún no hay publicaciones relacionadas con {router.query?.q}
+                </h3>
+              </div>
+            )}
+            {/* <Pagination
                                     className="nui_pagination"
                                     size="md"
                                     noMargin
@@ -147,15 +152,7 @@ const ContentPage = ({ finalPosts, courses, type }: any) => {
                                     initialPage={1}
                                     onChange={myPage}
                                 /> */}
-              </div>
-            ))
-          ) : (
-            <div>
-              <h3>
-                Aún no hay publicaciones relacionadas con {router.query?.q}
-              </h3>
-            </div>
-          )}
+          </div>
 
           <MyPagination
             page={page}
