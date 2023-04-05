@@ -1,5 +1,5 @@
 // import MDEditor from '@uiw/react-md-editor';
-// import "@uiw/react-md-editor/dist/markdown-editor.css";
+// import "@import "@uiw/react-md-editor/markdown-editor.css";";
 import axios from 'axios';
 // import hljs from 'highlight.js';
 // import 'highlight.js/styles/atom-one-dark.css';

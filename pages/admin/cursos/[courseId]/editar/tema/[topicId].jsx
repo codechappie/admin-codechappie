@@ -1,10 +1,10 @@
 import MDEditor from '@uiw/react-md-editor';
-// import "@uiw/react-md-editor/dist/markdown-editor.css";
+// import "@import "@uiw/react-md-editor/markdown-editor.css";";
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
 import 'react-markdown-editor-lite/lib/index.css';
 
-import '@uiw/react-md-editor/dist/markdown-editor.css'
+import '@import "@uiw/react-md-editor/markdown-editor.css";'
 import axios from 'axios';
 import 'highlight.js/styles/atom-one-dark.css';
 import { useRouter } from 'next/dist/client/router';
