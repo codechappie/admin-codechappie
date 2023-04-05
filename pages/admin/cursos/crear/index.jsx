@@ -1,7 +1,7 @@
 import Input from '@components/input/Input';
 import Textarea from '@components/textarea/Textarea';
 import MDEditor from '@uiw/react-md-editor';
-import "@import "@uiw/react-md-editor/markdown-editor.css";";
+import "@uiw/react-md-editor/markdown-editor.css";
 import axios from 'axios';
 import 'highlight.js/styles/atom-one-dark.css';
 import { useRouter } from 'next/router';
