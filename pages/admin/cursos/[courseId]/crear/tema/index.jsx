@@ -2,12 +2,12 @@ import MDEditor from '@uiw/react-md-editor';
 import "@uiw/react-md-editor/markdown-editor.css";
 import axios from 'axios';
 import 'highlight.js/styles/atom-one-dark.css';
-import { useRouter } from 'next/dist/client/router';
 import React, { useState } from 'react';
 import { useForm } from '../../../../../../lib/hooks/useForm';
 import { mdParser } from '../../../../../../lib/Utils';
 import style from './create-topic.module.scss';
 import Input from '@/components/input/Input'
+import { useRouter } from 'next/router';
 
 const TopicPage = () => {
     const router = useRouter();

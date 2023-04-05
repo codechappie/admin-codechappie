@@ -1,7 +1,7 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
-import { Router } from "next/dist/client/router";
+import { Router } from "next/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
