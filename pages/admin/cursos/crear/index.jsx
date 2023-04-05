@@ -1,5 +1,5 @@
-import Input from '@components/input/Input';
-import Textarea from '@components/textarea/Textarea';
+import Input from '@/components/input/Input';
+import Textarea from '@/components/textarea/Textarea';
 import MDEditor from '@uiw/react-md-editor';
 import "@uiw/react-md-editor/markdown-editor.css";
 import axios from 'axios';
