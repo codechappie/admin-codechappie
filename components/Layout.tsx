@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Footer } from "../components/footer/Footer";
-import FloatMenu from "./float-menu/FloatMenu";
 import { Navbar } from "./navbar/Navbar";
 
 interface Props {
