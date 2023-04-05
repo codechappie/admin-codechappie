@@ -1,0 +1,83 @@
+@import "../../styles/variables";
+
+.card {
+  background: var(--alternative__bg);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 550px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 0px 5px;
+  text-decoration: none;
+  transition: all 0.4s ease-in-out 0s;
+
+  @media screen and (max-width: 1440px) {
+    padding: 20px;
+  }
+  @media screen and (max-width: 980px) {
+    max-width: 768px;
+    padding: 15px;
+  }
+
+  .image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 15px;
+
+    .time {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 5px 9px;
+      color: rgb(255, 255, 255);
+      font-size: 0.9rem;
+      border-radius: 6px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  .title {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: var(--main__text);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    @media screen and (max-width: 980px) {
+      font-size: 1.2rem;
+    }
+  }
+  .tag {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 8px;
+    color: #ffffff;
+    background: $primary__color;
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 20px;
+
+    svg {
+      max-width: 17px;
+      fill: var(--tertiary__text);
+    }
+  }
+
+
+}
+.card:hover .image img {
+  transform: scale(1.2) rotate(2deg);
+  transition: all 0.3s ease-in-out;
+}
