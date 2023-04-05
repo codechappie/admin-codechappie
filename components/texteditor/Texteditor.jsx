@@ -1,5 +1,6 @@
 import MDEditor from "@uiw/react-md-editor";
-import "@uiw/react-md-editor/dist/markdown-editor.css";
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
 import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-dark.css";
 import style from "./Texteditor.module.scss";
