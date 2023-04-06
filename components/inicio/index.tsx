@@ -68,7 +68,7 @@ const HomePage = ({ posts, videos }: any) => {
               habilidad, aprende algo nuevo.
             </p>
 
-            <Link href="/cursos" className={style.courses__btn}>
+            <Link  href="/cursos" className={style.courses__btn}>
               Ver cursos
             </Link>
           </div>
@@ -133,7 +133,7 @@ const HomePage = ({ posts, videos }: any) => {
             <CardCourse />
             <CardCourse />
           </div>
-          <Link href="/cursos" className={style.more__courses__btn}>
+          <Link  href="/cursos" className={style.more__courses__btn}>
             <img
               loading="lazy"
               src="/assets/icons/more-posts.svg"
@@ -156,7 +156,7 @@ const HomePage = ({ posts, videos }: any) => {
               <CardPost key={post.id} {...post} />
             ))}
           </div>
-          <Link href="/publicaciones" className={style.more__posts__btn}>
+          <Link  href="/publicaciones" className={style.more__posts__btn}>
             <img
               loading="lazy"
               src="/assets/icons/more-posts.svg"
@@ -179,7 +179,7 @@ const HomePage = ({ posts, videos }: any) => {
                 correo electrónico
               </a>{" "}
               o
-              <Link href="/enlaces" style={{ color: "#0099ff" }}>
+              <Link  href="/enlaces" style={{ color: "#0099ff" }}>
                 contáctame.
               </Link>
             </p>

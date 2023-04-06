@@ -76,17 +76,17 @@ export const Footer = () => {
                     <div className={style.codechappie}>
                         <div className={style.title}>CodeChappie</div>
                         <div className={style.item}>
-                            <Link href="/">
+                            <Link  href="/">
                                 Inicio
                             </Link>
                         </div>
                         <div className={style.item}>
-                            <Link href="/cursos">
+                            <Link  href="/cursos">
                                 Cursos
                             </Link>
                         </div>
                         <div className={style.item}>
-                            <Link href="/publicaciones">
+                            <Link  href="/publicaciones">
                                 Publicaciones
                             </Link>
                         </div>
@@ -96,22 +96,22 @@ export const Footer = () => {
                             Proyectos
                         </div>
                         <div className={style.item}>
-                            <Link href="https://watssy.com" target="_blank">
+                            <Link  href="https://watssy.com" target="_blank">
                                 Watssy
                             </Link>
                         </div>
                         <div className={style.item}>
-                            <Link href="https://www.apleds.com/" target="_blank">
+                            <Link  href="https://www.apleds.com/" target="_blank">
                                 Apleds
                             </Link>
                         </div>
                         <div className={style.item}>
-                            <Link href="/toolky">
+                            <Link  href="/toolky">
                                 Toolky
                             </Link>
                         </div>
                         {/* <div className={style.item}>
-                            <Link href="/presidente-api">
+                            <Link  href="/presidente-api">
                                 Presidente API
                             </Link>
                         </div> */}
@@ -119,20 +119,20 @@ export const Footer = () => {
                     <div className={style.company}>
                         <div className={style.title}>Extras</div>
                         <div className={style.item}>
-                            <Link href="/videos">
+                            <Link  href="/videos">
                                 Videos
                             </Link>
                         </div>
                         <div className={style.item}>
-                            <Link href="/blog">
+                            <Link  href="/blog">
                                 Blog
                             </Link>
                         </div>
                         <div className={style.item}>
-                            {/* <Link href="/acerca-de">
+                            {/* <Link  href="/acerca-de">
                                 Acerca de
                             </Link> */}
-                            <Link href="/enlaces">
+                            <Link  href="/enlaces">
                                 Enlaces
                             </Link>
                         </div>
@@ -140,7 +140,7 @@ export const Footer = () => {
                 </div>
             </div>
             <div className={style.copyright__footer}>
-                <small>Copyright © <Link href="/">CodeChappie™</Link> 2016-{new Date().getFullYear()} | Todos los derechos reservados.</small>
+                <small>Copyright © <Link  href="/">CodeChappie™</Link> 2016-{new Date().getFullYear()} | Todos los derechos reservados.</small>
             </div>
         </footer>
     )

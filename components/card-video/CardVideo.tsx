@@ -13,7 +13,7 @@ interface ICardVideoProps {
 const CardVideo = ({ title, description, thumbnails, id, etag, publishedAt }: any) => {
 
     return etag ? (
-        <Link href={`https://www.youtube.com/watch?v=${id.videoId}`} target="_blank" className={style.card}>
+        <Link  href={`https://www.youtube.com/watch?v=${id.videoId}`} target="_blank" className={style.card}>
            
                 <div className={style.image}>
                     <img src={thumbnails.medium.url} alt="curso" />

@@ -31,7 +31,7 @@ const CardProject = ({ imagePreview, name, liveDemo, repository }: any) => {
             <div className="course-information">
                 <h4 className={style.title} title={name}>{name}</h4>
                 <div className={style.buttons}>
-                    <Link href={liveDemo} className={style.view__button} target="_blank">
+                    <Link  href={liveDemo} className={style.view__button} target="_blank">
                         
                             <svg xmlnsXlink="http://www.w3.org/1999/xlink"
                                 viewBox="0 0 24 24"
@@ -43,7 +43,7 @@ const CardProject = ({ imagePreview, name, liveDemo, repository }: any) => {
                         
                     </Link>
 
-                    <Link href={repository} target="_blank" className={style.github__button}>
+                    <Link  href={repository} target="_blank" className={style.github__button}>
                       
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 height="24px" viewBox="0 0 24 24"

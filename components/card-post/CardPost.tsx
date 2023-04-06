@@ -13,7 +13,7 @@ interface ICardPostProps {
 const CardPost = ({ url, cover_image, title, description, reading_time_minutes }: any) => {
 
     return url ? (
-        <Link href={url} target="_blank" className={style.card__post}>
+        <Link  href={url} target="_blank" className={style.card__post}>
             
                 <div className={style.image}>
                     <img

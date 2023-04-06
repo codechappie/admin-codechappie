@@ -8,7 +8,7 @@ const CardBlog = ({ slug, image, title, description, published_by, published_at,
 
     return (
 
-        <Link href={`/blog/${slug}`} className={style.card__blog}>
+        <Link  href={`/blog/${slug}`} className={style.card__blog}>
                 <div className={style.image}>
                     <img
                         src={image}
@@ -44,7 +44,7 @@ const CardBlog = ({ slug, image, title, description, published_by, published_at,
         </Link>
 
 
-        // <Link href={`/blog/${slug}`} >
+        // <Link  href={`/blog/${slug}`} >
         //     <a target="_blank" className={style.card__blog}>
         //         <div className={style.image}>
         //             <img

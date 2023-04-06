@@ -14,7 +14,7 @@ interface ICardCourseProps {
 const CardCourse = ({ title = "Texto prueba", shortDescription, preview = "https://i.pinimg.com/originals/dd/a1/2c/dda12c587120e5e4378a01f31e812672.jpg", slug = "curso-practico-html5", tags = [] }: any) => {
 
     return (
-        <Link href={`/cursos/${slug}`} className={style.card}>
+        <Link  href={`/cursos/${slug}`} className={style.card}>
                 <div className={style.image}>
                     <img src={preview} alt={title} />
                     <small className={style.time}>1:36:23</small>

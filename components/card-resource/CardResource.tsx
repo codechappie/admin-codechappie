@@ -13,7 +13,7 @@ interface ICardResourceProps {
 const CardResource = ({ title, description, thumbnails }: any) => {
 
     return (
-        <Link href="/" target="_blank" className={style.card}>
+        <Link  href="/" target="_blank" className={style.card}>
             
                 <div className={style.image}>
                     <img src="https://i0.wp.com/lacriaturacreativa.com/wp-content/uploads/2015/01/mini-agency.jpg" alt="curso" />

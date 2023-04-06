@@ -10,7 +10,7 @@ export const Sidebar: FC<IExpandedMenu> = ({  setExpandedMenu }) => {
     return (
         <nav className={style.sidebar}>
             <div className={style.sidebar__container}>
-                <Link href="/" onClick={() => setExpandedMenu(false)} className={style.logo}>
+                <Link  href="/" onClick={() => setExpandedMenu(false)} className={style.logo}>
                     
                         <svg width="50"
                             viewBox="0 0 69 56"
@@ -23,7 +23,7 @@ export const Sidebar: FC<IExpandedMenu> = ({  setExpandedMenu }) => {
                 </Link>
 
                 <div className={style.icon__menu}>
-                    <Link href="/cursos" onClick={() => setExpandedMenu(false)} className={style.icon__item}>
+                    <Link  href="/cursos" onClick={() => setExpandedMenu(false)} className={style.icon__item}>
                         
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 height="35px" viewBox="0 0 24 24"
@@ -37,7 +37,7 @@ export const Sidebar: FC<IExpandedMenu> = ({  setExpandedMenu }) => {
                             </span>
                         
                     </Link>
-                    <Link href="/publicaciones" onClick={() => setExpandedMenu(false)} className={style.icon__item}>
+                    <Link  href="/publicaciones" onClick={() => setExpandedMenu(false)} className={style.icon__item}>
                         
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 enableBackground="new 0 0 24 24"
@@ -52,7 +52,7 @@ export const Sidebar: FC<IExpandedMenu> = ({  setExpandedMenu }) => {
                             </span>
                         
                     </Link>
-                    <Link href="/videos" onClick={() => setExpandedMenu(false)} className={style.icon__item}>
+                    <Link  href="/videos" onClick={() => setExpandedMenu(false)} className={style.icon__item}>
                        
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 height="32px" viewBox="0 0 24 24"
@@ -65,7 +65,7 @@ export const Sidebar: FC<IExpandedMenu> = ({  setExpandedMenu }) => {
                         
                     </Link>
 
-                    {/* <Link href="/proyectos">
+                    {/* <Link  href="/proyectos">
                         <a onClick={() => setExpandedMenu(false)} className={style.icon__item}>
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 height="32px" viewBox="0 0 24 24"
@@ -79,7 +79,7 @@ export const Sidebar: FC<IExpandedMenu> = ({  setExpandedMenu }) => {
                         </a>
                     </Link> */}
 
-                    <Link href="/recursos" onClick={() => setExpandedMenu(false)} className={style.icon__item}>
+                    <Link  href="/recursos" onClick={() => setExpandedMenu(false)} className={style.icon__item}>
                         
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 enableBackground="new 0 0 24 24"
@@ -93,7 +93,7 @@ export const Sidebar: FC<IExpandedMenu> = ({  setExpandedMenu }) => {
                             </span>
                         
                     </Link>
-                    <Link href="/enlaces" onClick={() => setExpandedMenu(false)} className={style.icon__item}>
+                    <Link  href="/enlaces" onClick={() => setExpandedMenu(false)} className={style.icon__item}>
                        
                             {/* <svg xmlns="http://www.w3.org/2000/svg"
                                 height="32px" viewBox="0 0 24 24"
