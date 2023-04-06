@@ -1,0 +1,53 @@
+{
+    "name": "CodeChappie",
+    "short_name": "CodeChappie",
+    "theme_color": "#161616",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": ".",
+    "start_url": ".",
+    "categories": [
+        "programación",
+        "desarrollo web",
+        "tecnologia",
+        "CodeChappie",
+        "code chappie",
+        "educación",
+        "developer"
+    ],
+    "icons": [
+        {
+            "src": "favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "android-icon-150x150.png",
+            "sizes": "150x150",
+            "type": "image/png",
+            "density": "3.0"
+        },
+        {
+            "src": "android-icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "density": "4.0"
+        },
+        {
+            "src": "android-icon-194x194.png",
+            "sizes": "194x194",
+            "type": "image/x-icon",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}
