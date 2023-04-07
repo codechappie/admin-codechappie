@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/texteditor/Texteditor.jsx"
+    // "components/texteditor/Texteditor.tsx"
   ],
   "exclude": ["node_modules"]
 }

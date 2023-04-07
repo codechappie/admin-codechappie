@@ -6,7 +6,7 @@ import { useForm } from '../../../../lib/hooks/useForm'
 import { generateSlug } from '../../../../lib/Utils';
 import Input from '@/components/input/Input';
 import Textarea from '@/components/textarea/Textarea';
-import Texteditorv2 from '@/components/texteditorv2/Texteditorv2'
+import Texteditor from '@/components/texteditor/Texteditor'
 
 const CreatePost = () => {
     const router = useRouter();
@@ -188,7 +188,7 @@ const CreatePost = () => {
                     />
                 </div>
                 <div className={style.blog__content}>
-                        <Texteditorv2 />
+                    <Texteditor html={htmlContent} setHtml={setHtmlContent} />
                 </div>
                 <button type='submit' >Crear entrada</button>
             </form>
