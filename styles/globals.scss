@@ -465,11 +465,11 @@ h2 {
 
 .w-md-editor {
   border: 2px solid var(--primary__bg);
-  border-radius: 10px!important;
+  border-radius: 10px !important;
   background: var(--bg) !important;
   overflow: hidden;
   // min-height: 400px!important;
-    height: 100% !important;
+  height: 100% !important;
 
   .w-md-editor-toolbar {
     background: var(--alternative__bg);
@@ -505,7 +505,7 @@ h2 {
       color: var(--main__text) !important;
     }
     .wmde-markdown-color .url {
-      color: var(--primary__bg)!important;
+      color: var(--primary__bg) !important;
     }
   }
 
@@ -530,7 +530,40 @@ h2 {
   }
 }
 .quill {
-  * {
-    // color: #000!important;
+  .ql-container {
+    height: auto !important;
+    border: 2px;
+    .ql-editor {
+      font-size: 1.5rem;
+      
+
+      p {
+        margin: 16px 0;
+        // line-height: 2.5rem;
+      }
+      ul,
+      ol {
+        margin: 16px 0;
+        li{
+          &::before{
+            text-align: left!important;
+          }
+        }
+      }
+    }
+  }
+
+  &.preview {
+    .ql-toolbar {
+      display: none !important;
+      background: red;
+    }
+    .ql-container {
+      height: auto !important;
+      border: none !important;
+    }
+    .ql-editor {
+      padding: 12px 0 !important;
+    }
   }
 }

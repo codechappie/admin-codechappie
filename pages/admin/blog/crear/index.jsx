@@ -187,9 +187,14 @@ const CreatePost = () => {
                         placeholder="Coloca una breve descripción..."
                     />
                 </div>
-                <div className={style.blog__content}>
-                    <Texteditor html={htmlContent} setHtml={setHtmlContent} />
-                </div>
+                {/* <div className={style.blog__content}> */}
+                    <Texteditor 
+                    html={htmlContent} 
+                    setHtml={setHtmlContent} 
+                    leftlabel="Contenido" 
+                    type="both"
+                    />
+                {/* </div> */}
                 <button type='submit' >Crear entrada</button>
             </form>
         </div >
