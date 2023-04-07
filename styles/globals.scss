@@ -530,23 +530,38 @@ h2 {
   }
 }
 .quill {
+  .ql-toolbar {
+    border: 2px solid !important;
+    border-bottom: none !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    // button {
+      .ql-stroke,
+      svg,
+      .ql-picker-label,
+      ::before {
+        color: var(--primary__bg) !important;
+        stroke: var(--primary__bg) !important;
+      }
+    // }
+  }
   .ql-container {
     height: auto !important;
-    border: 2px;
+    border: 2px solid !important;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     .ql-editor {
       font-size: 1.5rem;
-      
 
       p {
         margin: 16px 0;
-        // line-height: 2.5rem;
       }
       ul,
       ol {
         margin: 16px 0;
-        li{
-          &::before{
-            text-align: left!important;
+        li {
+          &::before {
+            text-align: left !important;
           }
         }
       }
@@ -556,7 +571,6 @@ h2 {
   &.preview {
     .ql-toolbar {
       display: none !important;
-      background: red;
     }
     .ql-container {
       height: auto !important;
