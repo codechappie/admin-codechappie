@@ -102,8 +102,6 @@ const CreatePost = () => {
                         leftlabel='Fecha de publicación'
                         value={date}
                         name='date'
-                        placeholder='Ingresa un título...'
-
                     />
                 </div>
                 <div>

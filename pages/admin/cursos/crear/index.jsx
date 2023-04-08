@@ -1,54 +1,71 @@
-import Input from '@components/input/Input';
-import Textarea from '@components/textarea/Textarea';
-import MDEditor from '@uiw/react-md-editor';
-import "@uiw/react-md-editor/dist/markdown-editor.css";
+import Input from '@/components/input/Input';
+import Textarea from '@/components/textarea/Textarea';
+import Texteditor from '@/components/texteditor/Texteditor';
 import axios from 'axios';
-import 'highlight.js/styles/atom-one-dark.css';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useForm } from '../../../../lib/hooks/useForm';
-import { mdParser } from '../../../../lib/Utils';
+import { useForm } from '@/lib/hooks/useForm';
 import style from './create-blog.module.scss';
+import { generateSlug } from '@/lib/Utils';
+
 
 const CreateCourse = () => {
     const router = useRouter();
+    const [htmlContent, setHtmlContent] = useState("");
+    const [slug, setSlug] = useState("");
     const courseFormInitialState = {
         title: '',
-        slug: '',
+        author: '',
+        authorImage: '',
         shortDescription: '',
+        youtubeEmbedURL: '',
         preview: '',
+        keywords: '',
         tags: '',
+        date: ''
     }
     const [courseForm, handleInputChange, resetCourseForm] = useForm(courseFormInitialState);
     const {
         title,
-        slug,
+        author,
+        authorImage,
         shortDescription,
+        youtubeEmbedURL,
         preview,
+        keywords,
         tags,
+        date
     } = courseForm;
 
-    const [description, setDescription] = useState("");
     const createNewEntry = async (e) => {
         e.preventDefault();
-
+        
         try {
             axios.post('/api/course/create',
                 {
                     title,
                     slug,
                     shortDescription,
-                    description,
+                    published_by: {
+                        username: author,
+                        profileImage: authorImage
+                    },
+                    published_at: date,
+                    htmlContent,
                     topics: [],
                     preview,
+                    views: 0,
+                    youtubeEmbedURL,
                     tags: tags.split(','),
+                    keywords: keywords.split(','),
+                    public: true,
                 }
             ).then(({ data }) => {
                 if (data.success) {
                     alert("Post created successfully");
                 }
                 resetCourseForm();
-                router.push('/cursos')
+                // router.push('/cursos')
             });
         } catch (error) {
             console.log(error);
@@ -60,25 +77,41 @@ const CreateCourse = () => {
             <form onSubmit={createNewEntry}>
                 <h2>Crear una nueva entrada</h2>
 
-
+                <div>
+                    <Input
+                        id="datetime"
+                        type="datetime-local"
+                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                        </svg>
+                        }
+                        onchange={handleInputChange}
+                        leftlabel='Fecha de publicación'
+                        value={date}
+                        name='date'
+                    />
+                </div>
                 <div>
                     <Input
                         name='title'
-                        onChange={handleInputChange}
-                        value={title} bordered
-                        label="Título"
+                        onchange={(e) => {
+                            handleInputChange(e);
+                            setSlug(generateSlug(e.target.value))
+                        }}
+                        value={title}
+                        leftlabel="Título"
                         placeholder='Ingresa un título...'
                     />
 
                 </div>
                 <div>
                     <Input
-                        bordered
+
                         name='slug'
-                        onChange={handleInputChange}
+                        onchange={(e) => setSlug(e.target.value)}
                         value={slug}
                         // labelLeft="https://codechappie.com/blog/"
-                        label="Slug de la entrada"
+                        leftlabel="Slug de la entrada"
                         placeholder="nueva-entrada"
 
                     />
@@ -86,24 +119,71 @@ const CreateCourse = () => {
                 </div>
                 <div>
                     <Input
-                        bordered
+                        value={youtubeEmbedURL}
+                        name='youtubeEmbedURL'
+                        onchange={handleInputChange}
+                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        }
+                        leftlabel="URL embed YouTube"
+                        placeholder="https://youtube.com/embed/aW2fsWf1" />
+                </div>
+                <div>
+                    <Input
+                        value={author}
+                        name='author'
+                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        }
+                        onchange={handleInputChange}
+                        leftlabel="Autor"
+                        placeholder="Nombre de usuario" />
+                </div>
+                <div>
+                    <Input
+                        value={authorImage}
+                        name='authorImage'
+                        onchange={handleInputChange}
+                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        }
+                        leftlabel="Imagen del autor"
+                        placeholder="https://server.io/image.png" />
+                </div>
+                <div>
+                    <Input
+
                         name='preview'
-                        onChange={handleInputChange}
+                        onchange={handleInputChange}
                         value={preview}
-                        label="Vista previa del curso"
-                        placeholder="Vista previa del curso"
+                        leftlabel="Miniatura"
+                        placeholder="Miniatura"
 
                     />
 
                 </div>
                 <div>
                     <Input
-                        bordered
+
                         name='tags'
-                        onChange={handleInputChange}
+                        onchange={handleInputChange}
                         value={tags}
-                        label="Etiquetas"
+                        leftlabel="Tags"
                         placeholder="Python, Java, TypeScript"
+
+                    />
+
+                </div>
+                <div>
+                    <Input
+                        name='keywords'
+                        onchange={handleInputChange}
+                        value={keywords}
+                        leftlabel="Keywords"
+                        placeholder="Curso html, aprende Java, que es TypeScript"
 
                     />
 
@@ -111,25 +191,20 @@ const CreateCourse = () => {
                 <div>
                     <Textarea
                         name='shortDescription'
-                        onChange={handleInputChange}
+                        onchange={handleInputChange}
                         value={shortDescription}
-                        bordered
-                        label="Descripción corta"
+
+                        leftlabel="Descripción corta"
                         placeholder="Coloca una breve descripción..."
                     />
+                </div>
+                <Texteditor
+                    html={htmlContent}
+                    setHtml={setHtmlContent}
+                    leftlabel="Contenido"
+                    type="both"
+                />
 
-                </div>
-                <div className={style.course__content}>
-                    <div className="container">
-                        <MDEditor height={200} value={description}
-                            name='description' onChange={setDescription} />
-                        <div style={{ padding: "50px 0 0 0" }} />
-                        <MDEditor.Markdown
-                            source={mdParser.render(description)}
-                            linkTarget="_blank"
-                        />
-                    </div>
-                </div>
 
                 <button type='submit'>Crear entrada</button>
             </form>

@@ -12,10 +12,11 @@ export default async function handler(
     switch (method) {
         case 'POST':
             try {
+                console.log(req.body)
                 const course = new Course(req.body);
+                course._id = `${course._id}`;
                 await course.save();
 
-                course._id = `${course._id}`;
                 return res.status(200).json({ course, success: true, error: '' });
             } catch (error) {
                 return res.status(400).json({ success: false, error: 'Error al guardar' });
