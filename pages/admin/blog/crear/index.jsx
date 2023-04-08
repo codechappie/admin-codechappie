@@ -55,8 +55,10 @@ const CreatePost = () => {
                             },
                             published_at: date,
                             description,
+                            views: 0,
                             html_content: htmlContent,
-                            tags: tags.split(",")
+                            tags: tags.split(","),
+                            public: true,
                         }
                     ).then(({ data }) => {
                         if (data.success) {
@@ -188,12 +190,12 @@ const CreatePost = () => {
                     />
                 </div>
                 {/* <div className={style.blog__content}> */}
-                    <Texteditor 
-                    html={htmlContent} 
-                    setHtml={setHtmlContent} 
-                    leftlabel="Contenido" 
+                <Texteditor
+                    html={htmlContent}
+                    setHtml={setHtmlContent}
+                    leftlabel="Contenido"
                     type="both"
-                    />
+                />
                 {/* </div> */}
                 <button type='submit' >Crear entrada</button>
             </form>

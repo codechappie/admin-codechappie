@@ -6,7 +6,7 @@ const BlogSchema = new mongoose.Schema(
     slug: { type: String, required: true },
     image: { type: String, required: true },
     published_at: { type: String, required: true },
-    published_by: { 
+    published_by: {
       username: { type: String, required: true },
       profileImage: { type: String, required: true },
     },
@@ -14,6 +14,8 @@ const BlogSchema = new mongoose.Schema(
     html_content: { type: String, required: true },
     tags: { type: [String], required: true },
     keywords: { type: [String], required: true },
+    views: { type: Number, required: true },
+    public: { type: Boolean, required: true }
   },
   { collection: "blog" }
 );

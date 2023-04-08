@@ -7,7 +7,7 @@ import { calculatePagesCount, paginate } from "@/lib/Utils";
 import Blog from "@/models/Blog";
 import dbConnect from "@/lib/dbConnect";
 import MyPagination from "@/components/pagination/Pagination";
-import style from './blog.module.scss'
+import style from "./blog.module.scss";
 
 const BlogPage = ({ finalPosts }: any) => {
   const pageSize = 2;
@@ -61,17 +61,8 @@ const BlogPage = ({ finalPosts }: any) => {
 
       <div className={style.blog__container}>
         {posts.map((post: any) => (
-          <CardBlog key={post._id} {...post} />
+          <CardBlog key={post._id} {...post} slug={`/admin/blog/editar/${post.slug}`} />
         ))}
-        {/* <Pagination
-          className="nui_pagination"
-          size="md"
-          noMargin
-          shadow
-          total={pageCount}
-          initialPage={1}
-          onChange={myPage}
-        /> */}
         <MyPagination
           page={page}
           totalPages={pageCount}

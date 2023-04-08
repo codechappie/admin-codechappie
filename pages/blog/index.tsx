@@ -28,12 +28,11 @@ const BlogPage = ({ finalPosts }: any) => {
   }, []);
 
   const myPage = (page: any) => {
-    setPage(page)
+    setPage(page);
     setPosts(paginate(finalPosts, pageSize, page));
     window.scrollTo(0, 0);
   };
 
- 
   return (
     <div className={style.blog__page}>
       <Head>
@@ -60,17 +59,9 @@ const BlogPage = ({ finalPosts }: any) => {
 
       <div className={style.blog__container}>
         {posts.map((post: any) => (
-          <CardBlog key={post._id} {...post} />
+          <CardBlog key={post._id} {...post} slug={`/blog/${post.slug}`} />
         ))}
-        {/* <Pagination
-          className="nui_pagination"
-          size="md"
-          noMargin
-          shadow
-          total={pageCount}
-          initialPage={1}
-          onChange={myPage}
-        /> */}
+
         <MyPagination
           page={page}
           totalPages={pageCount}
@@ -108,8 +99,11 @@ export async function getServerSideProps({ query, res }: any) {
                 },
               },
             ],
+            public: true,
           }
-        : {}
+        : {
+            public: true,
+          }
     );
     const postsFiltered = posts
       .map((doc: any) => {

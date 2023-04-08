@@ -1,21 +1,17 @@
-// import MDEditor from '@uiw/react-md-editor';
-// import "@uiw/react-md-editor/dist/markdown-editor.css";
 import axios from 'axios';
-// import hljs from 'highlight.js';
-// import 'highlight.js/styles/atom-one-dark.css';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import dbConnect from '../../../../lib/dbConnect';
 import Blog from '../../../../models/Blog';
-import style from './create-blog.module.scss';
-
+import style from './edit-blog.module.scss';
 import Input from '@/components/input/Input';
 import Textarea from '@/components/textarea/Textarea';
 import Texteditor from '@/components/texteditor/Texteditor';
 
 const EditPost = ({ post }) => {
-    const { title: tempTitle, html_content: tempHtmlContent, description: tempDescription, tags: tempTags, published_by, published_at, image, slug: tempSlug } = post;
+    const { _id, title: tempTitle, html_content: tempHtmlContent, description: tempDescription, tags: tempTags, published_by, published_at, image, slug: tempSlug, public: tempPublic } = post;
     const router = useRouter();
+    const [isPublic, setIsPublic] = useState(false)
     const [title, setTitle] = useState("");
     const [slug, setSlug] = useState("");
     const [thumbnails, setThumbnails] = useState("");
@@ -35,28 +31,11 @@ const EditPost = ({ post }) => {
         setHtmlContent(tempHtmlContent);
         setDate(published_at);
         setTags(tempTags);
+        setIsPublic(tempPublic)
     }, [])
-
-
-    // const mdParser = require('markdown-it')({
-    //     highlight: function (str, lang) {
-    //         if (lang && hljs.getLanguage(lang)) {
-    //             try {
-    //                 return '<pre class="hljs"><code>' +
-    //                     hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-    //                     '</code></pre>';
-    //             } catch (error) {
-    //                 console.log(error)
-    //             }
-    //         }
-
-    //         return '<pre class="hljs"><code>' + mdParser.utils.escapeHtml(str) + '</code></pre>';
-    //     }
-    // });
 
     const editEntry = async (e) => {
         e.preventDefault();
-
         try {
             axios.put(`/api/blog/${router.query.postId}`,
                 {
@@ -74,12 +53,14 @@ const EditPost = ({ post }) => {
                         "PRUEBA",
                         "TEXTO",
                         "JavaScript"
-                    ]
+                    ],
+                    views: 2,
+                    public: true
                 }
             ).then(({ data }) => {
                 if (data.success) {
                     // alert("Post created successfully");
-                    // router.push('/blog')
+                    router.push('/blog')
 
                 }
             });
@@ -87,11 +68,59 @@ const EditPost = ({ post }) => {
             console.log(error);
         }
     }
+
+    const deletePost = async (e) => {
+        e.preventDefault();
+        try {
+            axios.delete(`/api/blog/${router.query.postId}`).then(({ data }) => {
+                if (data.success) {
+                    // alert("Post created successfully");
+                    router.push('/blog')
+
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // const showOrHidePost = async () => {
+    //     try {
+    //         await axios.put(`/api/blog/public/${router.query.postId}`,
+    //             {
+    //                 public: true
+    //             }
+    //         ).then(({ data }) => {
+    //             if (data.success) {
+    //                 // alert("Post created successfully");
+    //                 router.push('/blog')
+
+    //             }
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+    const togglePublic = (ispublic) => {
+        console.log(ispublic)
+        setIsPublic(ispublic);
+
+        // showOrHidePost()
+    }
+
     return (
-        <div className={style.create__blog}>
+        <div className={style.edit__blog}>
 
             <form onSubmit={editEntry}>
-                <h2>Crear una nueva entrada</h2>
+                <div className={style.header}>
+                    <h2>Editar entrada</h2>
+
+                    <div className={style.edit__buttons}>
+                        <button type="button" className={style.hide} onClick={() => togglePublic(isPublic)}>{isPublic ? 'Publico' : 'Oculto'}</button>
+                        <button type="button" className={style.eliminate} onClick={(e) => deletePost(e)}>Eliminar</button>
+                    </div>
+                </div>
+
 
                 <div>
                     <Input
@@ -108,14 +137,6 @@ const EditPost = ({ post }) => {
                     />
                 </div>
                 <div>
-                    {/* <input
-                        onChange={(e) => setTitle(e.target.value)}
-                        value={title}
-                        label="Título" 
-                        placeholder='Ingresa un título...'
-                        
-                    /> */}
-
                     <Input leftlabel="Título"
                         placeholder='Ingresa un título...'
                         leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -127,17 +148,6 @@ const EditPost = ({ post }) => {
                     />
                 </div>
                 <div>
-                    {/* <input
-
-                        onChange={(e) => setSlug(e.target.value)}
-                        value={slug}
-                        // labelLeft="https://codechappie.com/blog/"
-                        label="Slug de la entrada"
-                        placeholder="nueva-entrada"
-                        
-                        
-                    /> */}
-
                     <Input leftlabel="Slug de la entrada"
                         placeholder='nueva-entrada'
                         leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -147,17 +157,6 @@ const EditPost = ({ post }) => {
                         value={slug}
                         onchange={(e) => setSlug(e.target.value)}
                     />
-                    {/* <Input leftlabel="Slug de la entrada"
-                        placeholder='nueva-entrada'
-                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" fill="none" width={20} viewBox="0 0 24 24" strokeWidth="1.2" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                        </svg>
-                        }
-                        rightContent={"@"}
-                        value={slug}
-                        onchange={(e) => setSlug(e.target.value)}
-                    /> */}
-
                 </div>
                 <div>
                     <Input leftlabel="Miniatura del blog"
@@ -171,10 +170,6 @@ const EditPost = ({ post }) => {
                     />
                 </div>
                 <div>
-                    {/* <input
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)} label="Autor" placeholder="Nombre de usuario"   /> */}
-
                     <Input leftlabel="Autor"
                         placeholder='Nombre de usuario'
                         leftContent={<svg width={20} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -186,10 +181,6 @@ const EditPost = ({ post }) => {
                     />
                 </div>
                 <div>
-                    {/* <input value={authorImage} onChange={(e) => setAuthorImage(e.target.value)}
-                        label="Imagen del autor" placeholder="https://server.io/image.png"   /> */}
-
-
                     <Input leftlabel="Imagen del autor"
                         placeholder='https://server.io/image.png'
                         leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -202,9 +193,6 @@ const EditPost = ({ post }) => {
 
                 </div>
                 <div>
-                    {/* <input value={authorImage} onChange={(e) => setAuthorImage(e.target.value)}
-                        label="Tags" placeholder="tags"   /> */}
-
                     <Input leftlabel="Tags"
                         placeholder='tags'
                         leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -226,28 +214,14 @@ const EditPost = ({ post }) => {
                         placeholder="Coloca una breve descripción..."
                     />
                 </div>
-                <div className={style.post__content}>
-                    {/* <MDEditor height={200} preview="edit" value={htmlContent} onChange={setHtmlContent} />
-
-
-                        <div className={style.markdown__content}>
-                            <MDEditor.Markdown
-                                source={mdParser.render(htmlContent)}
-                                linkTarget="_blank"
-                                className='custom-html-style'
-                            />
-                        </div> */}
-                    {/* <Texteditor htmlContent={htmlContent} setHtmlContent={setHtmlContent} /> */}
-                    <Texteditor 
-                    html={htmlContent} 
-                    setHtml={setHtmlContent} 
-                    leftlabel="Contenido" 
+                <Texteditor
+                    html={htmlContent}
+                    setHtml={setHtmlContent}
+                    leftlabel="Contenido"
                     type="both"
-                    />
-                </div>
+                />
 
-
-                <button type='submit' >Crear entrada</button>
+                <button type='submit' >Guardar entrada</button>
             </form>
         </div >
     )
@@ -257,7 +231,7 @@ const EditPost = ({ post }) => {
 export default EditPost
 
 export async function getServerSideProps({ query, res }) {
-    let { postId, topicId } = query;
+    let { postId } = query;
     try {
         await dbConnect();
         let post = await Blog.findOne({
