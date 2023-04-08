@@ -36,9 +36,9 @@ export default async function handler(
             {
               slug: postId,
             },
-            { views: 1 }
+            req.body
           );
-          console.log("aaa", val);
+          console.log("aaa", req.body);
         }
 
         return res.status(200).json({ success: true, post: req.body });

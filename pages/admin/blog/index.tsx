@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import CardBlog from "@/components/card-blog/CardBlog";
 import SearchForm from "@/components/search-form/search-form";
@@ -52,16 +53,20 @@ const BlogPage = ({ finalPosts }: any) => {
         desarrolladores.
       </h4>
 
+      <Link href="/admin/blog/crear">Crear nueva entrada</Link>
       <SearchForm
         searchHandler={searchPosts}
         inputPlaceholder="Buscar publicaciones..."
         buttonSearchText="Buscar"
         searchInputRef={searchInputRef}
       />
-
       <div className={style.blog__container}>
         {posts.map((post: any) => (
-          <CardBlog key={post._id} {...post} slug={`/admin/blog/editar/${post.slug}`} />
+          <CardBlog
+            key={post._id}
+            {...post}
+            slug={`/admin/blog/editar/${post.slug}`}
+          />
         ))}
         <MyPagination
           page={page}

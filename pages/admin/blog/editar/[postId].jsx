@@ -9,7 +9,12 @@ import Textarea from '@/components/textarea/Textarea';
 import Texteditor from '@/components/texteditor/Texteditor';
 
 const EditPost = ({ post }) => {
-    const { _id, title: tempTitle, html_content: tempHtmlContent, description: tempDescription, tags: tempTags, published_by, published_at, image, slug: tempSlug, public: tempPublic } = post;
+    const {
+        _id, title: tempTitle, html_content: tempHtmlContent,
+        description: tempDescription, tags: tempTags, published_by,
+        published_at, image, slug: tempSlug, public: tempPublic,
+        keywords: tempKeywords, views: tempViews
+    } = post;
     const router = useRouter();
     const [isPublic, setIsPublic] = useState(false)
     const [title, setTitle] = useState("");
@@ -20,6 +25,8 @@ const EditPost = ({ post }) => {
     const [description, setDescription] = useState("");
     const [htmlContent, setHtmlContent] = useState("");
     const [date, setDate] = useState("");
+    const [views, setViews] = useState("");
+    const [keywords, setKeywords] = useState("");
     const [tags, setTags] = useState("");
     useEffect(() => {
         setTitle(tempTitle);
@@ -31,11 +38,14 @@ const EditPost = ({ post }) => {
         setHtmlContent(tempHtmlContent);
         setDate(published_at);
         setTags(tempTags);
-        setIsPublic(tempPublic)
+        setIsPublic(tempPublic);
+        setViews(tempViews)
+        setKeywords(tempKeywords);
     }, [])
 
     const editEntry = async (e) => {
         e.preventDefault();
+        // return;
         try {
             axios.put(`/api/blog/${router.query.postId}`,
                 {
@@ -49,13 +59,8 @@ const EditPost = ({ post }) => {
                     published_at: date,
                     description,
                     html_content: htmlContent,
-                    tags: [
-                        "PRUEBA",
-                        "TEXTO",
-                        "JavaScript"
-                    ],
-                    views: 2,
-                    public: true
+                    tags: (typeof tags) == "string" ? tags.split(",") : tags,
+                    keywords: (typeof keywords) == "string" ? keywords.split(",") : keywords,
                 }
             ).then(({ data }) => {
                 if (data.success) {
@@ -84,28 +89,24 @@ const EditPost = ({ post }) => {
         }
     }
 
-    // const showOrHidePost = async () => {
-    //     try {
-    //         await axios.put(`/api/blog/public/${router.query.postId}`,
-    //             {
-    //                 public: true
-    //             }
-    //         ).then(({ data }) => {
-    //             if (data.success) {
-    //                 // alert("Post created successfully");
-    //                 router.push('/blog')
-
-    //             }
-    //         });
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-    const togglePublic = (ispublic) => {
-        console.log(ispublic)
-        setIsPublic(ispublic);
-
-        // showOrHidePost()
+    const showOrHidePost = async () => {
+        try {
+            await axios.put(`/api/blog/${router.query.postId}`,
+                {
+                    public: !isPublic
+                }
+            ).then(({ data }) => {
+                if (data.success) {
+                    setIsPublic(data.post.public);
+                    router.push('/blog');
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const togglePublic = () => {
+        showOrHidePost()
     }
 
     return (
@@ -116,7 +117,7 @@ const EditPost = ({ post }) => {
                     <h2>Editar entrada</h2>
 
                     <div className={style.edit__buttons}>
-                        <button type="button" className={style.hide} onClick={() => togglePublic(isPublic)}>{isPublic ? 'Publico' : 'Oculto'}</button>
+                        <button type="button" className={style.hide} onClick={() => togglePublic()}>{isPublic ? 'Publico' : 'Oculto'}</button>
                         <button type="button" className={style.eliminate} onClick={(e) => deletePost(e)}>Eliminar</button>
                     </div>
                 </div>
@@ -129,11 +130,28 @@ const EditPost = ({ post }) => {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                         </svg>
                         }
-                        onChange={(e) => setDate(e.target.value)}
+                        onchange={(e) => setDate(e.target.value)}
                         value={date}
-                        label="Título"
+                        leftlabel="Fecha de publicación"
                         placeholder="Ingresa un título..."
 
+                    />
+                </div>
+
+                <div>
+                    <Input
+                        type="text"
+                        leftContent={
+                            <svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+
+                        }
+                        onchange={(e) => setDate(e.target.value)}
+                        value={views}
+                        leftlabel="Vistas"
+                        disabled
                     />
                 </div>
                 <div>
@@ -201,6 +219,18 @@ const EditPost = ({ post }) => {
                         }
                         value={tags}
                         onchange={(e) => setTags(e.target.value)}
+                    />
+
+                </div>
+                <div>
+                    <Input leftlabel="Keywords"
+                        placeholder='Keywords'
+                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
+                        </svg>
+                        }
+                        value={keywords}
+                        onchange={(e) => setKeywords(e.target.value)}
                     />
 
                 </div>

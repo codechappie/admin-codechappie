@@ -2,6 +2,7 @@ import { useState } from 'react';
 import style from './create-blog.module.scss';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useForm } from '../../../../lib/hooks/useForm'
 import { generateSlug } from '../../../../lib/Utils';
 import Input from '@/components/input/Input';
@@ -20,6 +21,7 @@ const CreatePost = () => {
         authorImage: '',
         description: '',
         tags: '',
+        keywords: '',
         date: ''
     }
     const [postForm, handleInputChange, resetPostForm] = useForm(postFormInitialState);
@@ -30,6 +32,7 @@ const CreatePost = () => {
         authorImage,
         description,
         tags,
+        keywords,
         date
     } = postForm;
 
@@ -57,15 +60,17 @@ const CreatePost = () => {
                             description,
                             views: 0,
                             html_content: htmlContent,
-                            tags: tags.split(","),
+                            tags: (typeof tags) == "string" ? tags.split(",") : tags,
+                            keywords: (typeof keywords) == "string" ? keywords.split(",") : keywords,
                             public: true,
                         }
                     ).then(({ data }) => {
+                        console.log("SARTA", data)
                         if (data.success) {
                             alert("Post created successfully");
                         }
-                        resetPostForm();
-                        router.push('/blog')
+                        // resetPostForm();
+                        // router.push('/blog')
                     });
                 } else {
                     console.log("slug ya existe!!")
@@ -82,7 +87,9 @@ const CreatePost = () => {
 
             <form onSubmit={createNewEntry}>
                 <h2>Crear una nueva entrada</h2>
-
+                <Link href="/admin/blog">
+                    Retroceder
+                </Link>
                 <div>
                     <Input
                         id="datetime"
@@ -181,6 +188,15 @@ const CreatePost = () => {
                         leftlabel="tags" placeholder="tags" />
                 </div>
                 <div>
+                    <Input value={keywords}
+                        name='keywords' onchange={handleInputChange}
+                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
+                        </svg>
+                        }
+                        leftlabel="Keywords" placeholder="Palabras clave" />
+                </div>
+                <div>
                     <Textarea
                         name='description'
                         onchange={handleInputChange}
@@ -189,14 +205,13 @@ const CreatePost = () => {
                         placeholder="Coloca una breve descripción..."
                     />
                 </div>
-                {/* <div className={style.blog__content}> */}
                 <Texteditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"
                     type="both"
                 />
-                {/* </div> */}
+
                 <button type='submit' >Crear entrada</button>
             </form>
         </div >

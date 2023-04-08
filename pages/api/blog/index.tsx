@@ -33,6 +33,8 @@ export default async function handler(
         let success = false;
         let error = "";
         if (!found) {
+          console.log("SSSSSSSSSSSSSS", req.body);
+
           blog = new Blog(req.body);
           await blog.save();
 

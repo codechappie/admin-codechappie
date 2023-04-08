@@ -10,11 +10,11 @@ const BlogSchema = new mongoose.Schema(
       username: { type: String, required: true },
       profileImage: { type: String, required: true },
     },
+    views: { type: Number, required: true },
     description: { type: String, required: true },
     html_content: { type: String, required: true },
     tags: { type: [String], required: true },
     keywords: { type: [String], required: true },
-    views: { type: Number, required: true },
     public: { type: Boolean, required: true }
   },
   { collection: "blog" }

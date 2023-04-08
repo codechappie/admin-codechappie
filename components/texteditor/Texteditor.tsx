@@ -72,7 +72,12 @@ const formats = [
   "background",
 ];
 
-const Texteditor = ({ html, setHtml, leftlabel, type = "both" }: Props) => {
+const Texteditor = ({
+  html,
+  setHtml,
+  leftlabel,
+  type = "both",
+}: Props) => {
   return (
     <div className={styles.chappie__texteditor}>
       <label className={styles.leftlabel} htmlFor="">

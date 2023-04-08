@@ -61,12 +61,25 @@ const BlogPage = ({ finalPosts }: any) => {
         {posts.map((post: any) => (
           <CardBlog key={post._id} {...post} slug={`/blog/${post.slug}`} />
         ))}
-
-        <MyPagination
-          page={page}
-          totalPages={pageCount}
-          handlePageChange={myPage}
-        />
+        {posts.lenght > 0 ? (
+          <MyPagination
+            page={page}
+            totalPages={pageCount}
+            handlePageChange={myPage}
+          />
+        ) : (
+          <div className={style.no__elements}>
+            <h3>Aún no hay elementos disponibles...</h3>
+            <img src="/assets/images/handy-line-machine-learning.gif" alt="" />
+            <small>
+              Illustration by
+              <a href="https://icons8.com/illustrations/author/XTPoH093lluQ">
+                Viktoriya Belinio
+              </a>
+              from <a href="https://icons8.com/illustrations">Ouch!</a>
+            </small>
+          </div>
+        )}
       </div>
     </div>
   );

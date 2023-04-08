@@ -12,13 +12,14 @@ interface Props {
   leftContent?: string;
   rightContent?: string;
   onchange?: any;
-  // (e: any) => string;
+  disabled?: boolean;
 }
 
 const Input = ({
   id,
   name,
   type = "text",
+  disabled = false,
   leftlabel,
   placeholder,
   value,
@@ -70,6 +71,7 @@ const Input = ({
           className={styles.active}
           value={value}
           onChange={onchange}
+          disabled={disabled}
         />
 
         {rightContent ? (
