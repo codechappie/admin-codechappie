@@ -72,12 +72,7 @@ const formats = [
   "background",
 ];
 
-const Texteditor = ({
-  html,
-  setHtml,
-  leftlabel,
-  type = "both",
-}: Props) => {
+const Texteditor = ({ html, setHtml, leftlabel, type = "both" }: Props) => {
   return (
     <div className={styles.chappie__texteditor}>
       <label className={styles.leftlabel} htmlFor="">
@@ -98,14 +93,23 @@ const Texteditor = ({
         )}
 
         {(type === "preview" || type === "both") && (
-          <QuillNoSSRWrapper
-            modules={modules}
-            formats={formats}
-            theme="snow"
-            value={html}
-            className={"preview"}
-            readOnly={true}
-          />
+          // <QuillNoSSRWrapper
+          //   modules={modules}
+          //   formats={formats}
+          //   theme="snow"
+          //   value={html}
+          //   className={"preview"}
+          //   readOnly={true}
+          // />
+          <div className="quill preview">
+            <div className="ql-container ql-snow ql-disabled">
+              <section
+                className="ql-editor"
+                dangerouslySetInnerHTML={{ __html: html }}
+              ></section>
+            </div>
+          </div>
+          //
         )}
       </div>
     </div>

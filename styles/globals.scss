@@ -578,6 +578,18 @@ h2 {
     }
     .ql-editor {
       padding: 12px 0 !important;
+
+      .ql-syntax{
+        font-size: 1.2rem;
+        * {
+          font-family: 'Source Code Pro', monospace;
+        }
+      }
+      
+      .ql-syntax .hljs-tag *,
+      .ql-syntax .hljs-meta *{
+        font-size: 1.2rem;
+      }
     }
   }
 }

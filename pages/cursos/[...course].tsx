@@ -1,21 +1,17 @@
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import dbConnect from "@/lib/dbConnect";
 import Course from "@/models/Course";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import style from "./course-page.module.scss";
 
-// import 'highlight.js/styles/atom-one-dark.css';
-// import 'react-markdown-editor-lite/lib/index.css';
-
-import Link from "next/link";
 import Texteditor from "@/components/texteditor/Texteditor";
+import Link from "next/link";
 
 const Curso = ({ course, topic }: any) => {
   const router = useRouter();
 
   const [showTopics, setShowTopics] = useState(false);
-  const [markdownText, setMarkdownText] = useState("");
+  const [topicContent, setTopicContent] = useState("");
   const [topicTitle, setTopicTitle] = useState("Title");
   const [topicVideo, setTopicVideo] = useState("");
 
@@ -26,17 +22,14 @@ const Curso = ({ course, topic }: any) => {
 
   useEffect(() => {
     if (topic) {
-      setMarkdownText(topic[0].markdownText);
+      setTopicContent(topic[0].htmlContent);
       setTopicTitle(topic[0].title);
       setTopicVideo(topic[0].video);
     }
-  }, [topic, markdownText]);
+  }, [topic, topicContent]);
 
-  const { slug, title, description, topics, tags, keywords, youtubeEmbedURL } = course;
-
-  function handleEditorChange({ html, text }: any) {
-    // console.log('handleEditorChange', text);
-  }
+  const { slug, title, htmlContent, topics, tags, keywords, youtubeEmbedURL } =
+    course;
 
   return topic ? (
     <div className={style.course__page}>
@@ -126,7 +119,7 @@ const Curso = ({ course, topic }: any) => {
                                 view={{ menu: false, md: false, html: true }}
                                 renderHTML={() => mdParser.render(markdownText)} /> */}
               <Texteditor
-                html={description}
+                html={topicContent}
                 leftlabel="Contenido"
                 type="preview"
               />
@@ -233,13 +226,16 @@ const Curso = ({ course, topic }: any) => {
         </div>
 
         <div className={style.initial__content}>
-          <iframe
-            src="https://www.youtube.com/embed/RJNALIw8PFE"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen={true}
-          ></iframe>
+          <div className={style.iframe__container}>
+            <iframe
+              src={youtubeEmbedURL}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen={true}
+            ></iframe>
+          </div>
 
-          <Texteditor html={description} leftlabel="Contenido" type="preview" />
+          <Texteditor html={htmlContent} type="preview" />
+          
 
           {topics[0]?.slug ? (
             <Link
