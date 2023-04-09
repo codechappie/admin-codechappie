@@ -1,5 +1,3 @@
-import hljs from "highlight.js";
-
 export const getTimeForpost = (timestamp: string) => {
   return new Date(timestamp).toLocaleDateString("es-ES", {
     year: "numeric",
@@ -18,28 +16,6 @@ export const paginate = (array: any, page_size: any, page_number: any) => {
   page_number = page_number + 1;
   return array.slice((page_number - 1) * page_size, page_number * page_size);
 };
-
-export const mdParser = require("markdown-it")({
-  highlight: function (str: string, lang: any) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return (
-          '<pre class="hljs"><code>' +
-          hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-          "</code></pre>"
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    return (
-      '<pre class="hljs"><code>' +
-      mdParser.utils.escapeHtml(str) +
-      "</code></pre>"
-    );
-  },
-});
 
 export const updateHistory = (lastUrl: string) => {
   (() => {

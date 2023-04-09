@@ -83,7 +83,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, published_by, publi
         <div className={style.create__blog}>
 
             <form onSubmit={createNewEntry}>
-                <h2>Editar una nueva entrada</h2>
+                <h2>Editar entrada</h2>
 
                 <div>
                     <Input
@@ -211,7 +211,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, published_by, publi
                 />
 
 
-                <button type='submit'>Crear entrada</button>
+                <button type='submit'>Editar entrada</button>
             </form>
         </div >
     )
