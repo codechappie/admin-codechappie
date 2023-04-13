@@ -61,7 +61,7 @@ const BlogPage = ({ finalPosts }: any) => {
         {posts.map((post: any) => (
           <CardBlog key={post._id} {...post} slug={`/blog/${post.slug}`} />
         ))}
-        {posts.lenght > 0 ? (
+        {posts.length > 0 ? (
           <MyPagination
             page={page}
             totalPages={pageCount}

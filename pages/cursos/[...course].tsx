@@ -7,6 +7,7 @@ import style from "./course-page.module.scss";
 import Renderhtml from "@/components/renderhtml/renderhtml";
 import Link from "next/link";
 import Head from "next/head";
+import { incrementView } from "@/lib/Utils";
 
 const Curso = ({ course, topic }: any) => {
   const router = useRouter();
@@ -15,6 +16,8 @@ const Curso = ({ course, topic }: any) => {
   const [topicContent, setTopicContent] = useState("");
   const [topicTitle, setTopicTitle] = useState("Title");
   const [topicVideo, setTopicVideo] = useState("");
+  const [numOfViews, setNumOfViews] = useState();
+
   let tema = "";
   if (router.query.course) {
     tema = router.query.course[1];
@@ -23,11 +26,22 @@ const Curso = ({ course, topic }: any) => {
     slug,
     title,
     htmlContent,
+    badge,
     topics: tempTopics,
     tags,
     keywords,
+    views,
     youtubeEmbedURL,
   } = course;
+
+  useEffect(() => {
+    let id = `${course.slug}`;
+    console.log(course);
+    if (id) {
+      incrementView(id, "course", views, setNumOfViews);
+    }
+  }, []);
+
   useEffect(() => {
     if (topic) {
       setTopicContent(topic[0].htmlContent);
@@ -38,15 +52,12 @@ const Curso = ({ course, topic }: any) => {
 
   let topics = [
     {
-      id: "asdas",
-      title: "Intro",
+      id: "chappiflix",
+      title: "Introducción",
+      slug: "",
     },
     ...tempTopics,
   ];
-  // console.log(topics);
-  // useEffect(() => {
-
-  // }, [topic]);
 
   return topic ? (
     <>
@@ -97,13 +108,13 @@ const Curso = ({ course, topic }: any) => {
         <div className={style.course}>
           <div className={style.course__header}>
             <div className={style.course__icon}>
-              <img src="/assets/images/logos/discord-icon.svg" alt="" />
+              <img src={badge} alt="" />
             </div>
             <div className={style.header__detail}>
               <h1 className={style.title}>
                 <Link href={`/cursos/${slug}`}>{title}</Link>
               </h1>
-              <h2>{topicTitle}</h2>
+              <h2>Tema: {topicTitle}</h2>
               <div className={style.tags}>
                 {tags.map((tag: string, index: number) => (
                   <div key={index} className={style.tag}>
@@ -111,6 +122,7 @@ const Curso = ({ course, topic }: any) => {
                   </div>
                 ))}
               </div>
+              <small>{views} vistas</small>
             </div>
           </div>
 
@@ -124,7 +136,6 @@ const Curso = ({ course, topic }: any) => {
                     height="100%"
                     typeof="text/html"
                     src={`${topicVideo}?autoplay=1&modestbranding=1&color=white`}
-                    frameBorder="0"
                     allowFullScreen={true}
                   />
                 </div>
@@ -214,36 +225,68 @@ const Curso = ({ course, topic }: any) => {
             </svg>
             Atras
           </div>
-
-          {/* <div className={style.topics__button} onClick={() => setShowTopics(!showTopics)}>
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        enableBackground="new 0 0 24 24"
-                        height="24px" viewBox="0 0 24 24"
-                        width="24px"
-                        style={{ marginRight: "10px" }}>
-                        <g>
-                            <rect fill="none" height="24" width="24" />
-                            <path d="M20,6h-8l-1.41-1.41C10.21,4.21,9.7,4,9.17,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V8 C22,6.9,21.1,6,20,6z M13,16H7c-0.55,0-1-0.45-1-1c0-0.55,0.45-1,1-1h6c0.55,0,1,0.45,1,1C14,15.55,13.55,16,13,16z M17,12H7 c-0.55,0-1-0.45-1-1c0-0.55,0.45-1,1-1h10c0.55,0,1,0.45,1,1C18,11.55,17.55,12,17,12z" />
-                        </g>
-                    </svg>
-                    Temas
-                </div> */}
+          <div
+            className={style.topics__button}
+            onClick={() => setShowTopics(!showTopics)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              enableBackground="new 0 0 24 24"
+              height="24px"
+              viewBox="0 0 24 24"
+              width="24px"
+              style={{ marginRight: "10px" }}
+            >
+              <g>
+                <rect fill="none" height="24" width="24" />
+                <path d="M20,6h-8l-1.41-1.41C10.21,4.21,9.7,4,9.17,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V8 C22,6.9,21.1,6,20,6z M13,16H7c-0.55,0-1-0.45-1-1c0-0.55,0.45-1,1-1h6c0.55,0,1,0.45,1,1C14,15.55,13.55,16,13,16z M17,12H7 c-0.55,0-1-0.45-1-1c0-0.55,0.45-1,1-1h10c0.55,0,1,0.45,1,1C18,11.55,17.55,12,17,12z" />
+              </g>
+            </svg>
+            Temas
+          </div>
         </div>
 
         <div className={style.course}>
           <div className={style.course__header}>
             <div className={style.course__icon}>
-              <img src="/assets/images/logos/discord-icon.svg" alt="" />
+              <img src={badge} alt="" />
             </div>
             <div className={style.header__detail}>
               <h1 className={style.title}>
                 <Link href={`/cursos/${slug}`}>{title}</Link>
               </h1>
               <div className={style.tags}>
-                <div className={style.tag}>HTML5</div>
-                <div className={style.tag}>Web</div>
-                <div className={style.tag}>desarrollo</div>
+                {tags.map((tag: string, index: number) => (
+                  <div key={index} className={style.tag}>
+                    {tag}
+                  </div>
+                ))}
               </div>
+              <small className={style.views}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  width={20}
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <span>
+                {views} vistas
+                </span>
+              </small>
             </div>
           </div>
 
@@ -259,15 +302,15 @@ const Curso = ({ course, topic }: any) => {
 
               <Renderhtml html={htmlContent} />
 
-              {topics[0]?.slug ? (
+              {topics[1]?.slug ? (
                 <Link
-                  href={`/cursos/${slug}/${topics[0].slug}`}
+                  href={`/cursos/${slug}/${topics[1].slug}`}
                   className={style.start__button}
                 >
                   Comenzar el curso
                 </Link>
               ) : (
-                <h3>Este curso aún no tiene temas.</h3>
+                <h3 className={style.no__topics}>Este curso aún no tiene temas.</h3>
               )}
             </div>
 
@@ -299,7 +342,7 @@ const Curso = ({ course, topic }: any) => {
                   <div
                     key={index}
                     className={`${style.topic} ${
-                      topic.slug === tema ? style.activated : ""
+                      topic.id === "chappiflix" ? style.activated : ""
                     }`}
                     onClick={() => setShowTopics(!showTopics)}
                   >

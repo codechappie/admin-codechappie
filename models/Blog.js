@@ -15,7 +15,8 @@ const BlogSchema = new mongoose.Schema(
     html_content: { type: String, required: true },
     tags: { type: [String], required: true },
     keywords: { type: [String], required: true },
-    public: { type: Boolean, required: true }
+    public: { type: Boolean, required: true },
+    type: { type: String, required: true },
   },
   { collection: "blog" }
 );

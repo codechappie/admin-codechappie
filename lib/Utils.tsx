@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const getTimeForpost = (timestamp: string) => {
   return new Date(timestamp).toLocaleDateString("es-ES", {
     year: "numeric",
@@ -10,6 +12,26 @@ export const getTimeForpost = (timestamp: string) => {
 export const calculatePagesCount = (pageSize: any, totalCount: any) => {
   // we suppose that if we have 0 items we want 1 empty page
   return totalCount < pageSize ? 1 : Math.ceil(totalCount / pageSize);
+};
+
+export const incrementView = async (
+  id: string,
+  type:string,
+  views: number,
+  setNumOfViews: any
+) => {
+  try {
+    await axios
+      .put(`/api/${type}/${id}`, {
+        views: views + 1,
+      })
+      .then(({ data }) => {
+        console.log(data)
+        setNumOfViews(data[type].views);
+      });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const paginate = (array: any, page_size: any, page_number: any) => {

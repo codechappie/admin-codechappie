@@ -41,6 +41,13 @@
       background: var(--bg);
     }
   }
+  button:disabled{
+    opacity: .5;
+    &:hover{
+      filter: brightness(1);
+      transform: scale(1);
+    }
+  }
   .prev,
   .next {
     background: var(--alternative__bg);

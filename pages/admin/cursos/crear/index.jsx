@@ -21,6 +21,7 @@ const CreateCourse = () => {
         youtubeEmbedURL: '',
         preview: '',
         keywords: '',
+        badge: '',
         tags: '',
         date: ''
     }
@@ -29,6 +30,7 @@ const CreateCourse = () => {
         title,
         author,
         authorImage,
+        badge,
         shortDescription,
         youtubeEmbedURL,
         preview,
@@ -50,6 +52,7 @@ const CreateCourse = () => {
                         username: author,
                         profileImage: authorImage
                     },
+                    badge,
                     published_at: date,
                     htmlContent,
                     topics: [],
@@ -152,6 +155,18 @@ const CreateCourse = () => {
                         }
                         leftlabel="Imagen del autor"
                         placeholder="https://server.io/image.png" />
+                </div>
+                <div>
+                    <Input
+
+                        name='badge'
+                        onchange={handleInputChange}
+                        value={badge}
+                        leftlabel="Insignia"
+                        placeholder="Insignia del curso"
+
+                    />
+
                 </div>
                 <div>
                     <Input

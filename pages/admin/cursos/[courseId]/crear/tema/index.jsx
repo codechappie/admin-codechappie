@@ -14,13 +14,15 @@ const TopicPage = () => {
     const [slug, setSlug] = useState("");
     const courseFormInitialState = {
         title: '',
-        video: ''
+        video: '',
+        keywords: ''
     }
 
     const [courseForm, handleInputChange, resetCourseForm] = useForm(courseFormInitialState);
     const {
         title,
         video,
+        keywords,
     } = courseForm;
 
 
@@ -35,7 +37,8 @@ const TopicPage = () => {
             title,
             slug,
             video,
-            htmlContent
+            htmlContent,
+            keywords: keywords.split(",")
         }
 
 
@@ -114,6 +117,20 @@ const TopicPage = () => {
                     />
 
                 </div>
+
+                <div>
+                    <Input
+
+                        name='keywords'
+                        onchange={handleInputChange}
+                        value={keywords}
+                        leftlabel="Keywords"
+                        placeholder="Palabras clave"
+
+                    />
+
+                </div>
+
                 <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}

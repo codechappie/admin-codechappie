@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import style from './create-blog.module.scss';
 
 
-const EditCourse = ({ _id, title: temptitle, slug: tempSlug, published_by, published_at, youtubeEmbedURL: tempURL, shortDescription: description, preview: tempPreview, keywords: tempKeywords, tags: tempTags, htmlContent: tempHtmlContent }) => {
+const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, published_by, published_at, youtubeEmbedURL: tempURL, shortDescription: description, preview: tempPreview, keywords: tempKeywords, tags: tempTags, htmlContent: tempHtmlContent }) => {
     const router = useRouter();
     const [htmlContent, setHtmlContent] = useState("");
     const [slug, setSlug] = useState("");
@@ -21,6 +21,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, published_by, publi
         authorImage: profileImage,
         shortDescription: description,
         youtubeEmbedURL: tempURL,
+        badge: tempBadge,
         preview: tempPreview,
         keywords: tempKeywords,
         tags: tempTags,
@@ -38,6 +39,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, published_by, publi
         authorImage,
         shortDescription,
         youtubeEmbedURL,
+        badge,
         preview,
         keywords,
         tags,
@@ -60,6 +62,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, published_by, publi
                     },
                     published_at: date,
                     htmlContent,
+                    badge,
                     preview,
                     youtubeEmbedURL,
                     tags: (typeof tags) == "string" ? tags.split(",") : tags,
@@ -156,6 +159,18 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, published_by, publi
                         }
                         leftlabel="Imagen del autor"
                         placeholder="https://server.io/image.png" />
+                </div>
+                <div>
+                    <Input
+
+                        name='badge'
+                        onchange={handleInputChange}
+                        value={badge}
+                        leftlabel="Insignia"
+                        placeholder="Insignia de curso"
+
+                    />
+
                 </div>
                 <div>
                     <Input

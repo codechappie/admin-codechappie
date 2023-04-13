@@ -7,6 +7,7 @@ const CourseSchema = new mongoose.Schema(
     shortDescription: { type: String, required: true },
     htmlContent: { type: String, required: true },
     preview: { type: String, required: true },
+    badge: { type: String, required: true },
     published_at: { type: String, required: true },
     published_by: {
       username: { type: String, required: true },
@@ -19,11 +20,13 @@ const CourseSchema = new mongoose.Schema(
       title: { type: String, required: true },
       slug: { type: String, required: true },
       htmlContent: { type: String, required: true },
-      video: { type: String, required: true }
+      video: { type: String, required: true },
+      keywords: { type: [String], required: true },
     },
     tags: { type: [String], required: true },
     keywords: { type: [String], required: true },
     public: { type: Boolean, required: true },
+    type: { type: String, required: true },
   },
   { collection: "course" }
 );

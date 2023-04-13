@@ -632,6 +632,10 @@ h2 {
       margin: 5px 0;
     }
   }
+  img {
+    max-width: 100%!important;
+    height: auto!important;
+  }
   code[class*="language-"],
   pre[class*="language-"] {
     white-space: pre-wrap;
@@ -683,15 +687,14 @@ h2 {
   }
 }
 
-
 @keyframes showTooltip {
-  0%{
+  0% {
     opacity: 0;
   }
-  50%{
+  50% {
     opacity: 1;
   }
-  100%{
+  100% {
     opacity: 0;
   }
 }

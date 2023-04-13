@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import "react-markdown-editor-lite/lib/index.css";
 import dbConnect from "../../lib/dbConnect";
 import style from "./blog.module.scss";
+import { incrementView } from "../../lib/Utils";
 
 const PostPage = ({ post }: any) => {
   const {
@@ -28,23 +29,26 @@ const PostPage = ({ post }: any) => {
   const router = useRouter();
   const testKeywords = keywords.join(",");
   useEffect(() => {
-    incrementView();
+    let id = `${router.query.postId}`;
+    if (id) {
+      incrementView(id, "blog", views, setNumOfViews);
+    }
   }, []);
 
-  const incrementView = async () => {
-    try {
-      await axios
-        .put(`/api/blog/${router.query.postId}`, {
-          views: views + 1,
-        })
-        .then(({ data }) => {
-          console.log(data.post.views);
-          setNumOfViews(data.post.views);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const incrementView = async () => {
+  //   try {
+  //     await axios
+  //       .put(`/api/blog/${router.query.postId}`, {
+  //         views: views + 1,
+  //       })
+  //       .then(({ data }) => {
+  //         console.log(data.post.views);
+  //         setNumOfViews(data.post.views);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <div className={style.blog__page}>
       <Head>
