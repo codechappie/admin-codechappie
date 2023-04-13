@@ -21,8 +21,10 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "pages/admin/cursos/[courseId]/crear/tema/index.jsx", "pages/admin/cursos/[courseId]/editar/index.jsx",
-    // "components/texteditor/Texteditor.tsx"
+    "**/*.tsx", 
+    "pages/admin/cursos/[courseId]/crear/tema/index.jsx", 
+    "pages/admin/cursos/[courseId]/editar/index.jsx", 
+    // "components/customeditor/CustomEditor.tsx",
   ],
   "exclude": ["node_modules"]
 }

@@ -1,18 +1,19 @@
-import { useState } from 'react';
-import style from './create-blog.module.scss';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { useForm } from '../../../../lib/hooks/useForm'
-import { generateSlug } from '../../../../lib/Utils';
+import CustomEditor from '@/components/customeditor/CustomEditor';
 import Input from '@/components/input/Input';
 import Textarea from '@/components/textarea/Textarea';
-import Texteditor from '@/components/texteditor/Texteditor'
+import axios from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { generateSlug } from '../../../../lib/Utils';
+import { useForm } from '../../../../lib/hooks/useForm';
+import style from './create-blog.module.scss';
 
 const CreatePost = () => {
+
     const router = useRouter();
     const [slug, setSlug] = useState("");
-    const [htmlContent, setHtmlContent] = useState("");
+    const [htmlContent, setHtmlContent] = useState(``);
 
     const postFormInitialState = {
         title: '',
@@ -65,7 +66,6 @@ const CreatePost = () => {
                             public: true,
                         }
                     ).then(({ data }) => {
-                        console.log("SARTA", data)
                         if (data.success) {
                             alert("Post created successfully");
                         }
@@ -178,7 +178,7 @@ const CreatePost = () => {
                 </div>
                 <div>
                     <Input value={tags}
-                        name='Tags' onchange={handleInputChange}
+                        name='tags' onchange={handleInputChange}
                         leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
                         </svg>
@@ -203,7 +203,7 @@ const CreatePost = () => {
                         placeholder="Coloca una breve descripción..."
                     />
                 </div>
-                <Texteditor
+                <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"

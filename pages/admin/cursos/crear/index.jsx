@@ -1,12 +1,12 @@
+import CustomEditor from '@/components/customeditor/CustomEditor';
 import Input from '@/components/input/Input';
 import Textarea from '@/components/textarea/Textarea';
-import Texteditor from '@/components/texteditor/Texteditor';
+import { generateSlug } from '@/lib/Utils';
+import { useForm } from '@/lib/hooks/useForm';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useForm } from '@/lib/hooks/useForm';
 import style from './create-blog.module.scss';
-import { generateSlug } from '@/lib/Utils';
 
 
 const CreateCourse = () => {
@@ -198,7 +198,7 @@ const CreateCourse = () => {
                         placeholder="Coloca una breve descripción..."
                     />
                 </div>
-                <Texteditor
+                <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"

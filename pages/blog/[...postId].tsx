@@ -1,20 +1,19 @@
-import Texteditor from "@/components/texteditor/Texteditor";
 import { getTimeForpost } from "@/lib/Utils";
 import Blog from "@/models/Blog";
 
+import Renderhtml from "@/components/renderhtml/renderhtml";
+import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import "react-markdown-editor-lite/lib/index.css";
 import dbConnect from "../../lib/dbConnect";
 import style from "./blog.module.scss";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
 const PostPage = ({ post }: any) => {
   const {
     title,
-    author,
     description,
     html_content,
     tags,
@@ -46,7 +45,6 @@ const PostPage = ({ post }: any) => {
       console.log(error);
     }
   };
-
   return (
     <div className={style.blog__page}>
       <Head>
@@ -88,8 +86,8 @@ const PostPage = ({ post }: any) => {
             {numOfViews} vistas
           </span>
           <div className={style.tags}>
-            {tags.map((tag: string) => (
-              <span key={tag} className={style.tag}>
+            {tags.map((tag: string, ind: number) => (
+              <span key={tag + ind} className={style.tag}>
                 {tag}
               </span>
             ))}
@@ -100,13 +98,7 @@ const PostPage = ({ post }: any) => {
             {getTimeForpost(published_at)}
           </h4>
 
-          <div className={style.blog__html__content}>
-            <Texteditor
-              html={html_content}
-              leftlabel="Contenido"
-              type="preview"
-            />
-          </div>
+          <Renderhtml html={html_content} />
 
           <div className={style.blog__footer}>
             <Link href="/blog">

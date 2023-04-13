@@ -6,8 +6,8 @@ import React, { useState } from 'react';
 import { useForm } from '@/lib/hooks/useForm';
 import style from './create-topic.module.scss';
 import Input from '@/components/input/Input'
-import Texteditor from '@/components/texteditor/Texteditor'
 import { generateSlug } from '@/lib/Utils';
+import CustomEditor from '@/components/customeditor/CustomEditor';
 
 const TopicPage = () => {
     const router = useRouter();
@@ -114,7 +114,7 @@ const TopicPage = () => {
                     />
 
                 </div>
-                <Texteditor
+                <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"

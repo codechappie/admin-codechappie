@@ -1,14 +1,13 @@
+import CustomEditor from '@/components/customeditor/CustomEditor';
 import Input from '@/components/input/Input';
 import Textarea from '@/components/textarea/Textarea';
-import Texteditor from '@/components/texteditor/Texteditor';
+import dbConnect from '@/lib/dbConnect';
+import { useForm } from '@/lib/hooks/useForm';
+import Course from '@/models/Course';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useForm } from '@/lib/hooks/useForm';
 import style from './create-blog.module.scss';
-import { generateSlug } from '@/lib/Utils';
-import Course from '@/models/Course';
-import dbConnect from '@/lib/dbConnect';
 
 
 const EditCourse = ({ _id, title: temptitle, slug: tempSlug, published_by, published_at, youtubeEmbedURL: tempURL, shortDescription: description, preview: tempPreview, keywords: tempKeywords, tags: tempTags, htmlContent: tempHtmlContent }) => {
@@ -203,7 +202,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, published_by, publi
                         placeholder="Coloca una breve descripción..."
                     />
                 </div>
-                <Texteditor
+                <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"
@@ -227,7 +226,6 @@ export async function getServerSideProps({ query, res }) {
         });
         const finalCourse = course.toObject();
         finalCourse._id = `${course._id}`;
-        console.log("aaa", finalCourse)
         return {
             props: {
                 ...finalCourse

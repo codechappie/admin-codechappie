@@ -1,12 +1,12 @@
+import CustomEditor from '@/components/customeditor/CustomEditor';
+import Input from '@/components/input/Input';
+import Textarea from '@/components/textarea/Textarea';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import dbConnect from '../../../../lib/dbConnect';
 import Blog from '../../../../models/Blog';
 import style from './edit-blog.module.scss';
-import Input from '@/components/input/Input';
-import Textarea from '@/components/textarea/Textarea';
-import Texteditor from '@/components/texteditor/Texteditor';
 
 const EditPost = ({ post }) => {
     const {
@@ -244,7 +244,7 @@ const EditPost = ({ post }) => {
                         placeholder="Coloca una breve descripción..."
                     />
                 </div>
-                <Texteditor
+                <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"

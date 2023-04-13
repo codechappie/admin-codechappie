@@ -20,8 +20,8 @@ const CardBlog = ({
       </div>
       <div className={style.information}>
         <div className={style.tags}>
-          {tags.map((tag: string) => (
-            <span className={style.tag} key={tag}>
+          {tags.map((tag: string, ind: number) => (
+            <span className={style.tag} key={tag + ind}>
               {tag}
             </span>
           ))}
@@ -31,7 +31,7 @@ const CardBlog = ({
         <div className={style.footer__card}>
           <img src={published_by.profileImage} alt="artículo imagen" />
           <small className={style.published_at}>
-            Publicado por {published_by.username} el{" "}
+            Publicado por {published_by.username} el
             {getTimeForpost(published_at)}
           </small>
         </div>

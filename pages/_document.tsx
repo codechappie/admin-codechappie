@@ -16,14 +16,13 @@ class MyDocument extends Document {
     return (
       <Html lang="es">
         <Head>
-          {/* {CssBaseline.flush()} */}
           <meta property="custom" content="yolo" />
           <meta name="google-site-verification" content="A_aLx8CcFwL0oejP6gO5ehs4lNScTdDlO9a_GjI75c0" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
 
-          <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Inter:wght@300;600;800&display=swap&family=Source+Code+Pro&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Inter:wght@300;500;800&display=swap&family=Fira+Code:wght@300&display=swap" rel="stylesheet" />
           <link rel="shortcut icon" href="/assets/images/codechappie/logo-small-blue.svg" type="image/x-icon" />
 
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

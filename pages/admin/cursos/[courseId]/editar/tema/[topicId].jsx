@@ -1,12 +1,11 @@
 import Input from '@/components/input/Input';
-import Texteditor from '@/components/texteditor/Texteditor';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
-import React, { useEffect, useState } from 'react';
+import CustomEditor from '@/components/customeditor/CustomEditor';
 import dbConnect from '@/lib/dbConnect';
 import { useForm } from '@/lib/hooks/useForm';
 import Course from '@/models/Course';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import style from './editar-topic.module.scss';
 
 const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, htmlContent: tempHtmlContent }) => {
@@ -119,7 +118,7 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, h
                     />
 
                 </div>
-                <Texteditor
+                <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"
