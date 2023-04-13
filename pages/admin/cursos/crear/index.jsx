@@ -62,9 +62,11 @@ const CreateCourse = () => {
                     tags: tags.split(','),
                     keywords: keywords.split(','),
                     public: true,
+                    type: "course"
                 }
             ).then(({ data }) => {
                 if (data.success) {
+                    console.log(data)
                     alert("Post created successfully");
                 }
                 resetCourseForm();

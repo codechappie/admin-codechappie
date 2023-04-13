@@ -38,7 +38,7 @@ export default async function handler(
                     );
                 }
 
-                return res.status(200).json({ success: true, course: found })
+                return res.status(200).json({ success: true, course: found, topic: req.body })
             } catch (error) {
                 return res.status(400).json({ success: false, error: 'Error no hay cursos' });
             }

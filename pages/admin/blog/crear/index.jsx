@@ -64,9 +64,11 @@ const CreatePost = () => {
                             tags: (typeof tags) == "string" ? tags.split(",") : tags,
                             keywords: (typeof keywords) == "string" ? keywords.split(",") : keywords,
                             public: true,
+                            type: "blog"
                         }
                     ).then(({ data }) => {
                         if (data.success) {
+                            console.log(data)
                             alert("Post created successfully");
                         }
                         // resetPostForm();

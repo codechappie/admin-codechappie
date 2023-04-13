@@ -61,8 +61,9 @@ const TopicPage = () => {
                     alert("Topic created successfully");
                 }
 
-                // resetCourseForm();
-                router.push(`${window.location.origin}/cursos/${courseId}/${data.topics.at(-1).slug}`)
+                resetCourseForm();
+               
+                router.push(`${window.location.origin}/cursos/${courseId}/${data.topic.topics.at(-1).slug}`)
             });
         } catch (error) {
             console.log(error);

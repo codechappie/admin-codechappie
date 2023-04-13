@@ -35,7 +35,6 @@ class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#ffce00" />
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
           <meta name="theme-color" content="#ffffff" />
-          {/* <Script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js" />  */}
         </Head>
         <body className="theme__dark">
           <Main />
