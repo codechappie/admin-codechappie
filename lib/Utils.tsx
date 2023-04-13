@@ -16,7 +16,7 @@ export const calculatePagesCount = (pageSize: any, totalCount: any) => {
 
 export const incrementView = async (
   id: string,
-  type:string,
+  type: string,
   views: number,
   setNumOfViews: any
 ) => {
@@ -26,8 +26,12 @@ export const incrementView = async (
         views: views + 1,
       })
       .then(({ data }) => {
-        console.log(data)
-        setNumOfViews(data[type].views);
+        let tempType = type;
+        console.log(data);
+        if (type == "blog") {
+          tempType = "post";
+        }
+        setNumOfViews(data[tempType].views);
       });
   } catch (error) {
     console.log(error);
