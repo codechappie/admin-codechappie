@@ -1,16 +1,13 @@
 import { getTimeForpost } from "@/lib/Utils";
 import Blog from "@/models/Blog";
-
 import Renderhtml from "@/components/renderhtml/renderhtml";
-import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import "react-markdown-editor-lite/lib/index.css";
+import { incrementView } from "../../lib/Utils";
 import dbConnect from "../../lib/dbConnect";
 import style from "./blog.module.scss";
-import { incrementView } from "../../lib/Utils";
 
 const PostPage = ({ post }: any) => {
   const {
@@ -35,20 +32,7 @@ const PostPage = ({ post }: any) => {
     }
   }, []);
 
-  // const incrementView = async () => {
-  //   try {
-  //     await axios
-  //       .put(`/api/blog/${router.query.postId}`, {
-  //         views: views + 1,
-  //       })
-  //       .then(({ data }) => {
-  //         console.log(data.post.views);
-  //         setNumOfViews(data.post.views);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+
   return (
     <div className={style.blog__page}>
       <Head>
