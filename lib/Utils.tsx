@@ -31,6 +31,7 @@ export const incrementView = async (
         if (type == "blog") {
           tempType = "post";
         }
+        console.log(data[tempType].views)
         setNumOfViews(data[tempType].views);
       });
   } catch (error) {

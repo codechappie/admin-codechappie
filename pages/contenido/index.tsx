@@ -1,24 +1,33 @@
+import Card from "@/components/card/Card";
+import MyPagination from "@/components/pagination/Pagination";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import CardBlog from "../../components/card-blog/CardBlog";
 import SearchForm from "../../components/search-form/search-form";
-import dbConnect from "../../lib/dbConnect";
 import { calculatePagesCount, paginate } from "../../lib/Utils";
+import dbConnect from "../../lib/dbConnect";
 import Blog from "../../models/Blog";
 import Course from "../../models/Course";
-import postStyle from "./content.module.scss";
-import courseStyle from "../../pages/cursos/courses.module.scss";
-import CardCourse from "../../components/card-course/CardCourse";
-import MyPagination from "@/components/pagination/Pagination";
-const ContentPage = ({ finalPosts, courses, type }: any) => {
-  const pageSize = 2;
-  const [posts, setPosts] = useState(paginate(finalPosts, pageSize, 0));
-  const pageCount = calculatePagesCount(pageSize, finalPosts.length);
-  const [page, setPage] = useState<number>(0);
+import contentStyle from "./content.module.scss";
+const ContentPage = ({ content: rawContent, data, type }: any) => {
   const router = useRouter();
   const searchInputRef = useRef<any>();
-  const [content, setcontent] = useState<any>([]);
+  const pageSize = 6;
+  const pageCount = calculatePagesCount(pageSize, rawContent.length);
+  const [page, setPage] = useState<number>(0);
+  const [content, setcontent] = useState<any>(
+    paginate(rawContent, pageSize, 0)
+  );
+  const changeType = (type: string) => {
+    router.push(
+      `/contenido${`${
+        router.query.q === "" || !router.query.q
+          ? "?"
+          : `?q=${searchInputRef.current.value.trim()}&`
+      }`}type=${type}`,
+      undefined
+    );
+  };
   const searchPosts = (e: any) => {
     e.preventDefault();
     router.push(
@@ -32,68 +41,39 @@ const ContentPage = ({ finalPosts, courses, type }: any) => {
     );
   };
   useEffect(() => {
+    changeType("todo");
+  }, []);
+
+  useEffect(() => {
     let q = router.query.q;
     if (q) {
       searchInputRef.current.value = q;
     }
   }, [router.query.q]);
-  useEffect(() => {
-    setPosts(paginate(finalPosts, pageSize, 0));
-  }, []);
-  useEffect(() => {
-    if (type === "empty") {
-      type = "cursos";
-      router.push(
-        `/contenido${`${
-          searchInputRef.current.value.trim() === "" ||
-          !searchInputRef.current.value.trim()
-            ? "?"
-            : `?q=${searchInputRef.current.value.trim()}&`
-        }`}type=${type}`,
-        undefined
-      );
-    } else {
-      router.push(
-        `/contenido${`${
-          searchInputRef.current.value.trim() === "" ||
-          !searchInputRef.current.value.trim()
-            ? "?"
-            : `?q=${searchInputRef.current.value.trim()}&`
-        }`}type=${type}`,
-        undefined
-      );
-    }
-  }, [type]);
 
   useEffect(() => {
-    let content = [
-      ...(finalPosts ? finalPosts : []),
-      ...(courses ? courses : []),
-    ];
-    setcontent(content);
-  }, []);
+    setcontent(paginate(rawContent, pageSize, 0));
+  }, [router.query.q, type]);
 
-  //   useEffect(() => {
-  //     setPosts(finalPosts);
-  //   }, [finalPosts]);
-  console.log("CON", content)
-  const changeType = (type: string) => {
-    router.push(
-      `/contenido${`${
-        router.query.q === "" || !router.query.q
-          ? "?"
-          : `?q=${searchInputRef.current.value.trim()}&`
-      }`}type=${type}`,
-      undefined
-    );
-  };
   const myPage = (page: any) => {
     setPage(page);
-    setPosts(paginate(finalPosts, pageSize, page));
+    setcontent(paginate(rawContent, pageSize, page));
     window.scrollTo(0, 0);
   };
+
+  const getTypeOfContent = (type: string) => {
+    if (type == "cursos") {
+      return "Cursos";
+    } else if (type === "publicaciones") {
+      return "Publicaciones";
+    } else if (type === "videos") {
+      return "Videos";
+    } else {
+      return "Contenido";
+    }
+  };
   return (
-    <div className={postStyle.content__page}>
+    <div className={contentStyle.content__page}>
       <Head>
         <title>CodeChappie - Contenido 🛠️</title>
         <meta name="title" content="CodeChappie - Blog 🛠️" />
@@ -110,90 +90,61 @@ const ContentPage = ({ finalPosts, courses, type }: any) => {
         searchInputRef={searchInputRef}
       />
 
-      <div className={postStyle.buttons__container}>
+      <div className={contentStyle.buttons__container}>
         <button
-          className={type === "todo" ? `${postStyle.button__active}` : ""}
+          className={type === "todo" ? `${contentStyle.button__active}` : ""}
           onClick={() => changeType("todo")}
         >
           Todo
         </button>
         <button
-          className={type === "cursos" ? `${postStyle.button__active}` : ""}
+          className={type === "cursos" ? `${contentStyle.button__active}` : ""}
           onClick={() => changeType("cursos")}
         >
           Cursos
         </button>
         <button
           className={
-            type === "publicaciones" ? `${postStyle.button__active}` : ""
+            type === "publicaciones" ? `${contentStyle.button__active}` : ""
           }
           onClick={() => changeType("publicaciones")}
         >
           Publicaciones
         </button>
-        {/* <button
-          className={type === "videos" ? `${postStyle.button__active}` : ""}
+        <button
+          className={type === "videos" ? `${contentStyle.button__active}` : ""}
           onClick={() => changeType("videos")}
         >
           Videos
         </button>
-        <button
-          className={type === "proyectos" ? `${postStyle.button__active}` : ""}
+        {/* <button
+          className={type === "proyectos" ? `${contentStyle.button__active}` : ""}
           onClick={() => changeType("proyectos")}
         >
           Proyectos
         </button> */}
       </div>
-
-      {/* {type === "publicaciones" ? (
-        <>
-          <h2>Publicaciones</h2>{" "}
-          <div className={postStyle.content__container}>
-            {posts.length > 0 ? (
-              posts.map((post: any) => <CardBlog key={post._id} {...post} />)
-            ) : (
-              <div>
-                <h3>
-                  Aún no hay publicaciones relacionadas con {router.query?.q}
-                </h3>
-              </div>
-            )}
-          </div>
-          <MyPagination
-            page={page}
-            totalPages={pageCount}
-            handlePageChange={myPage}
-          />
-        </>
-      ) : null}
-      {type === "cursos" ? (
-        <div className={courseStyle.courses__page}>
-          <h2>Cursos</h2>
-          {courses.length > 0 ? (
-            <div className={courseStyle.cards__container}>
-              {courses.map((course: any) => (
-                <CardCourse key={course._id} {...course} />
+      <div className={contentStyle.content__page}>
+        <h2>{getTypeOfContent(type)}</h2>
+        {content.length > 0 ? (
+          <>
+            <div className={contentStyle.cards__container}>
+              {content.map((course: any) => (
+                <Card key={course._id} {...course} />
               ))}
             </div>
-          ) : (
-            <div>
-              <h3>Aún no hay cursos relacionados con {router.query?.q}</h3>
-            </div>
-          )}
-        </div>
-      ) : null} */}
-
-      <div className={courseStyle.courses__page}>
-        <h2>Cursos</h2>
-        {content.length > 0 ? (
-          <div className={courseStyle.cards__container}>
-            {courses.map((course: any) => (
-              <CardCourse key={course._id} {...course} />
-            ))}
-          </div>
+            <MyPagination
+              page={page}
+              totalPages={pageCount}
+              handlePageChange={myPage}
+            />
+          </>
         ) : (
-          <div>
-            <h3>Aún no hay cursos relacionados con {router.query?.q}</h3>
+          <div className={contentStyle.no__results}>
+            <h3>
+              Aún no hay resultados relacionados con el siguiente termino de
+              busqueda: <span>{router.query?.q}</span>
+            </h3>
           </div>
         )}
       </div>
@@ -204,80 +155,95 @@ const ContentPage = ({ finalPosts, courses, type }: any) => {
 export async function getServerSideProps({ query, res }: any) {
   let { q, type } = query;
   try {
+    // const { data } = await axios.get(
+    //   `https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_KEY}&channelId=UCgANZIFfnwnBLMwtC5HzlsQ&part=snippet,id&order=date&maxResults=50&type=video`
+    // );
+    // let videosData = processVideoData(data.items);
+    let postsFiltered, coursesFiltered, finalContent;
     await dbConnect();
-    let posts = await Blog.find(
-      q
-        ? {
-            $or: [
-              {
-                title: {
-                  $regex: ".*" + q + ".*",
-                  $options: "i",
+    if (type === "publicaciones" || type === "todo") {
+      let posts = await Blog.find(
+        q
+          ? {
+              $or: [
+                {
+                  title: {
+                    $regex: ".*" + q + ".*",
+                    $options: "i",
+                  },
                 },
-              },
-              {
-                tags: {
-                  $regex: ".*" + q + ".*",
-                  $options: "i",
+                {
+                  tags: {
+                    $regex: ".*" + q + ".*",
+                    $options: "i",
+                  },
                 },
-              },
-              {
-                keywords: {
-                  $regex: ".*" + q + ".*",
-                  $options: "i",
+                {
+                  keywords: {
+                    $regex: ".*" + q + ".*",
+                    $options: "i",
+                  },
                 },
-              },
-            ],
-          }
-        : {}
-    );
-    let courses = await Course.find(
-      q
-        ? {
-            $or: [
-              {
-                title: {
-                  $regex: ".*" + q + ".*",
-                  $options: "i",
+              ],
+            }
+          : {}
+      );
+      postsFiltered = posts
+        .map((doc: any) => {
+          const post = doc.toObject();
+          post._id = `${doc._id}`;
+          return post;
+        })
+        .reverse();
+    }
+    if (type === "cursos" || type === "todo") {
+      let courses = await Course.find(
+        q
+          ? {
+              $or: [
+                {
+                  title: {
+                    $regex: ".*" + q + ".*",
+                    $options: "i",
+                  },
                 },
-              },
-              {
-                tags: {
-                  $regex: ".*" + q + ".*",
-                  $options: "i",
+                {
+                  tags: {
+                    $regex: ".*" + q + ".*",
+                    $options: "i",
+                  },
                 },
-              },
-              {
-                keywords: {
-                  $regex: ".*" + q + ".*",
-                  $options: "i",
+                {
+                  keywords: {
+                    $regex: ".*" + q + ".*",
+                    $options: "i",
+                  },
                 },
-              },
-            ],
-          }
-        : {}
-    );
+              ],
+            }
+          : {}
+      );
 
-    const postsFiltered = posts
-      .map((doc: any) => {
-        const post = doc.toObject();
-        post._id = `${doc._id}`;
-        return post;
-      })
-      .reverse();
+      coursesFiltered = courses
+        .map((doc: any) => {
+          const course = doc.toObject();
+          course._id = `${doc._id}`;
+          return course;
+        })
+        .reverse();
+    }
 
-    const coursesFiltered = courses
-      .map((doc: any) => {
-        const course = doc.toObject();
-        course._id = `${doc._id}`;
-        return course;
-      })
-      .reverse();
+    finalContent = [
+      ...(postsFiltered ? postsFiltered : []),
+      ...(coursesFiltered ? coursesFiltered : []),
+      // ...(videosData ? videosData : []),
+    ];
+
     return {
       props: {
         type: type ? type : "empty",
-        finalPosts: postsFiltered,
-        courses: coursesFiltered,
+        content: finalContent,
+        // data,
       },
     };
   } catch (error) {
@@ -291,3 +257,21 @@ export async function getServerSideProps({ query, res }: any) {
 }
 
 export default ContentPage;
+
+export const processVideoData = (data: [any]) => {
+  let tempArr = data.map((el) => {
+    let { snippet, id } = el;
+    return {
+      image: snippet.thumbnails.medium.url,
+      description: snippet.description,
+      title: snippet.title,
+      type: "video",
+      tags: [snippet.channelTitle],
+      slug: snippet.channelId,
+      external: `https://www.youtube.com/watch?v=${id.videoId}`,
+      publishTime: snippet.publishTime,
+    };
+  });
+
+  return tempArr;
+};

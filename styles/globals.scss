@@ -9,6 +9,8 @@
   --shadow: #{$dark__shadow};
 
   --primary__bg: #{$primary__color};
+  --secondary__bg: #{$secondary__color};
+  --red: #{$tag6};
 }
 
 .theme__light {
@@ -595,6 +597,7 @@ h2 {
 }
 
 .html__content {
+  margin-top: 20px;
   h1 {
     font-size: 3rem !important;
   }

@@ -32,7 +32,6 @@ const PostPage = ({ post }: any) => {
     }
   }, []);
 
-
   return (
     <div className={style.blog__page}>
       <Head>
@@ -75,9 +74,9 @@ const PostPage = ({ post }: any) => {
           </span>
           <div className={style.tags}>
             {tags.map((tag: string, ind: number) => (
-              <span key={tag + ind} className={style.tag}>
-                {tag}
-              </span>
+              <Link href={`/contenido?q=${tag}`} key={tag + ind}>
+                <span className={style.tag}>{tag}</span>
+              </Link>
             ))}
           </div>
           <h4 className={style.created_by}>

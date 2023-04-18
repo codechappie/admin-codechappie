@@ -58,6 +58,11 @@ const Curso = ({ course, topic }: any) => {
     },
     ...tempTopics,
   ];
+  const setMenuAction = (val: any) => {
+    if(window.innerWidth <= 950){
+      setShowTopics(val);
+    }
+  };
 
   return topic ? (
     <>
@@ -86,7 +91,7 @@ const Curso = ({ course, topic }: any) => {
 
           <div
             className={style.topics__button}
-            onClick={() => setShowTopics(!showTopics)}
+            onClick={() => setMenuAction(!showTopics)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -117,9 +122,9 @@ const Curso = ({ course, topic }: any) => {
               <h2>Tema: {topicTitle}</h2>
               <div className={style.tags}>
                 {tags.map((tag: string, index: number) => (
-                  <div key={index} className={style.tag}>
-                    {tag}
-                  </div>
+                   <Link href={`/contenido?q=${tag}`} key={tag + index}>
+                   <span className={style.tag}>{tag}</span>
+                 </Link>
                 ))}
               </div>
               <small>{views} vistas</small>
@@ -160,11 +165,12 @@ const Curso = ({ course, topic }: any) => {
                 showTopics ? `${style.show}` : ""
               }`}
             >
+              <div className={style.overlay}>overlay</div>
               <div className={style.header}>
                 <h6>Contenido</h6>
                 <div
                   className={style.close__button}
-                  onClick={() => setShowTopics(!showTopics)}
+                  onClick={() => setMenuAction(!showTopics)}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +191,7 @@ const Curso = ({ course, topic }: any) => {
                     className={`${style.topic} ${
                       topic.slug === tema ? style.activated : ""
                     }`}
-                    onClick={() => setShowTopics(!showTopics)}
+                    onClick={() => setMenuAction(!showTopics)}
                   >
                     <Link
                       href={`/cursos/${slug}/${topic.slug}`}
@@ -227,7 +233,7 @@ const Curso = ({ course, topic }: any) => {
           </div>
           <div
             className={style.topics__button}
-            onClick={() => setShowTopics(!showTopics)}
+            onClick={() => setMenuAction(!showTopics)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -257,9 +263,9 @@ const Curso = ({ course, topic }: any) => {
               </h1>
               <div className={style.tags}>
                 {tags.map((tag: string, index: number) => (
-                  <div key={index} className={style.tag}>
-                    {tag}
-                  </div>
+                   <Link href={`/contenido?q=${tag}`} key={tag + index}>
+                   <span className={style.tag}>{tag}</span>
+                 </Link>
                 ))}
               </div>
               <small className={style.views}>
@@ -283,9 +289,7 @@ const Curso = ({ course, topic }: any) => {
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                <span>
-                {views} vistas
-                </span>
+                <span>{numOfViews} vistas</span>
               </small>
             </div>
           </div>
@@ -310,10 +314,18 @@ const Curso = ({ course, topic }: any) => {
                   Comenzar el curso
                 </Link>
               ) : (
-                <h3 className={style.no__topics}>Este curso aún no tiene temas.</h3>
+                <h3 className={style.no__topics}>
+                  Este curso aún no tiene temas.
+                </h3>
               )}
             </div>
 
+            <div
+              className={`${style.overlay} ${
+                showTopics ? `${style.show}` : ""
+              }`}
+              onClick={() => setMenuAction(false)}
+            ></div>
             <div
               className={`${style.course__topics} ${
                 showTopics ? `${style.show}` : ""
@@ -323,7 +335,7 @@ const Curso = ({ course, topic }: any) => {
                 <h6>Contenido</h6>
                 <div
                   className={style.close__button}
-                  onClick={() => setShowTopics(!showTopics)}
+                  onClick={() => setMenuAction(false)}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -344,7 +356,7 @@ const Curso = ({ course, topic }: any) => {
                     className={`${style.topic} ${
                       topic.id === "chappiflix" ? style.activated : ""
                     }`}
-                    onClick={() => setShowTopics(!showTopics)}
+                    onClick={() => setMenuAction(!showTopics)}
                   >
                     <Link
                       href={`/cursos/${slug}/${topic.slug}`}

@@ -75,7 +75,28 @@
       border-radius: 20px;
     }
   }
+  .type{
+    // background: var(--primary__bg);
+    width: fit-content;
+    padding: 4px 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    color: #ffffff;
 
+    &.blog{
+      background: var(--primary__bg);
+    }
+    &.cursos{
+      background: var(--secondary__bg);
+    }
+    &.video{
+      background: var(--red);
+    }
+  }
   .views {
     display: flex;
     align-items: center;
@@ -89,6 +110,19 @@
     }
 
     small {
+      letter-spacing: .01rem;
+      font-size: .9rem;
+    }
+  }
+  .date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 8px;
+    color: var(--tertiary__text);
+
+    small {
+      margin-top: 2px;
       letter-spacing: .01rem;
       font-size: .9rem;
     }

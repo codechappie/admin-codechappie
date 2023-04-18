@@ -62,7 +62,7 @@ const CreateCourse = () => {
                     tags: tags.split(','),
                     keywords: keywords.split(','),
                     public: true,
-                    type: "course"
+                    type: "curso"
                 }
             ).then(({ data }) => {
                 if (data.success) {
