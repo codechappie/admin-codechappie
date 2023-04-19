@@ -7,7 +7,9 @@ const AdminPage = () => {
         <title>Codechappie - Admin</title>
         <meta name="title" content="CodeChappie - Admin" />
       </Head>
-      <div className={style.homePage}></div>
+      <div className={style.homePage}>
+        
+      </div>
     </>
   );
 };

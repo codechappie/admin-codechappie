@@ -5,8 +5,8 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { generateSlug } from '../../../../lib/Utils';
-import { useForm } from '../../../../lib/hooks/useForm';
+import { generateSlug } from '@/lib/Utils';
+import { useForm } from '@/lib/hooks/useForm';
 import style from './create-blog.module.scss';
 
 const CreatePost = () => {
