@@ -1,45 +1,38 @@
 import CustomEditor from '@/components/customeditor/CustomEditor';
 import Input from '@/components/input/Input';
 import Textarea from '@/components/textarea/Textarea';
-import dbConnect from '@/lib/dbConnect';
+import { generateSlug } from '@/lib/Utils';
 import { useForm } from '@/lib/hooks/useForm';
-import Course from '@/models/Course';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import style from './create-blog.module.scss';
 
 
-const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, published_by, published_at, youtubeEmbedURL: tempURL, shortDescription: description, preview: tempPreview, keywords: tempKeywords, tags: tempTags, htmlContent: tempHtmlContent }) => {
+const CreateCourse = () => {
     const router = useRouter();
     const [htmlContent, setHtmlContent] = useState("");
     const [slug, setSlug] = useState("");
-    const { username, profileImage } = published_by;
     const courseFormInitialState = {
-        title: temptitle,
-        author: username,
-        authorImage: profileImage,
-        shortDescription: description,
-        youtubeEmbedURL: tempURL,
-        badge: tempBadge,
-        preview: tempPreview,
-        keywords: tempKeywords,
-        tags: tempTags,
-        date: published_at
+        title: '',
+        author: '',
+        authorImage: '',
+        shortDescription: '',
+        youtubeEmbedURL: '',
+        preview: '',
+        keywords: '',
+        badge: '',
+        tags: '',
+        date: ''
     }
-    useEffect(() => {
-        setSlug(tempSlug);
-        setHtmlContent(tempHtmlContent);
-    }, [])
-
     const [courseForm, handleInputChange, resetCourseForm] = useForm(courseFormInitialState);
     const {
         title,
         author,
         authorImage,
+        badge,
         shortDescription,
         youtubeEmbedURL,
-        badge,
         preview,
         keywords,
         tags,
@@ -48,10 +41,9 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
 
     const createNewEntry = async (e) => {
         e.preventDefault();
-        let { courseId } = router.query;
 
         try {
-            axios.put(`/api/course/${courseId}`,
+            axios.post('/api/course/create',
                 {
                     title,
                     slug,
@@ -60,21 +52,24 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
                         username: author,
                         profileImage: authorImage
                     },
+                    badge,
                     published_at: date,
                     htmlContent,
-                    badge,
+                    topics: [],
                     preview,
+                    views: 0,
                     youtubeEmbedURL,
-                    tags: (typeof tags) == "string" ? tags.split(",") : tags,
-                    keywords: (typeof keywords) == "string" ? keywords.split(",") : keywords,
+                    tags: tags.split(','),
+                    keywords: keywords.split(','),
+                    public: true,
+                    type: "curso"
                 }
             ).then(({ data }) => {
                 if (data.success) {
-                    alert("Post updated successfully");
-                } else {
-                    alert(data.error)
+                    console.log(data)
+                    alert("Post created successfully");
                 }
-                // resetCourseForm();
+                resetCourseForm();
                 // router.push('/cursos')
             });
         } catch (error) {
@@ -85,7 +80,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
         <div className={style.create__blog}>
 
             <form onSubmit={createNewEntry}>
-                <h2>Editar entrada</h2>
+                <h2>Crear una nueva entrada</h2>
 
                 <div>
                     <Input
@@ -104,7 +99,10 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
                 <div>
                     <Input
                         name='title'
-                        onchange={handleInputChange}
+                        onchange={(e) => {
+                            handleInputChange(e);
+                            setSlug(generateSlug(e.target.value))
+                        }}
                         value={title}
                         leftlabel="Título"
                         placeholder='Ingresa un título...'
@@ -167,7 +165,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
                         onchange={handleInputChange}
                         value={badge}
                         leftlabel="Insignia"
-                        placeholder="Insignia de curso"
+                        placeholder="Insignia del curso"
 
                     />
 
@@ -224,33 +222,10 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
                 />
 
 
-                <button type='submit'>Editar entrada</button>
+                <button type='submit'>Crear entrada</button>
             </form>
         </div >
     )
 }
-export default EditCourse
 
-export async function getServerSideProps({ query, res }) {
-    let { courseId } = query;
-    try {
-        await dbConnect();
-        let course = await Course.findOne({
-            slug: courseId
-        });
-        const finalCourse = course.toObject();
-        finalCourse._id = `${course._id}`;
-        return {
-            props: {
-                ...finalCourse
-            },
-        };
-    } catch (error) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/",
-            },
-        };
-    }
-}
+export default CreateCourse

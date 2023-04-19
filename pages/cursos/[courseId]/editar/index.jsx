@@ -85,7 +85,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
         <div className={style.create__blog}>
 
             <form onSubmit={createNewEntry}>
-                <h2>Editar entrada</h2>
+                <h2>Editar curso</h2>
 
                 <div>
                     <Input

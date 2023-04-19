@@ -1,27 +1,23 @@
-import HomePage from "../components/inicio"
-import axios from 'axios'
+import AdminPage from "../components/admin";
 
-const index = ({ posts, videos }: any) => {
+const index = () => {
+  return <AdminPage />;
+};
 
-  return (
-    <HomePage posts={posts} videos={videos} />
-  )
-}
+// export const getStaticProps = async () => {
 
-export const getStaticProps = async () => {
+//   const headers = {
+//     'api-key': process.env.DEVTO_API_KEY,
+//   }
 
-  const headers = {
-    'api-key': process.env.DEVTO_API_KEY,
-  }
+//   const { data } = await axios.get("https://dev.to/api/articles/me/all?page=1&per_page=6", { headers });
+//   const videos = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_KEY}&channelId=UCgANZIFfnwnBLMwtC5HzlsQ&part=snippet,id&order=date&maxResults=6&type=video`);
+//   return {
+//     props: {
+//       posts: data,
+//       videos: videos.data.items,
+//     }
+//   }
+// }
 
-  const { data } = await axios.get("https://dev.to/api/articles/me/all?page=1&per_page=6", { headers });
-  const videos = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_KEY}&channelId=UCgANZIFfnwnBLMwtC5HzlsQ&part=snippet,id&order=date&maxResults=6&type=video`);
-  return {
-    props: {
-      posts: data,
-      videos: videos.data.items,
-    }
-  }
-}
-
-export default index
+export default index;

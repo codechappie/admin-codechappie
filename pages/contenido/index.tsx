@@ -3,13 +3,15 @@ import MyPagination from "@/components/pagination/Pagination";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import SearchForm from "../../components/search-form/search-form";
-import { calculatePagesCount, paginate } from "../../lib/Utils";
+import SearchForm from "@/components/search-form/search-form";
+import { calculatePagesCount, paginate } from "@/lib/Utils";
 import dbConnect from "../../lib/dbConnect";
 import Blog from "../../models/Blog";
-import Course from "../../models/Course";
+import Course from "@/models/Course";
+import Video from "@/models/Video";
 import contentStyle from "./content.module.scss";
-const ContentPage = ({ content: rawContent, data, type }: any) => {
+
+const ContentPage = ({ content: rawContent, type }: any) => {
   const router = useRouter();
   const searchInputRef = useRef<any>();
   const pageSize = 6;
@@ -41,7 +43,9 @@ const ContentPage = ({ content: rawContent, data, type }: any) => {
     );
   };
   useEffect(() => {
-    changeType("todo");
+    if (type === "empty") {
+      changeType("todo");
+    }
   }, []);
 
   useEffect(() => {
@@ -155,11 +159,7 @@ const ContentPage = ({ content: rawContent, data, type }: any) => {
 export async function getServerSideProps({ query, res }: any) {
   let { q, type } = query;
   try {
-    // const { data } = await axios.get(
-    //   `https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_KEY}&channelId=UCgANZIFfnwnBLMwtC5HzlsQ&part=snippet,id&order=date&maxResults=50&type=video`
-    // );
-    // let videosData = processVideoData(data.items);
-    let postsFiltered, coursesFiltered, finalContent;
+    let postsFiltered, coursesFiltered, videosFiltered, finalContent;
     await dbConnect();
     if (type === "publicaciones" || type === "todo") {
       let posts = await Blog.find(
@@ -232,18 +232,53 @@ export async function getServerSideProps({ query, res }: any) {
         })
         .reverse();
     }
+    if (type === "videos" || type === "todo") {
+      let videos = await Video.find(
+        q
+          ? {
+              $or: [
+                {
+                  title: {
+                    $regex: ".*" + q + ".*",
+                    $options: "i",
+                  },
+                },
+                {
+                  tags: {
+                    $regex: ".*" + q + ".*",
+                    $options: "i",
+                  },
+                },
+                {
+                  keywords: {
+                    $regex: ".*" + q + ".*",
+                    $options: "i",
+                  },
+                },
+              ],
+            }
+          : {}
+      );
+
+      videosFiltered = videos
+        .map((doc: any) => {
+          const video = doc.toObject();
+          video._id = `${doc._id}`;
+          return video;
+        })
+        .reverse();
+    }
 
     finalContent = [
       ...(postsFiltered ? postsFiltered : []),
       ...(coursesFiltered ? coursesFiltered : []),
-      // ...(videosData ? videosData : []),
+      ...(videosFiltered ? videosFiltered : []),
     ];
 
     return {
       props: {
         type: type ? type : "empty",
         content: finalContent,
-        // data,
       },
     };
   } catch (error) {

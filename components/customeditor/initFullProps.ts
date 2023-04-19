@@ -39,13 +39,13 @@ const initFullProps = {
     "tableofcontents",
     "footnotes",
     "mergetags",
-    "autocorrect",
+    // "autocorrect",
     "typography",
     "inlinecss",
   ],
-  external_plugins: {
-    pluginId: "https://prismjs.com/plugins/copy-to-clipboard/",
-  },
+  // external_plugins: {
+  //   pluginId: "https://prismjs.com/plugins/copy-to-clipboard/",
+  // },
   mobile: {
     theme: "mobile",
     toolbar: ["undo", "bold", "italic", "styleselect, restoredraft"],

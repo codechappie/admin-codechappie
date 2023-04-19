@@ -219,7 +219,6 @@ const CreateCourse = () => {
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"
-                    type="both"
                 />
 
 
