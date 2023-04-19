@@ -4,8 +4,8 @@ import Textarea from '@/components/textarea/Textarea';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import dbConnect from '../../../../lib/dbConnect';
-import Blog from '../../../../models/Blog';
+import dbConnect from '@/lib/dbConnect';
+import Blog from '@/models/Blog';
 import style from './edit-blog.module.scss';
 
 const EditPost = ({ post }) => {

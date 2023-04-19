@@ -1,4 +1,4 @@
-import AdminPage from "../components/admin";
+import AdminPage from "@/components/admin";
 
 const index = () => {
   return <AdminPage />;

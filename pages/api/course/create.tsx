@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import dbConnect from "../../../lib/dbConnect";
-import Course from "../../../models/Course";
+import dbConnect from "@/lib/dbConnect";
+import Course from "@/models/Course";
 
 export default async function handler(
   req: NextApiRequest,
