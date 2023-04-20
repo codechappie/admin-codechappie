@@ -1,12 +1,12 @@
-import "prismjs/themes/prism-okaidia.css";
-import "../styles/globals.scss";
-import type { AppProps } from "next/app";
 import Layout from "@/components/Layout";
+import { SessionProvider, useSession } from "next-auth/react";
 import { Router } from "next/dist/client/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import Prism from "prismjs";
-import { useEffect, useState } from "react";
+import "prismjs/themes/prism-okaidia.css";
+import { useEffect } from "react";
+import "../styles/globals.scss";
 
 require("prismjs/components/prism-javascript");
 require("prismjs/components/prism-css");
@@ -25,7 +25,7 @@ Router.events.on("routeChangeError", () => {
   NProgress.done();
 });
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }:any) {
   useEffect(() => {
     const highlight = () => {
       Prism.highlightAll();
@@ -35,9 +35,29 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, 1);
   }, []);
   return (
-    <Layout>
-      <Component {...pageProps}/>
-    </Layout>
+    <SessionProvider session={pageProps.session}>
+      <Layout>
+        {Component.auth ? (
+          <Auth>
+            <Component {...pageProps} />
+          </Auth>
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </Layout>
+    </SessionProvider>
   );
+}
+
+function Auth({ children }: any) {
+  // if `{ required: true }` is supplied, `status` can only be "loading" or "authenticated"
+  const data= useSession({ required: true });
+  let { status } = data;
+  console.log(data);
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  return children;
 }
 export default MyApp;

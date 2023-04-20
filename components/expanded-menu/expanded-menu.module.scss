@@ -4,12 +4,12 @@
   background: var(--alternative__bg);
   color: #fff;
   height: auto;
-  max-width: 700px;
-  width: 100%;
+  // max-width: 300px;
+  width: fit-content;
   margin-left: 70px;
   position: fixed;
   top: 82px;
-  right: 5px;
+  right: 15px;
   padding: 30px;
   border-radius: 6px;
   box-shadow: 0 0 4px var(--shadow);
@@ -19,6 +19,7 @@
   transition: all 0.2s ease-in-out;
   z-index: 1;
   overflow: auto;
+  text-align: right;
 
   &.show {
     visibility: visible;

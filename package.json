@@ -19,6 +19,7 @@
     "moment": "^2.29.4",
     "mongoose": "^7.0.3",
     "next": "13.2.4",
+    "next-auth": "^4.22.1",
     "next-remove-imports": "^1.0.10",
     "nprogress": "^0.2.0",
     "prismjs": "^1.29.0",

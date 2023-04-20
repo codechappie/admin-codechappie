@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import style from "./expanded-menu.module.scss";
@@ -43,38 +43,10 @@ export const ExpandedMenu: FC<IExpandedMenu> = ({
               <Link href="/">Inicio</Link>
             </div>
             <div className={style.item} onClick={() => setExpandedMenu(false)}>
-              <Link href="/cursos">Cursos</Link>
+              <button onClick={() => signIn("github")}>Sign in</button>
             </div>
             <div className={style.item} onClick={() => setExpandedMenu(false)}>
-              <Link href="/publicaciones">Publicaciones</Link>
-            </div>
-          </div>
-          <div className={style.column}>
-            <div className={style.title}>Proyectos</div>
-            <div className={style.item} onClick={() => setExpandedMenu(false)}>
-              <Link href="https://watssy.com" target="_blank">
-                Watssy
-              </Link>
-            </div>
-            <div className={style.item} onClick={() => setExpandedMenu(false)}>
-              <Link href="https://apleds.com" target="_blank">
-                Apleds
-              </Link>
-            </div>
-            <div className={style.item} onClick={() => setExpandedMenu(false)}>
-              <Link href="/toolky">Toolky</Link>
-            </div>
-          </div>
-          <div className={style.column}>
-            <div className={style.title}>Organización</div>
-            <div className={style.item} onClick={() => setExpandedMenu(false)}>
-              <Link href="/videos">Videos</Link>
-            </div>
-            <div className={style.item} onClick={() => setExpandedMenu(false)}>
-              <Link href="/blog">Blog</Link>
-            </div>
-            <div className={style.item} onClick={() => setExpandedMenu(false)}>
-              <Link href="/enlaces">Enlaces</Link>
+              <button onClick={() => signOut()}>Cerrar sessión</button>
             </div>
           </div>
         </div>
