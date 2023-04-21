@@ -35,7 +35,7 @@ export const authOptions = {
   //   verifyRequest: '/login', // (used for check email message)
   //   newUser: '/login' // New users will be directed here on first sign in (leave the property out if not of interest)
   // },
-  debug: true
+  
 }
 export default NextAuth(authOptions)
 
