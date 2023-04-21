@@ -1,5 +1,9 @@
+import axios from "axios";
 import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
+import GithubProvider from "next-auth/providers/github";
+import dbConnect from "@/lib/dbConnect";
+import User from "@/models/User";
+
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -24,19 +28,64 @@ export const authOptions = {
   pages: {
     signIn: '/login',
   },
-  // callbacks: {
-  //   async signIn({ user, account, profile, email, credentials }) {
-  //     console.log({ user, account, profile, email, credentials })
-  //     debugger
-  //     return true
-  //   },
-  // },
-  //   signOut: '/register',
-  //   error: '/login', // Error code passed in query string as ?error=
-  //   verifyRequest: '/login', // (used for check email message)
-  //   newUser: '/login' // New users will be directed here on first sign in (leave the property out if not of interest)
-  // },
-  
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log("1", user.image.email)
+      if(account.provider === 'github') {
+        await dbConnect();
+        //check the user on your database and return true if is allowed to signIn
+        let found = await User.findOne({
+          email: user.image.email,
+        });
+        console.log("FFFFFFFFFFFFFFFFFFFFFF", found)
+        const isAllowedToSignIn = found
+          
+        if (isAllowedToSignIn) {
+          return true
+        } else {
+          // Return false to display a default error message
+          return false
+          // Or you can return a URL to redirect to:
+          // return '/unauthorized'
+        }
+      }
+    },
+    // async redirect({ url, baseUrl }) {
+    //   return baseUrl
+    // },
+    // async session({ session, user, token }) {
+    //   console.log(session.user.image.email)
+
+    //   axios.get("/api/hello")
+    //   // await axios
+    //   //   .get("/api/user", {
+    //   //     params: {
+    //   //       email: session.user.image.email,
+    //   //     },
+    //   //   }).then(el => {
+    //   //     console.log("EEEEEEEEEEEEEEEEEL, ", el)
+    //   //   })
+    //   // return await axios
+    //   //   .get("/api/user", {
+    //   //     params: {
+    //   //       email: session.user.image.email,
+    //   //     },
+    //   //   })
+    //   //   .then(({ data }) => {
+    //   //     console.log("*****", data.userExists);
+    //   //     if (data.userExists) {
+    //   //       return session
+    //   //     } else {
+    //   //       return null
+    //   //     }
+    //   //   });
+    //     return session
+    // },
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   return token
+    // },
+  }
+
 }
 export default NextAuth(authOptions)
 

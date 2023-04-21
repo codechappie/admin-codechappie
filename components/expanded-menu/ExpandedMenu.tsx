@@ -38,12 +38,12 @@ export const ExpandedMenu: FC<IExpandedMenu> = ({
       <div className={style.expanded__menu__container}>
         <div className={style.columns}>
           <div className={style.column}>
-            <div className={style.title}>CodeChappie</div>
+            {/* <div className={style.title}>CodeChappie</div> */}
             <div className={style.item} onClick={() => setExpandedMenu(false)}>
               <Link href="/">Inicio</Link>
             </div>
             <div className={style.item} onClick={() => setExpandedMenu(false)}>
-              <button onClick={() => signIn("github")}>Sign in</button>
+              <button onClick={() => signIn("github")}>Iniciar sesión</button>
             </div>
             <div className={style.item} onClick={() => setExpandedMenu(false)}>
               <button onClick={() => signOut()}>Cerrar sessión</button>

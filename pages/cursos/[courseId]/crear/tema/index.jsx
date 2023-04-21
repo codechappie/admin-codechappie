@@ -145,3 +145,5 @@ const TopicPage = () => {
 }
 
 export default TopicPage
+
+TopicPage.auth = true;

@@ -129,5 +129,6 @@ export async function getServerSideProps({ query, res }: any) {
     };
   }
 }
+BlogPage.auth = true;
 
 export default BlogPage;

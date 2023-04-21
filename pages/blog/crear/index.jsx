@@ -218,3 +218,4 @@ const CreatePost = () => {
 }
 
 export default CreatePost
+CreatePost.auth = true;

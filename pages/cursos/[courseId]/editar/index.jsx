@@ -230,7 +230,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
     )
 }
 export default EditCourse
-
+EditCourse.auth = true;
 export async function getServerSideProps({ query, res }) {
     let { courseId } = query;
     try {

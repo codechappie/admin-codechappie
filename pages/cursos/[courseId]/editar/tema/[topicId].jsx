@@ -132,6 +132,7 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, h
 }
 
 export default EditarTopicPage
+EditarTopicPage.auth = true;
 
 export async function getServerSideProps({ query, res }) {
     let { courseId, topicId } = query;

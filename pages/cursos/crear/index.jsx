@@ -229,3 +229,5 @@ const CreateCourse = () => {
 }
 
 export default CreateCourse
+
+CreateCourse.auth = true;

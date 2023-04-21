@@ -98,3 +98,5 @@ const CourseList = () => {
 };
 
 export default CourseList;
+
+CourseList.auth = true;

@@ -258,6 +258,7 @@ const EditPost = ({ post }) => {
 
 
 export default EditPost
+EditPost.auth = true;
 
 export async function getServerSideProps({ query, res }) {
     let { postId } = query;

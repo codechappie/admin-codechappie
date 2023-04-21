@@ -10,3 +10,4 @@ const CoursePage = () => {
 };
 
 export default CoursePage;
+CoursePage.auth = true;

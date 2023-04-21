@@ -46,10 +46,14 @@ const initFullProps = {
   // external_plugins: {
   //   pluginId: "https://prismjs.com/plugins/copy-to-clipboard/",
   // },
-  mobile: {
-    theme: "mobile",
-    toolbar: ["undo", "bold", "italic", "styleselect, restoredraft"],
-  },
+  // theme: "silver",
+  // theme: 'modern',
+  // mobile: {
+  //   theme: 'mobile',
+  //   menubar: true,
+  //   plugins: 'autosave lists autolink',
+  //   toolbar: 'undo bold italic styleselect'
+  // },
   fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt",
   contextmenu: " copy  wordcount",
   browser_spellcheck: true,

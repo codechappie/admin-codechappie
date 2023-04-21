@@ -292,6 +292,7 @@ export async function getServerSideProps({ query, res }: any) {
 }
 
 export default ContentPage;
+ContentPage.auth = true;
 
 export const processVideoData = (data: [any]) => {
   let tempArr = data.map((el) => {
