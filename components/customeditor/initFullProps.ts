@@ -198,7 +198,11 @@ const initFullProps = {
     { text: "YAML", value: "yaml" },
   ],
   height: "800px",
-  content_style: "",
+  content_style: `
+  .tox {
+    display: none!important;
+  }
+  `,
   content_css: [
     "dark",
     "https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-okaidia.min.css",
