@@ -65,7 +65,6 @@ const CreateCourse = () => {
                 }
             ).then(({ data }) => {
                 if (data.success) {
-                    console.log(data)
                     alert("Post created successfully");
                 }
                 resetCourseForm();

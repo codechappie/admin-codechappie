@@ -53,7 +53,7 @@ const BlogPage = ({ finalPosts }: any) => {
         desarrolladores.
       </h4>
 
-      <Link href="/admin/blog/crear">Crear nueva entrada</Link>
+      <Link className={style.button} href="/blog/crear">Crear nueva entrada</Link>
       <SearchForm
         searchHandler={searchPosts}
         inputPlaceholder="Buscar publicaciones..."

@@ -1,6 +1,9 @@
 import CustomEditor from '@/components/customeditor/CustomEditor';
 import Input from '@/components/input/Input';
+import InputTag from '@/components/input-tag/InputTag';
+import InputImg from '@/components/input-img/InputImg';
 import Textarea from '@/components/textarea/Textarea';
+import Button from '@/components/button/Button';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -14,26 +17,22 @@ const CreatePost = () => {
     const router = useRouter();
     const [slug, setSlug] = useState("");
     const [htmlContent, setHtmlContent] = useState(``);
+    const [thumbnailsImg, setThumbnailsImg] = useState("");
+    const [authorImg, setAuthorImg] = useState("");
+    const [keywords, setKeywords] = useState([]);
+    const [tags, setTags] = useState([]);
 
     const postFormInitialState = {
         title: '',
-        thumbnails: '',
         author: '',
-        authorImage: '',
         description: '',
-        tags: '',
-        keywords: '',
         date: ''
     }
     const [postForm, handleInputChange, resetPostForm] = useForm(postFormInitialState);
     const {
         title,
-        thumbnails,
         author,
-        authorImage,
         description,
-        tags,
-        keywords,
         date
     } = postForm;
 
@@ -61,8 +60,8 @@ const CreatePost = () => {
                             description,
                             views: 0,
                             html_content: htmlContent,
-                            tags: (typeof tags) == "string" ? tags.split(",") : tags,
-                            keywords: (typeof keywords) == "string" ? keywords.split(",") : keywords,
+                            tags,
+                            keywords,
                             public: true,
                             type: "blog"
                         }
@@ -91,7 +90,7 @@ const CreatePost = () => {
                 <Link href="/admin/blog">
                     Retroceder
                 </Link>
-                <div>
+                <div className={style.first__row}>
                     <Input
                         id="datetime"
                         type="datetime-local"
@@ -104,8 +103,19 @@ const CreatePost = () => {
                         value={date}
                         name='date'
                     />
-                </div>
-                <div>
+
+                    <Input
+                        value={author}
+                        name='author'
+                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        }
+                        onchange={handleInputChange}
+                        leftlabel="Autor"
+                        placeholder="Nombre de usuario" />
+
+
                     <Input
                         id='title'
                         leftlabel="Título"
@@ -122,8 +132,6 @@ const CreatePost = () => {
                         placeholder='Ingresa un título...'
 
                     />
-                </div>
-                <div>
                     <Input
                         id='slug'
                         name='slug'
@@ -139,63 +147,6 @@ const CreatePost = () => {
 
                     />
                 </div>
-                <div>
-                    <Input
-                        name='thumbnails'
-                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                        </svg>
-                        }
-                        onchange={handleInputChange}
-                        value={thumbnails}
-                        leftlabel="Miniatura del blog"
-                        placeholder='https://server.io/image.png'
-
-                    />
-                </div>
-                <div>
-                    <Input
-                        value={author}
-                        name='author'
-                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        }
-                        onchange={handleInputChange}
-                        leftlabel="Autor"
-                        placeholder="Nombre de usuario" />
-                </div>
-                <div>
-                    <Input
-                        value={authorImage}
-                        name='authorImage'
-                        onchange={handleInputChange}
-                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        }
-                        leftlabel="Imagen del autor"
-                        placeholder="https://server.io/image.png" />
-                </div>
-                <div>
-                    <Input value={tags}
-                        name='tags' onchange={handleInputChange}
-                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
-                        </svg>
-                        }
-                        leftlabel="tags" placeholder="tags" />
-                </div>
-                <div>
-                    <Input value={keywords}
-                        name='keywords' onchange={handleInputChange}
-                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
-                        </svg>
-                        }
-                        leftlabel="Keywords" placeholder="Palabras clave" />
-                </div>
-                <div>
                     <Textarea
                         name='description'
                         onchange={handleInputChange}
@@ -203,14 +154,34 @@ const CreatePost = () => {
                         leftlabel="Descripción"
                         placeholder="Coloca una breve descripción..."
                     />
-                </div>
-                <CustomEditor
-                    html={htmlContent}
-                    setHtml={setHtmlContent}
-                    leftlabel="Contenido"
-                />
+                    <div className={style.first__row}>
 
-                <button type='submit' >Crear entrada</button>
+                        <InputImg
+                            val={thumbnailsImg}
+                            setter={setThumbnailsImg}
+                            leftlabel="Miniatura del blog" />
+
+                        <InputImg
+                            val={authorImg}
+                            setter={setAuthorImg}
+                            leftlabel="Imagen del autor" />
+
+
+
+
+                        <InputTag id="keywords" values={keywords} setValues={setKeywords} leftlabel="Keywords" placeholder="Curso html, aprende Java, que es TypeScript" maxLength={10} />
+
+                        <InputTag id="tags" values={tags} setValues={setTags} leftlabel="Tags" placeholder="Etiquetas" maxLength={5} />
+
+                    </div>
+
+                    <CustomEditor
+                        html={htmlContent}
+                        setHtml={setHtmlContent}
+                        leftlabel="Contenido"
+                    />
+
+                    <Button type='submit' className={style.button} text="Crear entrada" ></Button>
             </form>
         </div >
     )

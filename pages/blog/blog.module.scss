@@ -15,7 +15,13 @@
   .centered__subtext {
     font-weight: 500;
   }
-
+  .button{
+    background: var(--secondary__bg);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #ffffff;
+  }
   .blog__container {
     max-width: 1000px;
     margin: 20px auto;

@@ -8,6 +8,25 @@
   }
 
 
+  form{
+    max-width: 1300px;
+    width: 96%;
+    margin: 0 auto;
+
+    .first__row{
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 3fr 3fr;
+    }
+    .second__row{
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 3fr 3fr;
+    }
+  }
+  .button{
+    margin-top: 10px;
+  }
   /* Basic editor styles */
 .ProseMirror {
   > * + * {
