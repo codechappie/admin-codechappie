@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useForm } from '@/lib/hooks/useForm';
 import style from './create-topic.module.scss';
+import InputTag from '@/components/input-tag/InputTag';
+import Button from '@/components/button/Button';
 import Input from '@/components/input/Input'
 import { generateSlug } from '@/lib/Utils';
 import CustomEditor from '@/components/customeditor/CustomEditor';
@@ -12,22 +14,22 @@ import CustomEditor from '@/components/customeditor/CustomEditor';
 const TopicPage = () => {
     const router = useRouter();
     const [slug, setSlug] = useState("");
+    const [keywords, setKeywords] = useState([]);
     const courseFormInitialState = {
         title: '',
         video: '',
-        keywords: ''
     }
 
     const [courseForm, handleInputChange, resetCourseForm] = useForm(courseFormInitialState);
     const {
         title,
         video,
-        keywords,
     } = courseForm;
 
 
 
-    const [htmlContent, setHtmlContent] = useState(""); const createNewEntry = async (e) => {
+    const [htmlContent, setHtmlContent] = useState("");
+    const createNewEntry = async (e) => {
         e.preventDefault();
         let courseId = router.query.courseId;
 
@@ -38,7 +40,7 @@ const TopicPage = () => {
             slug,
             video,
             htmlContent,
-            keywords: keywords.split(",")
+            keywords
         }
 
 
@@ -62,7 +64,7 @@ const TopicPage = () => {
                 }
 
                 resetCourseForm();
-               
+
                 router.push(`${window.location.origin}/cursos/${courseId}/${data.topic.topics.at(-1).slug}`)
             });
         } catch (error) {
@@ -77,7 +79,7 @@ const TopicPage = () => {
                 <h2>Crear una nueva tema</h2>
 
 
-                <div>
+                <div className={style.first__col}>
                     <Input
                         name='title'
                         onchange={(e) => {
@@ -90,8 +92,6 @@ const TopicPage = () => {
 
                     />
 
-                </div>
-                <div>
                     <Input
 
                         required
@@ -103,34 +103,20 @@ const TopicPage = () => {
 
 
                     />
-
                 </div>
-                <div>
-                    <Input
+                <Input
 
-                        name='video'
-                        onchange={handleInputChange}
-                        value={video}
-                        leftlabel="Enlace de video YouTube"
-                        placeholder="Video del tema"
+                    name='video'
+                    onchange={handleInputChange}
+                    value={video}
+                    leftlabel="Enlace de video YouTube"
+                    placeholder="Video del tema"
 
 
-                    />
+                />
 
-                </div>
+                <InputTag id="keywords" values={keywords} setValues={setKeywords} leftlabel="Keywords" placeholder="Curso html, aprende Java, que es TypeScript" maxLength={10} />
 
-                <div>
-                    <Input
-
-                        name='keywords'
-                        onchange={handleInputChange}
-                        value={keywords}
-                        leftlabel="Keywords"
-                        placeholder="Palabras clave"
-
-                    />
-
-                </div>
 
                 <CustomEditor
                     html={htmlContent}
@@ -138,7 +124,7 @@ const TopicPage = () => {
                     leftlabel="Contenido"
                 />
 
-                <button type='submit' >Crear tema</button>
+                <Button type='submit' text="Crear tema" className={style.button} ></Button>
             </form>
         </div >
     )

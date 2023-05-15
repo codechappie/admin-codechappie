@@ -1,0 +1,96 @@
+.course__list__container {
+  max-width: 1300px;
+  width: 96%;
+  margin: 0 auto;
+  .header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    a {
+      padding: 10px 24px;
+      background: var(--primary__bg);
+      color: #ffffff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+  .form {
+    margin: 0 auto;
+  }
+  .course__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+
+    .course__list__item {
+      background: var(--alternative__bg);
+      padding: 20px;
+      border-radius: 10px;
+
+      .course__list__item__title {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .buttons {
+        display: flex;
+        gap: 5px;
+        button {
+          border: none;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: var(--primary__bg);
+          padding: 5px;
+          cursor: pointer;
+          svg {
+            stroke: #fff;
+          }
+        }
+        .collapse {
+          &.no__topics {
+            opacity: 0.3;
+          }
+        }
+      }
+      .course__topic_list {
+        cursor: pointer;
+        height: 0;
+        overflow: hidden;
+        transition: all 0.4s ease-in-out;
+        &.isOpen {
+          transition: all 0.4s ease-in-out;
+        }
+
+        ul {
+          list-style: none;
+          padding-top: 10px;
+          li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: auto !important;
+            border: 2px solid var(--bg);
+            padding: 10px;
+            border-radius: 10px;
+
+            .action__buttons {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 10px;
+              padding: 0 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+}

@@ -1,0 +1,66 @@
+.chappie__input__tag {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+
+  .label {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+  .tags {
+    border: 2px solid var(--main__text);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: fit-content;
+    position: relative;
+
+    .placeholder {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.5;
+    }
+    .tag {
+      background: var(--primary__bg);
+      padding: 5px 10px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      height: fit-content;
+      gap: 10px;
+      small {
+        color: #ffffff;
+      }
+      span {
+        background: white;
+        color: #000;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+    input {
+      width: fit-content;
+      background: transparent;
+      border: none;
+      caret-color: var(--main__text);
+      color: var(--main__text);
+    }
+  }
+  &:focus-within {
+    .tags {
+      border-color: var(--primary__bg);
+    }
+    .placeholder {
+      display: none;
+    }
+  }
+}

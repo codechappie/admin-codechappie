@@ -1,7 +1,17 @@
 .create__topic {
-  .topic__content {
-  
-    .container {
+  form {
+    max-width: 1300px;
+    width: 96%;
+    margin: 0 auto;
+    
+    .first__col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
+  }
+
+  .button {
+    margin-top: 10px;
   }
 }

@@ -1,7 +1,19 @@
 .create__topic {
+  form {
+    max-width: 1300px;
+    width: 96%;
+    margin: 0 auto;
 
+    .first__col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+  }
   ul > li {
     color: var(--main__text);
   }
-
+  .button {
+    margin-top: 10px;
+  }
 }

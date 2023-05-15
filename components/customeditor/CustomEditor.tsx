@@ -1,5 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 import initFullProps from "./initFullProps";
+import style from './CustomEditor.module.scss'
 interface Props {
   html: string;
   setHtml?: any;
@@ -18,7 +19,7 @@ const CustomEditor = ({ html, setHtml, leftlabel }: Props) => {
 
   return (
     <>
-      <label htmlFor="">{leftlabel}</label>
+      <label htmlFor="" className={style.label}>{leftlabel}</label>
       <Editor
         id="Editor"
         apiKey={process.env.TINY_KEY}

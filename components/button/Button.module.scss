@@ -1,0 +1,70 @@
+.chappie__button {
+  width: fit-content;
+
+  .button {
+    display: flex;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 5px;
+    background: var(--primary__bg);
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  &.xs {
+    .button {
+      padding: 4px 8px;
+      border: 2px;
+    }
+  }
+  &.sm {
+    .button {
+      padding: 6px 10px;
+      border: 5px;
+    }
+  }
+  &.md {
+    .button {
+      padding: 10px 16px;
+      border: 8px;
+    }
+  }
+  &.lg {
+    .button {
+      padding: 12px 24px;
+      border: 12px;
+    }
+  }
+  &.xl {
+    .button {
+      padding: 16px 32px;
+      border: 15px;
+    }
+  }
+  & .button {
+    &.primary {
+      background: var(--primary__bg);
+    }
+    &.secondary {
+      background: var(--secondary__bg);
+    }
+    &.alert {
+      background: var(--alert);
+      color: #333333;
+    }
+    &.warning {
+      background: var(--warning);
+      color: #333333;
+    }
+    &.error {
+      background: var(--danger);
+    }
+  }
+  &:hover {
+    .button {
+      transform: scale(1.05);
+      transition: all 0.3s ease-in-out;
+    }
+  }
+}

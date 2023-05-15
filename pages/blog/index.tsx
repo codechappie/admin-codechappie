@@ -65,7 +65,7 @@ const BlogPage = ({ finalPosts }: any) => {
           <CardBlog
             key={post._id}
             {...post}
-            slug={`/admin/blog/editar/${post.slug}`}
+            slug={`/blog/editar/${post.slug}`}
           />
         ))}
         <MyPagination

@@ -16,6 +16,8 @@
     "dotenv": "^16.0.3",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
+    "formidable": "^2.1.1",
+    "fs": "^0.0.1-security",
     "moment": "^2.29.4",
     "mongoose": "^7.0.3",
     "next": "13.2.4",
@@ -30,6 +32,7 @@
     "typescript": "5.0.3"
   },
   "devDependencies": {
+    "@types/formidable": "^2.0.5",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^18.15.11",
     "@types/nprogress": "^0.2.0",

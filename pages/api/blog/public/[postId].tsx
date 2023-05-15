@@ -38,7 +38,6 @@ export default async function handler(
             },
             req.body
           );
-          console.log("aaa", req.body);
         }
 
         return res.status(200).json({ success: true, post: req.body });

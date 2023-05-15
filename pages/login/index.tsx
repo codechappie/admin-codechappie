@@ -1,7 +1,6 @@
 import { getCsrfToken, getProviders, getSession, signIn } from "next-auth/react";
 
 function Login({ providers }: any) {
-    console.log(providers)
   return (
     <div>
       {Object.values(providers).map((provider: any) => {

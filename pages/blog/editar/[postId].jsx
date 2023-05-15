@@ -1,6 +1,9 @@
 import CustomEditor from '@/components/customeditor/CustomEditor';
 import Input from '@/components/input/Input';
+import InputTag from '@/components/input-tag/InputTag';
+import InputImg from '@/components/input-img/InputImg';
 import Textarea from '@/components/textarea/Textarea';
+import Button from '@/components/button/Button';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -45,7 +48,6 @@ const EditPost = ({ post }) => {
 
     const editEntry = async (e) => {
         e.preventDefault();
-        // return;
         try {
             axios.put(`/api/blog/${router.query.postId}`,
                 {
@@ -59,8 +61,8 @@ const EditPost = ({ post }) => {
                     published_at: date,
                     description,
                     html_content: htmlContent,
-                    tags: (typeof tags) == "string" ? tags.split(",") : tags,
-                    keywords: (typeof keywords) == "string" ? keywords.split(",") : keywords,
+                    tags,
+                    keywords
                 }
             ).then(({ data }) => {
                 if (data.success) {
@@ -123,7 +125,7 @@ const EditPost = ({ post }) => {
                 </div>
 
 
-                <div>
+                <div className={style.first__col}>
                     <Input
                         type="datetime-local"
                         leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -136,9 +138,6 @@ const EditPost = ({ post }) => {
                         placeholder="Ingresa un título..."
 
                     />
-                </div>
-
-                <div>
                     <Input
                         type="text"
                         leftContent={
@@ -153,41 +152,6 @@ const EditPost = ({ post }) => {
                         leftlabel="Vistas"
                         disabled
                     />
-                </div>
-                <div>
-                    <Input leftlabel="Título"
-                        placeholder='Ingresa un título...'
-                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                        </svg>
-                        }
-                        value={title}
-                        onchange={(e) => setTitle(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <Input leftlabel="Slug de la entrada"
-                        placeholder='nueva-entrada'
-                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-                        </svg>
-                        }
-                        value={slug}
-                        onchange={(e) => setSlug(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <Input leftlabel="Miniatura del blog"
-                        placeholder='https://server.io/image.png'
-                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" fill="none" width={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                        </svg>
-                        }
-                        value={thumbnails}
-                        onchange={(e) => setThumbnails(e.target.value)}
-                    />
-                </div>
-                <div>
                     <Input leftlabel="Autor"
                         placeholder='Nombre de usuario'
                         leftContent={<svg width={20} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -198,59 +162,56 @@ const EditPost = ({ post }) => {
                         onchange={(e) => setAuthor(e.target.value)}
                     />
                 </div>
-                <div>
-                    <Input leftlabel="Imagen del autor"
-                        placeholder='https://server.io/image.png'
+                <div className={style.second__col}>
+                    <Input leftlabel="Título"
+                        placeholder='Ingresa un título...'
                         leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                         </svg>
                         }
-                        value={authorImage}
-                        onchange={(e) => setAuthorImage(e.target.value)}
+                        value={title}
+                        onchange={(e) => setTitle(e.target.value)}
                     />
-
-                </div>
-                <div>
-                    <Input leftlabel="Tags"
-                        placeholder='tags'
+                    <Input leftlabel="Slug de la entrada"
+                        placeholder='nueva-entrada'
                         leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                         </svg>
                         }
-                        value={tags}
-                        onchange={(e) => setTags(e.target.value)}
+                        value={slug}
+                        onchange={(e) => setSlug(e.target.value)}
                     />
+                </div>
+                <Textarea
+                    onchange={(e) => {
+                        setDescription(e.target.value);
+                    }}
+                    value={description}
+                    leftlabel="Descripción"
+                    placeholder="Coloca una breve descripción..."
+                />
+                <div className={style.second__col}>
+                    <InputImg
+                        val={authorImage}
+                        setter={setAuthorImage}
+                        leftlabel="Imagen del autor" />
+                    <InputImg
+                        val={thumbnails}
+                        setter={setThumbnails}
+                        leftlabel="Miniatura del blog" />
+                </div>
+                <div className={style.second__col}>
+                    <InputTag id="keywords" values={keywords} setValues={setKeywords} leftlabel="Keywords" placeholder="Curso html, aprende Java, que es TypeScript" maxLength={10} />
+                    <InputTag id="tags" values={tags} setValues={setTags} leftlabel="Keywords" placeholder="HTML, Javscript, Python" maxLength={5} />
+                </div>
 
-                </div>
-                <div>
-                    <Input leftlabel="Keywords"
-                        placeholder='Keywords'
-                        leftContent={<svg xmlns="http://www.w3.org/2000/svg" width={20} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
-                        </svg>
-                        }
-                        value={keywords}
-                        onchange={(e) => setKeywords(e.target.value)}
-                    />
-
-                </div>
-                <div>
-                    <Textarea
-                        onchange={(e) => {
-                            setDescription(e.target.value);
-                        }}
-                        value={description}
-                        label="Descripción"
-                        placeholder="Coloca una breve descripción..."
-                    />
-                </div>
                 <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"
                 />
 
-                <button type='submit' >Guardar entrada</button>
+                <Button type="submit" text="Guardar entrada" className={`${style.button}`} ></Button>
             </form>
         </div >
     )

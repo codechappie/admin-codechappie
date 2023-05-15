@@ -1,7 +1,7 @@
 import style from './search-form.module.scss'
-const SearchForm = ({ searchHandler, inputPlaceholder, buttonSearchText, searchInputRef }) => {
+const SearchForm = ({ searchHandler, inputPlaceholder, buttonSearchText, searchInputRef, classNa }) => {
     return (
-        <form className={style.form} onSubmit={searchHandler}>
+        <form className={`${style.form} ${classNa}`} onSubmit={searchHandler}>
             <div className={style.searcher__container}>
                 <div className={style.icon}>
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +12,7 @@ const SearchForm = ({ searchHandler, inputPlaceholder, buttonSearchText, searchI
                     </svg>
                 </div>
                 <input ref={searchInputRef}
-                name="searchInput" id="search_input" autoFocus type="text" placeholder={inputPlaceholder} />
+                    name="searchInput" id="search_input" autoFocus type="text" placeholder={inputPlaceholder} />
                 <button type='submit'>
                     {buttonSearchText}
                 </button>

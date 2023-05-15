@@ -2,15 +2,18 @@ import Input from '@/components/input/Input';
 import CustomEditor from '@/components/customeditor/CustomEditor';
 import dbConnect from '@/lib/dbConnect';
 import { useForm } from '@/lib/hooks/useForm';
+import InputTag from '@/components/input-tag/InputTag';
+import Button from '@/components/button/Button';
 import Course from '@/models/Course';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import style from './editar-topic.module.scss';
 
-const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, htmlContent: tempHtmlContent }) => {
+const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, keywords: tempKeywords, htmlContent: tempHtmlContent }) => {
     const router = useRouter();
     const [htmlContent, setHtmlContent] = useState("");
+    const [keywords, setKeywords] = useState([]);
     const courseFormInitialState = {
         title: tempTitle,
         slug: tempSlug,
@@ -26,10 +29,11 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, h
 
 
     useEffect(() => {
-        setHtmlContent(tempHtmlContent)
+        setHtmlContent(tempHtmlContent);
+        setKeywords(tempKeywords)
     }, [])
 
-   
+
     const updateEntry = async (e) => {
         e.preventDefault();
         let { courseId, topicId } = router.query;
@@ -40,7 +44,8 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, h
             title,
             slug,
             video,
-            htmlContent
+            htmlContent,
+            keywords
         }
 
         // TODO: MAKE THIS PROCCESS IN BACKEND
@@ -79,10 +84,9 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, h
             <form onSubmit={updateEntry}>
                 <h2>Editar una nueva tema</h2>
 
-                <div>
+                <div className={style.first__col}>
                     <Input
                         name='title'
-
                         onchange={handleInputChange}
                         value={title}
                         leftlabel="Título"
@@ -90,42 +94,30 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, h
 
                     />
 
-                </div>
-                <div>
                     <Input
-
-
                         name='slug'
                         onchange={handleInputChange}
                         value={slug}
                         leftlabel="Slug de la entrada"
                         placeholder="nueva-entrada"
-
-
                     />
-
                 </div>
-                <div>
-                    <Input
+                <Input
+                    name='video'
+                    onchange={handleInputChange}
+                    value={video}
+                    leftlabel="Enlace de video YouTube"
+                    placeholder="Video del tema"
+                />
+                <InputTag id="keywords" values={keywords} setValues={setKeywords} leftlabel="Keywords" placeholder="Curso html, aprende Java, que es TypeScript" maxLength={10} />
 
-                        name='video'
-                        onchange={handleInputChange}
-                        value={video}
-                        label="Enlace de video YouTube"
-                        placeholder="Video del tema"
-
-
-                    />
-
-                </div>
                 <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"
                 />
 
-
-                <button type='submit' >Guardar cambios</button>
+                <Button type='submit' className={`${style.button}`} text="Guardar cambios"></Button>
             </form>
         </div >
     )

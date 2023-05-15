@@ -11,6 +11,9 @@
   --primary__bg: #{$primary__color};
   --secondary__bg: #{$secondary__color};
   --red: #{$tag6};
+  --danger: #{$tag6};
+  --alert: #{$info__color};
+  --warning: #{$warning__color};
 }
 
 .theme__light {
@@ -654,6 +657,7 @@ h2 {
     position: relative;
     padding-top: 25px;
   }
+  
   .tools {
     background: rgba(27, 27, 27, 0.555);
     position: absolute;
