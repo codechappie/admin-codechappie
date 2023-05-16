@@ -202,7 +202,7 @@ const EditPost = ({ post }) => {
                 </div>
                 <div className={style.second__col}>
                     <InputTag id="keywords" values={keywords} setValues={setKeywords} leftlabel="Keywords" placeholder="Curso html, aprende Java, que es TypeScript" maxLength={10} />
-                    <InputTag id="tags" values={tags} setValues={setTags} leftlabel="Keywords" placeholder="HTML, Javscript, Python" maxLength={5} />
+                    <InputTag id="tags" values={tags} setValues={setTags} leftlabel="Tags" placeholder="HTML, Javscript, Python" maxLength={5} />
                 </div>
 
                 <CustomEditor

@@ -87,7 +87,7 @@ const CreatePost = () => {
 
             <form onSubmit={createNewEntry}>
                 <h2>Crear una nueva entrada</h2>
-                <Link href="/admin/blog">
+                <Link href="/blog">
                     Retroceder
                 </Link>
                 <div className={style.first__row}>
@@ -147,41 +147,41 @@ const CreatePost = () => {
 
                     />
                 </div>
-                    <Textarea
-                        name='description'
-                        onchange={handleInputChange}
-                        value={description}
-                        leftlabel="Descripción"
-                        placeholder="Coloca una breve descripción..."
-                    />
-                    <div className={style.first__row}>
+                <Textarea
+                    name='description'
+                    onchange={handleInputChange}
+                    value={description}
+                    leftlabel="Descripción"
+                    placeholder="Coloca una breve descripción..."
+                />
+                <div className={style.first__row}>
 
-                        <InputImg
-                            val={thumbnailsImg}
-                            setter={setThumbnailsImg}
-                            leftlabel="Miniatura del blog" />
+                    <InputImg
+                        val={thumbnailsImg}
+                        setter={setThumbnailsImg}
+                        leftlabel="Miniatura del blog" />
 
-                        <InputImg
-                            val={authorImg}
-                            setter={setAuthorImg}
-                            leftlabel="Imagen del autor" />
-
-
+                    <InputImg
+                        val={authorImg}
+                        setter={setAuthorImg}
+                        leftlabel="Imagen del autor" />
 
 
-                        <InputTag id="keywords" values={keywords} setValues={setKeywords} leftlabel="Keywords" placeholder="Curso html, aprende Java, que es TypeScript" maxLength={10} />
 
-                        <InputTag id="tags" values={tags} setValues={setTags} leftlabel="Tags" placeholder="Etiquetas" maxLength={5} />
 
-                    </div>
+                    <InputTag id="keywords" values={keywords} setValues={setKeywords} leftlabel="Keywords" placeholder="Curso html, aprende Java, que es TypeScript" maxLength={10} />
 
-                    <CustomEditor
-                        html={htmlContent}
-                        setHtml={setHtmlContent}
-                        leftlabel="Contenido"
-                    />
+                    <InputTag id="tags" values={tags} setValues={setTags} leftlabel="Tags" placeholder="Etiquetas" maxLength={5} />
 
-                    <Button type='submit' className={style.button} text="Crear entrada" ></Button>
+                </div>
+
+                <CustomEditor
+                    html={htmlContent}
+                    setHtml={setHtmlContent}
+                    leftlabel="Contenido"
+                />
+
+                <Button type='submit' className={style.button} text="Crear entrada" ></Button>
             </form>
         </div >
     )
