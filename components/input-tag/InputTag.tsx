@@ -5,18 +5,30 @@ interface Props {
   leftlabel: string;
   placeholder?: string;
   maxLength: number;
-  values: [string],
-  setValues: any,
+  values: [string];
+  setValues: any;
 }
-const InputTag = ({ id, leftlabel, placeholder, maxLength, values, setValues }: Props) => {
-
+const InputTag = ({
+  id,
+  leftlabel,
+  placeholder,
+  maxLength,
+  values,
+  setValues,
+}: Props) => {
   const addTagToTags = (e: any) => {
     let value = e.target.value.trim();
-    if (values.length >= 5) {
+    console.log("sd", value, "sds");
+    if (values.length >= maxLength) {
       return;
     }
-    if ((e.code === "Comma" || e.code === "Enter") && value !== "") {
+
+    if (e.code === "Comma" || e.code === "Enter") {
       value = value.replaceAll(",", "");
+      if (value == "") {
+        e.target.value = "";
+        return;
+      }
       let found = values.find((tag) => tag === value);
       if (found) {
         e.target.value = "";
@@ -38,7 +50,9 @@ const InputTag = ({ id, leftlabel, placeholder, maxLength, values, setValues }: 
         <div className={style.tags}>
           {values.length < 1 ? (
             <span className={style.placeholder}>{placeholder}</span>
-          ): ""}
+          ) : (
+            ""
+          )}
           {values &&
             values.map((el, index) => (
               <div key={el + index} className={style.tag}>
