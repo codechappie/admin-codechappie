@@ -65,7 +65,7 @@ const InputTag = ({ id, leftlabel, placeholder, maxLength, values, setValues }: 
           {maxLength > values.length && (
             <input
               id={id}
-              disabled={values.length >= 5 ? true : false}
+              disabled={values.length >= maxLength ? true : false}
               type="text"
               onKeyDown={(e) => {
                 if (e.code === "Enter") {
