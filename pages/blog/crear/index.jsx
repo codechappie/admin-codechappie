@@ -51,10 +51,10 @@ const CreatePost = () => {
                         {
                             title,
                             slug,
-                            image: thumbnails,
+                            image: thumbnailsImg,
                             published_by: {
                                 username: author,
-                                profileImage: authorImage
+                                profileImage: authorImg
                             },
                             published_at: date,
                             description,
