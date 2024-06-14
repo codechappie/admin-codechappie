@@ -38,13 +38,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
   return (
     <SessionProvider session={pageProps.session}>
       <Layout>
-        {Component.auth ? (
+        {/* {Component.auth ? (
           <Auth>
             <Component {...pageProps} />
           </Auth>
-        ) : (
+        ) : ( */}
           <Component {...pageProps} />
-        )}
+        {/* )} */}
       </Layout>
     </SessionProvider>
   );

@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,16 +19,21 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", 
-    "pages/admin/cursos/[courseId]/crear/tema/index.jsx", 
-    "pages/admin/cursos/[courseId]/editar/index.jsx", 
+    "**/*.tsx",
+    "pages/admin/cursos/[courseId]/crear/tema/index.jsx",
+    "pages/admin/cursos/[courseId]/editar/index.jsx",
+    "components/TextEditor/TextEditor.jsx",
     // "components/customeditor/CustomEditor.tsx",
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

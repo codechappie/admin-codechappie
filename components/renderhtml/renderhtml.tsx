@@ -4,6 +4,7 @@ import Prism from "prismjs";
 const Renderhtml = ({ html }: any) => {
   const [domLoaded, setDomLoaded] = useState(false);
   const [htmlte, sethtmlte] = useState<any>();
+  console.log(html)
   useEffect(() => {
     setDomLoaded(true);
     setTimeout(() => {

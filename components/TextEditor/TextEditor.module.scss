@@ -1,0 +1,27 @@
+.label {
+  margin-bottom: 5px;
+  display: block;
+}
+.editor__visualizer {
+  &.active {
+    display: flex;
+    .loader {
+      display: flex;
+    }
+  }
+  &.inactive {
+    display: none;
+  }
+  & > div {
+    width: 100%;
+  }
+}
+
+.loader {
+  display: flex;
+  width: 150px;
+  margin: 0 auto;
+  &.active {
+    display: none;
+  }
+}

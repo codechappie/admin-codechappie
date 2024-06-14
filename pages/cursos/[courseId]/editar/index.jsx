@@ -11,11 +11,16 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import style from './create-course.module.scss';
+import { LidiaEditor } from 'lidia-react-editor'
 
 
-const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, published_by, published_at, youtubeEmbedURL: tempURL, shortDescription: description, preview: tempPreview, keywords: tempKeywords, tags: tempTags, htmlContent: tempHtmlContent }) => {
+const EditCourse = ({
+    _id, title: temptitle, slug: tempSlug, badge: tempBadge,
+    published_by, published_at, youtubeEmbedURL: tempURL, shortDescription: description,
+    preview: tempPreview, keywords: tempKeywords, tags: tempTags, htmlContent: tempHtmlContent }) => {
     const router = useRouter();
-    const [htmlContent, setHtmlContent] = useState("");
+    const [htmlContent, setHtmlContent] = useState(tempHtmlContent);
+    const [html, setHtml] = useState("");
     const [slug, setSlug] = useState("");
     const { username, profileImage } = published_by;
     const [authorImg, setAuthorImg] = useState("");
@@ -30,15 +35,15 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
         youtubeEmbedURL: tempURL,
         date: published_at
     }
+
     useEffect(() => {
         setSlug(tempSlug);
-        setHtmlContent(tempHtmlContent);
         setAuthorImg(profileImage);
         setBadgeImg(tempBadge);
         setThumbnailsImg(tempPreview)
         setKeywords(tempKeywords)
         setTags(tempTags)
-    }, [])
+    }, []);
 
     const [courseForm, handleInputChange, resetCourseForm] = useForm(courseFormInitialState);
     const {
@@ -50,7 +55,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
     } = courseForm;
 
     const createNewEntry = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         let { courseId } = router.query;
 
         try {
@@ -89,7 +94,7 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
 
             <h2>Editar curso</h2>
             <div className={style.container}>
-                <form onSubmit={createNewEntry}>
+                <div>
 
                     <div className={style.three__cols}>
                         <Input
@@ -180,15 +185,17 @@ const EditCourse = ({ _id, title: temptitle, slug: tempSlug, badge: tempBadge, p
                         <InputTag id="tags" values={tags} setValues={setTags} leftlabel="Tags" placeholder="Etiquetas" maxLength={5} />
 
                     </div>
-                    <CustomEditor
+
+                    <LidiaEditor
                         html={htmlContent}
                         setHtml={setHtmlContent}
-                        leftlabel="Contenido"
+                        // editorStyle='default'
                     />
 
-
-                    <Button className={`${style.button}`} type="submit" text="Editar entrada" />
-                </form>
+                    <button
+                        onClick={() => createNewEntry()}
+                        className={`${style.button}`} text="Editar entrada">EDITAR</button>
+                </div>
             </div>
         </div >
     )

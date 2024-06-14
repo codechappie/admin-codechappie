@@ -1,4 +1,5 @@
-import CustomEditor from '@/components/customeditor/CustomEditor';
+// import CustomEditor from '@/components/customeditor/CustomEditor';
+import TextEditor from '@/components/TextEditor/TextEditor';
 import Input from '@/components/input/Input';
 import InputTag from '@/components/input-tag/InputTag';
 import InputImg from '@/components/input-img/InputImg';
@@ -49,6 +50,7 @@ const EditPost = ({ post }) => {
     const editEntry = async (e) => {
         e.preventDefault();
         try {
+            // console.log("HTML:", htmlContent)
             axios.put(`/api/blog/${router.query.postId}`,
                 {
                     title,
@@ -67,7 +69,7 @@ const EditPost = ({ post }) => {
             ).then(({ data }) => {
                 if (data.success) {
                     // alert("Post created successfully");
-                    router.push('/blog')
+                    // router.push('/blog')
 
                 }
             });
@@ -205,10 +207,9 @@ const EditPost = ({ post }) => {
                     <InputTag id="tags" values={tags} setValues={setTags} leftlabel="Tags" placeholder="HTML, Javscript, Python" maxLength={5} />
                 </div>
 
-                <CustomEditor
-                    html={htmlContent}
-                    setHtml={setHtmlContent}
-                    leftlabel="Contenido"
+                <TextEditor
+                    text={htmlContent}
+                    setText={setHtmlContent}
                 />
 
                 <Button type="submit" text="Guardar entrada" className={`${style.button}`} ></Button>

@@ -94,7 +94,7 @@ const CustomEditor = ({ html, setHtml, leftlabel }: Props) => {
       >
         <Editor
           id="Editor"
-          apiKey={process.env.TINY_KEY}
+          apiKey="4i60cn1d7yypl7aysrm5drvcc46jiainltvvdijgx5hgymra"
           value={contenido}
           init={initFullProps}
           onEditorChange={setHtml}
