@@ -189,7 +189,6 @@ const EditCourse = ({
                     <LidiaEditor
                         html={htmlContent}
                         setHtml={setHtmlContent}
-                        // editorStyle='default'
                     />
 
                     <button

@@ -8,11 +8,12 @@ import Course from '@/models/Course';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { LidiaEditor } from "lidia-react-editor";
 import style from './editar-topic.module.scss';
 
 const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, keywords: tempKeywords, htmlContent: tempHtmlContent }) => {
     const router = useRouter();
-    const [htmlContent, setHtmlContent] = useState("");
+    const [htmlContent, setHtmlContent] = useState(tempHtmlContent);
     const [keywords, setKeywords] = useState([]);
     const courseFormInitialState = {
         title: tempTitle,
@@ -111,10 +112,14 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, k
                 />
                 <InputTag id="keywords" values={keywords} setValues={setKeywords} leftlabel="Keywords" placeholder="Curso html, aprende Java, que es TypeScript" maxLength={10} />
 
-                <CustomEditor
+                {/* <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"
+                /> */}
+                <LidiaEditor
+                    html={htmlContent}
+                    setHtml={setHtmlContent}
                 />
 
                 <Button type='submit' className={`${style.button}`} text="Guardar cambios"></Button>
