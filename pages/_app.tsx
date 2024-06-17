@@ -4,15 +4,10 @@ import { Router, useRouter } from 'next/dist/client/router';
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import Prism from "prismjs";
-import "prismjs/themes/prism-okaidia.css";
-import { useEffect, useState } from "react";
-import "../styles/globals.scss";
-import axios from "axios";
 
-require("prismjs/components/prism-javascript");
-require("prismjs/components/prism-css");
-require("prismjs/components/prism-jsx");
-require("prismjs/components/prism-python");
+import { useEffect, useState } from "react";
+import "lidia-react-editor/dist/theme.css";
+import "../styles/globals.scss";
 
 NProgress.configure({ showSpinner: false });
 
@@ -43,7 +38,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
             <Component {...pageProps} />
           </Auth>
         ) : ( */}
-          <Component {...pageProps} />
+        <Component {...pageProps} />
         {/* )} */}
       </Layout>
     </SessionProvider>
