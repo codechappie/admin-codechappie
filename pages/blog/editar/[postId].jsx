@@ -1,5 +1,3 @@
-// import CustomEditor from '@/components/customeditor/CustomEditor';
-import TextEditor from '@/components/TextEditor/TextEditor';
 import Input from '@/components/input/Input';
 import InputTag from '@/components/input-tag/InputTag';
 import InputImg from '@/components/input-img/InputImg';
@@ -11,6 +9,8 @@ import { useEffect, useState } from 'react';
 import dbConnect from '@/lib/dbConnect';
 import Blog from '@/models/Blog';
 import style from './edit-blog.module.scss';
+import { LidiaEditor } from "lidia-react-editor";
+
 
 const EditPost = ({ post }) => {
     const {
@@ -27,7 +27,7 @@ const EditPost = ({ post }) => {
     const [author, setAuthor] = useState("");
     const [authorImage, setAuthorImage] = useState("");
     const [description, setDescription] = useState("");
-    const [htmlContent, setHtmlContent] = useState("");
+    const [htmlContent, setHtmlContent] = useState(tempHtmlContent);
     const [date, setDate] = useState("");
     const [views, setViews] = useState("");
     const [keywords, setKeywords] = useState("");
@@ -102,7 +102,7 @@ const EditPost = ({ post }) => {
             ).then(({ data }) => {
                 if (data.success) {
                     setIsPublic(data.post.public);
-                    router.push('/blog');
+                    // router.push('/blog');
                 }
             });
         } catch (error) {
@@ -207,9 +207,10 @@ const EditPost = ({ post }) => {
                     <InputTag id="tags" values={tags} setValues={setTags} leftlabel="Tags" placeholder="HTML, Javscript, Python" maxLength={5} />
                 </div>
 
-                <TextEditor
-                    text={htmlContent}
-                    setText={setHtmlContent}
+                <LidiaEditor
+                    html={htmlContent}
+                    setHtml={setHtmlContent}
+                    editorStyle='dark'
                 />
 
                 <Button type="submit" text="Guardar entrada" className={`${style.button}`} ></Button>

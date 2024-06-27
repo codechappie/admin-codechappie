@@ -43,6 +43,12 @@ export const ExpandedMenu: FC<IExpandedMenu> = ({
               <Link href="/">Inicio</Link>
             </div>
             <div className={style.item} onClick={() => setExpandedMenu(false)}>
+              <Link href="/blog">Crear blog</Link>
+            </div>
+            <div className={style.item} onClick={() => setExpandedMenu(false)}>
+              <Link href="/cursos">Crear curso</Link>
+            </div>
+            <div className={style.item} onClick={() => setExpandedMenu(false)}>
               <button onClick={() => signIn("github")}>Iniciar sesión</button>
             </div>
             <div className={style.item} onClick={() => setExpandedMenu(false)}>

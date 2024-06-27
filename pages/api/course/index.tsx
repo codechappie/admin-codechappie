@@ -11,15 +11,36 @@ export default async function handler(
     const { q } = req.query;
     switch (method) {
         case 'POST':
-        // try {
-        //     const blog = new Blog(req.body);
-        //     await blog.save();
+            try {
+                // let course = undefined;
+                let success = false;
+                let error = "";
+                let found = await Course.findOne({
+                    slug: req.body.slug,
+                });
+                console.log("found", found)
 
-        //     blog._id = `${blog._id}`;
-        //     return res.status(200).json({ blog, success: true, error: '' });
-        // } catch (error) {
-        //     return res.status(400).json({ success: false, error: 'Error al guardar' });
-        // }
+                if (!found) {
+                    const course = new Course(req.body);
+                    console.log("CO", course)
+                    course._id = `${course._id}`;
+                    await course.save();
+
+                    return res.status(200).json({
+                        success: true,
+                        course
+                    });
+                }
+
+                return res.status(200).json({
+                    success: false,
+                    error: "COURSE_ALREADY_EXISTS"
+                });
+            } catch (error) {
+                return res
+                    .status(400)
+                    .json({ success: false, error: "Error al guardar" });
+            }
         case 'GET':
             try {
                 let courses;
@@ -56,6 +77,5 @@ export default async function handler(
             }
         default:
             return res.status(500).json({ success: false, error: 'Error en el servidor' });
-        //   res.status(200).json({ name: 'John Doe' })
     }
 }

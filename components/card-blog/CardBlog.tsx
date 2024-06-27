@@ -12,6 +12,7 @@ const CardBlog = ({
   published_at,
   tags,
   views,
+  public: isPublic,
 }: any) => {
   return (
     <Link href={slug} className={style.card__blog}>
@@ -25,6 +26,14 @@ const CardBlog = ({
               {tag}
             </span>
           ))}
+          <span className={style.tag}
+            style={{
+              background: isPublic ? "green" : "red",
+              color: "#ffffff"
+            }}
+            key="public">
+            {isPublic ? "Publico" : "Oculto"}
+          </span>
         </div>
         <h3 className={style.title}>{title}</h3>
         <p className={style.description}>{description}</p>

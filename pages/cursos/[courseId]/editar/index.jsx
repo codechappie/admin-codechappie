@@ -17,10 +17,11 @@ import { LidiaEditor } from 'lidia-react-editor'
 const EditCourse = ({
     _id, title: temptitle, slug: tempSlug, badge: tempBadge,
     published_by, published_at, youtubeEmbedURL: tempURL, shortDescription: description,
-    preview: tempPreview, keywords: tempKeywords, tags: tempTags, htmlContent: tempHtmlContent }) => {
+    preview: tempPreview, keywords: tempKeywords, tags: tempTags, htmlContent: tempHtmlContent,
+    public: tempPublic }) => {
     const router = useRouter();
+    const [isPublic, setIsPublic] = useState(tempPublic);
     const [htmlContent, setHtmlContent] = useState(tempHtmlContent);
-    const [html, setHtml] = useState("");
     const [slug, setSlug] = useState("");
     const { username, profileImage } = published_by;
     const [authorImg, setAuthorImg] = useState("");
@@ -43,6 +44,7 @@ const EditCourse = ({
         setThumbnailsImg(tempPreview)
         setKeywords(tempKeywords)
         setTags(tempTags)
+        setIsPublic(tempPublic);
     }, []);
 
     const [courseForm, handleInputChange, resetCourseForm] = useForm(courseFormInitialState);
@@ -55,7 +57,7 @@ const EditCourse = ({
     } = courseForm;
 
     const createNewEntry = async (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         let { courseId } = router.query;
 
         try {
@@ -89,10 +91,66 @@ const EditCourse = ({
             console.log(error);
         }
     }
+
+    const deleteCourse = async (e) => {
+        e.preventDefault();
+        const confirmDeleteCourse = confirm("¿Deseas eliminar este curso?")
+        if (confirmDeleteCourse) {
+            try {
+                console.log("ID", slug)
+                axios.delete(`/api/course/${slug}`).then(({ data }) => {
+                    if (data.success) {
+                        router.push('/cursos')
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
+    const showOrHidePost = async () => {
+        try {
+            await axios.put(`/api/course/${slug}`,
+                {
+                    public: !isPublic
+                }
+            ).then(({ data }) => {
+                if (data.success) {
+                    setIsPublic(data.course.public);
+                    console.log(data.course.public);
+                    // router.push(`/cursos/${slug}/editar`);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const togglePublic = () => {
+        showOrHidePost()
+    }
+
     return (
         <div className={style.create__course}>
 
-            <h2>Editar curso</h2>
+            <div className={style.header}>
+                <h2>Editar curso</h2>
+
+                <div className={style.edit__buttons}>
+                    <button
+                        className={style.hide}
+                        onClick={() => togglePublic()}
+                    >
+                        {isPublic ? 'Publico' : 'Oculto'}
+                    </button>
+                    <button
+                        className={style.eliminate}
+                        onClick={deleteCourse}
+                    >
+                        Borrar
+                    </button>
+                </div>
+            </div>
             <div className={style.container}>
                 <div>
 
@@ -189,10 +247,11 @@ const EditCourse = ({
                     <LidiaEditor
                         html={htmlContent}
                         setHtml={setHtmlContent}
+                        editorStyle='dark'
                     />
 
                     <button
-                        onClick={() => createNewEntry()}
+                        onClick={createNewEntry}
                         className={`${style.button}`} text="Editar entrada">EDITAR</button>
                 </div>
             </div>

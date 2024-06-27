@@ -11,8 +11,10 @@ import React, { useEffect, useState } from 'react';
 import { LidiaEditor } from "lidia-react-editor";
 import style from './editar-topic.module.scss';
 
-const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, keywords: tempKeywords, htmlContent: tempHtmlContent }) => {
+const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo,
+    keywords: tempKeywords, htmlContent: tempHtmlContent }) => {
     const router = useRouter();
+    let { courseId, topicId } = router.query;
     const [htmlContent, setHtmlContent] = useState(tempHtmlContent);
     const [keywords, setKeywords] = useState([]);
     const courseFormInitialState = {
@@ -32,15 +34,12 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, k
     useEffect(() => {
         setHtmlContent(tempHtmlContent);
         setKeywords(tempKeywords)
+
     }, [])
 
 
-    const updateEntry = async (e) => {
+    const updateTopic = async (e) => {
         e.preventDefault();
-        let { courseId, topicId } = router.query;
-
-        // TODO: VALIDATE INPUTS
-
         let tempTopicEdited = {
             title,
             slug,
@@ -49,30 +48,15 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, k
             keywords
         }
 
-        // TODO: MAKE THIS PROCCESS IN BACKEND
-        let { data: { courses } } = await axios.get('/api/course/' + courseId);
-        let tempCourse = courses[0];
-
-        let topicsEdited = tempCourse.topics.map(elem => {
-            if (elem.slug === topicId) {
-                return tempTopicEdited;
-            } else return elem
-        });
-
-        let courseEdited = {
-            ...tempCourse,
-            topics: topicsEdited
-        }
-
         try {
-            axios.put('/api/course/' + courseId,
-                courseEdited
+            axios.put(`/api/course/${courseId}/topic/${topicId}`,
+                tempTopicEdited
             ).then(({ data }) => {
                 if (data.success) {
-                    alert("Topic updated successfully");
+                    router.push({
+                        pathname: `/cursos/${courseId}/editar/tema/${data.course.slug}`
+                    })
                 }
-
-                router.push(`${window.location.origin}/cursos/${courseId}/${slug}`)
             });
         } catch (error) {
             console.log(error);
@@ -80,10 +64,42 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, k
 
     }
 
+
+    const deleteTopic = async (e) => {
+        e.preventDefault();
+
+        const deleteTopic = confirm("¿Deseas elimnar el tema?");
+
+        if (deleteTopic) {
+            try {
+                axios.delete(`/api/course/${courseId}/topic/${topicId}`).then(({ data }) => {
+                    if (data.success) {
+                        router.push('/cursos')
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
     return (
         <div className={style.create__topic}>
-            <form onSubmit={updateEntry}>
-                <h2>Editar una nueva tema</h2>
+
+            <div className={style.header}>
+                <h2>Editar tema</h2>
+                <div className={style.edit__buttons}>
+                    <button
+                        className={style.eliminate}
+                        type='button'
+                        onClick={deleteTopic}
+                    >
+                        Borrar
+                    </button>
+                </div>
+            </div>
+
+            <form onSubmit={updateTopic}>
 
                 <div className={style.first__col}>
                     <Input
@@ -120,6 +136,7 @@ const EditarTopicPage = ({ title: tempTitle, slug: tempSlug, video: tempVideo, k
                 <LidiaEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
+                    editorStyle='dark'
                 />
 
                 <Button type='submit' className={`${style.button}`} text="Guardar cambios"></Button>
@@ -139,7 +156,17 @@ export async function getServerSideProps({ query, res }) {
             slug: courseId
         });
 
-        let foundTopic = courses.topics.filter(el => el.slug == topicId)[0]
+        let foundTopic = courses.topics.filter(el => el.slug == topicId)[0];
+
+        console.log("F", foundTopic)
+        if (!foundTopic) {
+            return {
+                redirect: {
+                    permanent: false,
+                    destination: "/cursos",
+                }
+            }
+        }
         return {
             props: {
                 // topic: JSON.parse(JSON.stringify()),

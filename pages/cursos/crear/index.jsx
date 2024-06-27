@@ -1,4 +1,4 @@
-import CustomEditor from '@/components/customeditor/CustomEditor';
+
 import Input from '@/components/input/Input';
 import InputImg from '@/components/input-img/InputImg';
 import InputTag from '@/components/input-tag/InputTag';
@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import style from './create-course.module.scss';
-
+import { LidiaEditor } from "lidia-react-editor";
 
 const CreateCourse = () => {
     const router = useRouter();
@@ -42,7 +42,7 @@ const CreateCourse = () => {
         e.preventDefault();
 
         try {
-            axios.post('/api/course/create',
+            axios.post('/api/course',
                 {
                     title,
                     slug,
@@ -65,10 +65,13 @@ const CreateCourse = () => {
                 }
             ).then(({ data }) => {
                 if (data.success) {
-                    alert("Post created successfully");
+                    resetCourseForm();
+                    router.push('/cursos')
+                } else {
+                    if (data.error === "COURSE_ALREADY_EXISTS") {
+                        alert("SLUG DEL CURSO EN USO");
+                    }
                 }
-                resetCourseForm();
-                // router.push('/cursos')
             });
         } catch (error) {
             console.log(error);
@@ -102,11 +105,9 @@ const CreateCourse = () => {
                             leftlabel="Título"
                             placeholder='Ingresa un título...'
                         /><Input
-
                             name='slug'
                             onchange={(e) => setSlug(e.target.value)}
                             value={slug}
-                            // labelLeft="https://codechappie.com/blog/"
                             leftlabel="Slug de la entrada"
                             placeholder="nueva-entrada"
 
@@ -170,10 +171,10 @@ const CreateCourse = () => {
                         <InputTag id="tags" values={tags} setValues={setTags} leftlabel="Tags" placeholder="Etiquetas" maxLength={5} />
 
                     </div>
-                    <CustomEditor
+                    <LidiaEditor
                         html={htmlContent}
                         setHtml={setHtmlContent}
-                        leftlabel="Contenido"
+                        editorStyle='dark'
                     />
 
 

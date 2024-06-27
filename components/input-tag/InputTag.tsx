@@ -48,7 +48,7 @@ const InputTag = ({
       <label htmlFor={id} className={style.chappie__input__tag}>
         <label className={style.label}>{leftlabel}</label>
         <div className={style.tags}>
-          {values.length < 1 ? (
+          {(values && values.length < 1) ? (
             <span className={style.placeholder}>{placeholder}</span>
           ) : (
             ""
@@ -76,7 +76,7 @@ const InputTag = ({
                 </span>
               </div>
             ))}
-          {maxLength > values.length && (
+          {(values && maxLength > values.length) && (
             <input
               id={id}
               disabled={values.length >= maxLength ? true : false}

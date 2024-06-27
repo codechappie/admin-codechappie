@@ -7,6 +7,7 @@ import Prism from "prismjs";
 
 import { useEffect, useState } from "react";
 import "lidia-react-editor/dist/theme.css";
+
 import "../styles/globals.scss";
 
 NProgress.configure({ showSpinner: false });

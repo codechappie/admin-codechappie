@@ -11,11 +11,11 @@ import MyPagination from "@/components/pagination/Pagination";
 import style from "./blog.module.scss";
 
 const BlogPage = ({ finalPosts }: any) => {
-  const pageSize = 2;
+  const pageSize = 5;
   const [posts, setPosts] = useState(paginate(finalPosts, pageSize, 0));
   const pageCount = calculatePagesCount(pageSize, finalPosts.length);
   const [page, setPage] = useState<number>(0);
-
+  console.log(finalPosts)
   const router = useRouter();
   const searchInputRef = useRef<any>();
 
@@ -49,8 +49,7 @@ const BlogPage = ({ finalPosts }: any) => {
 
       <h2 className={style.centered__text}>Publicaciones diarias</h2>
       <h4 className={style.centered__subtext}>
-        Últimas publicaciones e historias de un desarrollador para
-        desarrolladores.
+        Publicaciones activas: {finalPosts.length}
       </h4>
 
       <Link className={style.button} href="/blog/crear">Crear nueva entrada</Link>
@@ -85,27 +84,27 @@ export async function getServerSideProps({ query, res }: any) {
     let posts = await Blog.find(
       q
         ? {
-            $or: [
-              {
-                title: {
-                  $regex: ".*" + q + ".*",
-                  $options: "i",
-                },
+          $or: [
+            {
+              title: {
+                $regex: ".*" + q + ".*",
+                $options: "i",
               },
-              {
-                tags: {
-                  $regex: ".*" + q + ".*",
-                  $options: "i",
-                },
+            },
+            {
+              tags: {
+                $regex: ".*" + q + ".*",
+                $options: "i",
               },
-              {
-                keywords: {
-                  $regex: ".*" + q + ".*",
-                  $options: "i",
-                },
+            },
+            {
+              keywords: {
+                $regex: ".*" + q + ".*",
+                $options: "i",
               },
-            ],
-          }
+            },
+          ],
+        }
         : {}
     );
     const postsFiltered = posts

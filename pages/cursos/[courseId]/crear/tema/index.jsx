@@ -9,7 +9,7 @@ import InputTag from '@/components/input-tag/InputTag';
 import Button from '@/components/button/Button';
 import Input from '@/components/input/Input'
 import { generateSlug } from '@/lib/Utils';
-import CustomEditor from '@/components/customeditor/CustomEditor';
+import { LidiaEditor } from "lidia-react-editor";
 
 const TopicPage = () => {
     const router = useRouter();
@@ -29,12 +29,10 @@ const TopicPage = () => {
 
 
     const [htmlContent, setHtmlContent] = useState("");
+
     const createNewEntry = async (e) => {
         e.preventDefault();
-        let courseId = router.query.courseId;
-
-        // TODO: VALIDATE INPUTS
-
+        const { courseId } = router.query;
         let newTopic = {
             title,
             slug,
@@ -43,35 +41,26 @@ const TopicPage = () => {
             keywords
         }
 
-
-        // TODO: MAKE THIS PROCCESS IN BACKEND
-        let { data: { courses } } = await axios.get('/api/course/' + courseId);
-        let tempCourse = courses[0];
-
-        let newCourse = {
-            topics: [
-                ...tempCourse.topics,
-                newTopic
-            ]
-        }
-
         try {
-            axios.put('/api/course/' + courseId,
-                newCourse
+            axios.post(`/api/course/${courseId}/topic`,
+                newTopic
             ).then(({ data }) => {
                 if (data.success) {
-                    alert("Topic created successfully");
+                    router.push({
+                        pathname: `/cursos`
+                    })
+
+                } else {
+                    if (data.error === "TOPIC_SLUG_IN_USE") {
+                        alert("SLUG DEL TEMA EN USO, Cambia el titulo o slug")
+                    }
                 }
-
-                resetCourseForm();
-
-                router.push(`${window.location.origin}/cursos/${courseId}/${data.topic.topics.at(-1).slug}`)
             });
         } catch (error) {
             console.log(error);
         }
-
     }
+
     return (
         <div className={style.create__topic}>
 
@@ -118,10 +107,10 @@ const TopicPage = () => {
                 <InputTag id="keywords" values={keywords} setValues={setKeywords} leftlabel="Keywords" placeholder="Curso html, aprende Java, que es TypeScript" maxLength={10} />
 
 
-                <CustomEditor
+                <LidiaEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
-                    leftlabel="Contenido"
+                    editorStyle='dark'
                 />
 
                 <Button type='submit' text="Crear tema" className={style.button} ></Button>

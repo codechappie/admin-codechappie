@@ -11,12 +11,13 @@ import { useState } from 'react';
 import { generateSlug } from '@/lib/Utils';
 import { useForm } from '@/lib/hooks/useForm';
 import style from './create-blog.module.scss';
+import { LidiaEditor } from "lidia-react-editor";
 
 const CreatePost = () => {
 
     const router = useRouter();
     const [slug, setSlug] = useState("");
-    const [htmlContent, setHtmlContent] = useState(``);
+    const [htmlContent, setHtmlContent] = useState("");
     const [thumbnailsImg, setThumbnailsImg] = useState("");
     const [authorImg, setAuthorImg] = useState("");
     const [keywords, setKeywords] = useState([]);
@@ -175,10 +176,15 @@ const CreatePost = () => {
 
                 </div>
 
-                <CustomEditor
+                {/* <CustomEditor
                     html={htmlContent}
                     setHtml={setHtmlContent}
                     leftlabel="Contenido"
+                /> */}
+                <LidiaEditor
+                    html={htmlContent}
+                    setHtml={setHtmlContent}
+                    editorStyle='dark'
                 />
 
                 <Button type='submit' className={style.button} text="Crear entrada" ></Button>
