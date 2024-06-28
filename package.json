@@ -23,7 +23,7 @@
     "fs": "^0.0.1-security",
     "jodit": "^4.1.8",
     "jodit-react": "^4.0.20",
-    "lidia-react-editor": "^0.0.87",
+    "lidia-react-editor": "^0.0.91",
     "moment": "^2.29.4",
     "mongoose": "^7.0.3",
     "next": "13.2.4",
