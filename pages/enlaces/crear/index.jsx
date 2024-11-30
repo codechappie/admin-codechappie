@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
-import style from './create-link.module.scss'
+import Button from '@/components/button/Button';
+import InputImg from '@/components/input-img/InputImg';
+import Input from '@/components/input/Input';
+import { useForm } from '@/lib/hooks/useForm';
 import axios from 'axios';
 import Link from 'next/link';
-import Input from '@/components/input/Input';
-import InputTag from '@/components/input-tag/InputTag';
-import InputImg from '@/components/input-img/InputImg';
-import Textarea from '@/components/textarea/Textarea';
-import Button from '@/components/button/Button';
-import { useForm } from '@/lib/hooks/useForm';
+import { useState } from 'react';
+import style from './create-link.module.scss';
 
-const index = () => {
+const CreateLinks = () => {
 
     const sizeData = [
         { key: "size1x1", label: "Format 1x1" },
@@ -399,4 +397,4 @@ const index = () => {
     )
 }
 
-export default index
+export default CreateLinks
