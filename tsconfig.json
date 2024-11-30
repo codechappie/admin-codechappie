@@ -30,7 +30,7 @@
     "**/*.tsx",
     "pages/admin/cursos/[courseId]/crear/tema/index.jsx",
     "pages/admin/cursos/[courseId]/editar/index.jsx",
-    "components/TextEditor/TextEditor.jsx",
+    "components/TextEditor/TextEditor.jsx", "pages/enlaces/crear/index.jsx",
     // "components/customeditor/CustomEditor.tsx",
   ],
   "exclude": [

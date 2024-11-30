@@ -1,0 +1,65 @@
+.create__blog {
+  .blog__content {
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  }
+
+  form {
+    max-width: 1300px;
+    width: 96%;
+    margin: 0 auto;
+
+    .first__row {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 3fr 3fr;
+    }
+    .two_cols {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 3fr 3fr;
+     
+      @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .three__cols {
+      display: grid;
+      padding: 15px 0;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+  .button {
+    margin-top: 10px;
+  }
+  /* Basic editor styles */
+  .ProseMirror {
+    > * + * {
+      margin-top: 0.75em;
+    }
+
+    blockquote {
+      border-left: 3px solid rgba(#0d0d0d, 0.1);
+      padding-left: 1rem;
+    }
+  }
+
+  .select {
+    border: 2px solid var(--main__text);
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 15px 20px;
+    color: var(--main__text);
+    caret-color: var(--main__text);
+    font-size: 1.1rem;
+  }
+}

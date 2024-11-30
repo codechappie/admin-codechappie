@@ -31,9 +31,8 @@ export const ExpandedMenu: FC<IExpandedMenu> = ({
   return (
     <div
       id="floatMenu"
-      className={`${style.expanded__menu} ${
-        showExpandedMenu ? `${style.show}` : ""
-      }`}
+      className={`${style.expanded__menu} ${showExpandedMenu ? `${style.show}` : ""
+        }`}
     >
       <div className={style.expanded__menu__container}>
         <div className={style.columns}>
@@ -47,6 +46,9 @@ export const ExpandedMenu: FC<IExpandedMenu> = ({
             </div>
             <div className={style.item} onClick={() => setExpandedMenu(false)}>
               <Link href="/cursos">Crear curso</Link>
+            </div>
+            <div className={style.item} onClick={() => setExpandedMenu(false)}>
+              <Link href="/proyectos">Crear proyecto</Link>
             </div>
             <div className={style.item} onClick={() => setExpandedMenu(false)}>
               <button onClick={() => signIn("github")}>Iniciar sesión</button>

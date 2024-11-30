@@ -94,7 +94,7 @@ const Input = ({
       />
     </label>
   ) : (
-    <div className={styles.chappie__input}>
+    <div className={`${styles.chappie__input} ${disabled ? styles.disabled : ""}`}>
       <div className={styles.left__label}>{leftlabel}</div>
       <div
         onClick={() => {
@@ -102,9 +102,8 @@ const Input = ({
             showDatePicker(id);
           }
         }}
-        className={`${styles.container} ${bothContent} ${
-          active ? styles.active : ""
-        }`}
+        className={`${styles.container} ${bothContent} ${type === "color" ? styles.color : ""} ${active ? styles.active : ""
+          }`}
       >
         {leftContent ? (
           <div className={styles.lftContent}>{leftContent}</div>

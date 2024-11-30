@@ -20,10 +20,11 @@
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "formidable": "^2.1.1",
+    "framer-motion": "^11.12.0",
     "fs": "^0.0.1-security",
     "jodit": "^4.1.8",
     "jodit-react": "^4.0.20",
-    "lidia-react-editor": "^0.0.91",
+    "lidia-react-editor": "^0.0.95",
     "moment": "^2.29.4",
     "mongoose": "^7.0.3",
     "next": "13.2.4",
@@ -36,6 +37,7 @@
     "react-headless-pagination": "^1.1.4",
     "rollup-plugin-import-css": "^3.5.0",
     "sass": "^1.60.0",
+    "tailwindcss": "^3.4.15",
     "typescript": "5.0.3"
   },
   "devDependencies": {
